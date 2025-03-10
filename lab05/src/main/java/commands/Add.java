@@ -4,7 +4,7 @@ import transfer.Request;
 import transfer.Response;
 
 
-public class Add extends Command {
+public class  Add extends Command {
     public Add() {
         super("add", "adds new item to the collection", 0, 1);
     }

@@ -80,7 +80,6 @@ public class Dragon implements Comparable<Dragon> {
     }
 
     public void setType(DragonType type) {
-        typeChecker(type);
         this.type = type;
     }
 

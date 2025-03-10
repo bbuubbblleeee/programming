@@ -19,7 +19,8 @@ public class CollectionChecker extends ArgumentChecker{
     public static void caveChecker(DragonCave cave){
         nullChecker(cave);
     }
-    public static void ageChecker(int age){
+    public static void ageChecker(Integer age){
+        nullChecker(age);
         argumentChecker(age > 0, "Invalid value.\nExpected value > 0.");
     }
 

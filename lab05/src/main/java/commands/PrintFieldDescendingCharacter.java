@@ -6,6 +6,7 @@ import transfer.Request;
 import transfer.Response;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 
 import static collectionManager.CollectionManager.dragons;
@@ -20,7 +21,7 @@ public class PrintFieldDescendingCharacter extends Command{
             return new Response("The collection is empty, there's no point in running this command.");
         }
         StringJoiner stringJoiner = new StringJoiner("\n");
-        ArrayList<Dragon> dragonsReversed = new ArrayList<Dragon>(dragons);
+        List<Dragon> dragonsReversed = new ArrayList<Dragon>(dragons);
         for (int i = dragonsReversed.size() - 1; i >= 0; i--){
             DragonCharacter character = dragonsReversed.get(i).getCharacter();
             if (character == null){

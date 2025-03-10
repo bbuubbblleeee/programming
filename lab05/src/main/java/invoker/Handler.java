@@ -14,29 +14,32 @@ import static invoker.CommandsStorage.commands;
 
 public class Handler {
     private final String requestString;
-    private boolean inScript = false;
-    private ReadData readData;
+    private boolean inScript;
+
     public Handler(String string){
         requestString = string;
+        inScript = false;
     }
 
-    public Request getRequest() throws WrongNumberOfArguments, InvalidCommandException {
-        ArrayList<Dragon> dragons = new ArrayList<Dragon>();
+    public Request getRequest() throws WrongNumberOfArguments, InvalidCommandException, InterruptedException {
+        ArrayList<Dragon> dragons = new ArrayList<>();
         String[] input = requestString.trim().split("\\s+", 2);
         Command command = findCommand(input[0]);
         String[] args = input.length > 1 ? input[1].trim().split("\\s+") : new String[0];
+        ReadData readData;
         if (command.getClass() == ExecuteScript.class){
             inScript = true;
             readData = new ReadData(args[0]);
         }
-        else{readData = new ReadData();
+        else{
+            readData = new ReadData();
         }
         if (args.length != command.getRequiredArgs()){
             throw new WrongNumberOfArguments();
         }
         long dragonNeed = command.getRequiredDragon();
         while (dragonNeed > 0){
-            dragons.add(readData.readDragon());
+            dragons.add(readData.get());
             dragonNeed--;
         }
         return new Request(command, args, dragons);
