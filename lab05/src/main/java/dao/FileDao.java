@@ -18,9 +18,16 @@ import transfer.GsonHelper;
  */
 public class FileDao implements DAO {
     private static FileDao instance;
-    private final String filePath = System.getenv("DRAGON_FILE");
+    private String filePath;
 
-    private FileDao() {}
+    private FileDao() {
+        try {
+            this.filePath = System.getenv("DRAGON_FILE");
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 
     public static FileDao getInstance() {
         if (instance == null) {

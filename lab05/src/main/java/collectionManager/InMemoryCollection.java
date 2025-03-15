@@ -8,7 +8,12 @@ import java.util.Date;
 
 public class InMemoryCollection extends CollectionManager{
     public InMemoryCollection() {
-        dragons = fileDao.get();
+        try {
+            dragons = fileDao.get();
+        }
+        catch (Exception e){
+            System.out.println("Invalid file input.");
+        }
         date = new Date();
     }
 

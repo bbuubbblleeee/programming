@@ -1,5 +1,7 @@
 plugins {
     id("java")
+    application
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 group = "org.example"
@@ -19,6 +21,10 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+application {
+    mainClass.set("main.Main")
+}
 tasks.jar {
     manifest{
         attributes(
@@ -27,4 +33,8 @@ tasks.jar {
         )
     }
 
+}
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
