@@ -34,6 +34,9 @@ public class Handler {
         if (args.length != command.getRequiredArgs()){
             throw new WrongNumberOfArguments();
         }
+        if (command.getName().equals("update")){
+            return new Request(command, args, dragons, this.readData);
+        }
         long dragonNeed = command.getRequiredDragon();
         while (dragonNeed > 0){
             dragons.add(readData.get());

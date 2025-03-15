@@ -1,6 +1,7 @@
 package collectionManager;
 
 
+import client.ReadData;
 import collection.*;
 
 import dao.FileDao;
@@ -42,22 +43,40 @@ public class CollectionManager {
         return stringJoiner;
     }
 
-    public Response update(Long id, Dragon request){
+    public Response update(Long id, ReadData readData){
+        Dragon dragonUpdate = null;
+        boolean found = false;
         for (Dragon dragon : dragons){
             if (dragon.getId().equals(id)){
-                dragon.setName(request.getName());
-                dragon.setAge(request.getAge());
-                dragon.setCharacter(request.getCharacter());
-                dragon.setColor(request.getColor());
-                dragon.setCoordinateX(request.getCoordinates().getX());
-                dragon.setCoordinateY(request.getCoordinates().getY());
-                dragon.setDepthCave(request.getCave().getDepth());
-                dragon.setNumberOfTreasures(request.getCave().getNumberOfTreasures());
-                dragon.setColor(request.getColor());
-                return new Response("The element was successfully updated.");
+                dragonUpdate = dragon;
+                found = true;
             }
         }
-        return new Response("The element, whose id = " + id + " wasn't found.");
+        if (!found){
+            return new Response("The element, whose id = " + id + " wasn't found.");
+        }
+
+        Dragon request;
+        try {
+            request = readData.get();
+        }
+        catch (InterruptedException e){
+            System.out.println(e.getMessage());
+            return new Response(e.getMessage());
+        }
+
+        dragonUpdate.setName(request.getName());
+        dragonUpdate.setAge(request.getAge());
+        dragonUpdate.setCharacter(request.getCharacter());
+        dragonUpdate.setColor(request.getColor());
+        dragonUpdate.setCoordinateX(request.getCoordinates().getX());
+        dragonUpdate.setCoordinateY(request.getCoordinates().getY());
+        dragonUpdate.setDepthCave(request.getCave().getDepth());
+        dragonUpdate.setNumberOfTreasures(request.getCave().getNumberOfTreasures());
+        dragonUpdate.setColor(request.getColor());
+        return new Response("The element was successfully updated.");
+
+
     }
 
     public void clear(){

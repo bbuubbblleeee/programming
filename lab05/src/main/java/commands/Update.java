@@ -1,7 +1,10 @@
 package commands;
 
+import client.ReadData;
+import collection.Dragon;
 import transfer.Request;
 import transfer.Response;
+import client.ReadData.*;
 
 
 /**
@@ -25,6 +28,6 @@ public class Update extends Command{
         catch (NumberFormatException e){
             return new Response("Invalid type of argument. Expected long.");
         }
-        return collectionManager.update(id, request.dragons().get(0));
+        return collectionManager.update(id, request.readData()[0]);
     }
 }

@@ -49,23 +49,14 @@ public class Dragon implements Comparable<Dragon> {
     }
 
     public void setIdAuto() {
-        for (Dragon dragon : dragons) {
-            if (dragon.getId().equals(freeId)) {
-                freeId++;
-            }
-        }
         this.id = freeId;
         freeId++;
     }
 
     public void setId(Long id) {
-        for (Dragon dragon : dragons) {
-            if (dragon.getId().equals(id)) {
-                id++;
-            }
-        }
         this.id = id;
-        freeId--;
+        freeId = id;
+        freeId++;
     }
 
 
