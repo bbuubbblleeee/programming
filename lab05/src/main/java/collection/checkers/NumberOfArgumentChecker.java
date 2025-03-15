@@ -4,6 +4,9 @@ import exceptions.InvalidFileException;
 import exceptions.WrongNumberOfArguments;
 import io.MyReader;
 
+/*
+    Класс отвечает за проверку количества аргументов, введённых вместе с командой.
+ */
 public class NumberOfArgumentChecker {
     public static void numberOfArgumentsChecker(String[] arguments, int requiredArgs, boolean inScript, MyReader myReader){
         while (true) {

@@ -1,13 +1,15 @@
 package commands;
 
 import client.Console;
+import client.ReadData;
 import exceptions.InvalidFileException;
 import transfer.Request;
 import transfer.Response;
-import io.FileReader;
 
-import java.io.File;
-
+/**
+ * Класс реализует команду execute_script.
+ * Команда считывает и исполняет скрипт из указанного файла.
+ */
 public class ExecuteScript extends Command{
     public ExecuteScript(){
         super("execute_script", "reads and executes a script from the specified file.", 1, 0);
@@ -15,18 +17,17 @@ public class ExecuteScript extends Command{
 
     @Override
     public Response execute(Request request) {
-        FileReader fileReader;
-        File file = new File(request.args()[0]);
-        System.out.println(file.getAbsolutePath());
+        ReadData readData;
         try {
-            fileReader = new FileReader(request.args()[0]);
+            readData = new ReadData(request.args()[0]);
         }
         catch (InvalidFileException e){
             return new Response(e.getMessage());
         }
-        while (fileReader.hasNextLine()){
-            new Console(fileReader.readLine());
-            System.out.println("\n");
+        while (readData.myReader.hasNextLine()){
+            String command = readData.myReader.readLine();
+            System.out.println("Command: " + command + ".");
+            new Console(command, readData);
         }
         return new Response("Script was successfully executed.");
     }

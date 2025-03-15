@@ -6,6 +6,11 @@ import transfer.Response;
 
 import static collectionManager.CollectionManager.dragons;
 
+
+/**
+ * Класс реализует команду remove_greater.
+ * Команда удаляет из коллекции все элементы, превышающие заданный.
+ */
 public class RemoveGreater extends Command {
     public RemoveGreater(){
         super("remove_greater", "removes all elements from the collection that exceed the specified value.", 0, 1);

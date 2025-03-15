@@ -12,7 +12,10 @@ import exceptions.FilePermissionException;
 import exceptions.InvalidFileException;
 import transfer.GsonHelper;
 
-
+/**
+ * Класс отвечает за чтение и запись коллекции объектов {@link Dragon} в файл.
+ * Он использует Gson для сериализации и десериализации данных в формате JSON.
+ */
 public class FileDao implements DAO {
     private static FileDao instance;
     private final String filePath = System.getenv("DRAGON_FILE");
@@ -74,7 +77,13 @@ public class FileDao implements DAO {
         if (jsons.isJsonArray()) {
             JsonArray jsonArray = jsons.getAsJsonArray();
             for (JsonElement js : jsonArray) {
-                res.add(gson.fromJson(js, Dragon.class));
+                try {
+                    res.add(gson.fromJson(js, Dragon.class));
+                }
+                catch (InvalidFileException e){
+                    System.out.println(e.getMessage());
+                    break;
+                }
             }
         }
         return res;

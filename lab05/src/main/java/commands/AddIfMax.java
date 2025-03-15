@@ -6,6 +6,12 @@ import transfer.Response;
 
 import static collectionManager.CollectionManager.dragons;
 
+/**
+ * Command adds an element {@link collection.Dragon} to the collection if it's bigger than the max one.
+ * <p>
+ * Managed by {@link collectionManager.CollectionManager}.
+ */
+
 public class AddIfMax extends Command{
     public AddIfMax(){
         super("add_if_max", "adds new item to the collection if its value exceeds the value of the largest element of this collection", 0, 1);

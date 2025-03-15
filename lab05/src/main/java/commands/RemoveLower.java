@@ -6,6 +6,10 @@ import transfer.Response;
 
 import static collectionManager.CollectionManager.dragons;
 
+/**
+ * Класс реализует команду remove_lower.
+ * Команда удаляет из коллекции все элементы, меньшие, чем заданный.
+ */
 public class RemoveLower extends Command{
     public RemoveLower(){
         super("remove_lower", "removes from the collection all elements smaller than the specified value.", 0, 1);

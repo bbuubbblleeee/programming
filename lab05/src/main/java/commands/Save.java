@@ -3,6 +3,10 @@ package commands;
 import transfer.Request;
 import transfer.Response;
 
+/**
+ * Класс реализует команду save.
+ * Команда сохраняет коллекцию в файл.
+ */
 public class Save extends Command{
     public Save(){
         super("save", "saves the collection to a file.", 0, 0);

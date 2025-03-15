@@ -9,6 +9,18 @@ import transfer.Response;
 
 import java.util.*;
 
+/**
+ * Класс хранит коллекцию и содержит методы, реализующие команды, работающие непосредственно с коллекцией.
+ * Методы, реализующие команды:
+ * <ul>
+ *  <li> {@link #add(Dragon)} - реализует команду add (добавляет элемент в коллекцию).</li>
+ *  <li> {@link #remove(Dragon)} - реализует команды "remove%" (удаляет элемент из коллекции).</li>
+ *  <li> {@link #info()} - реализует команду info (предоставляет основные данные о коллекции).</li>
+ *  <li> {@link #update(Long, Dragon)} - реализует команду update (обновляет данные элемента из коллекции).</li>
+ *  <li> {@link #clear()} - реализует команду clear (очищает коллекцию).</li>
+ *  <li> {@link #save()} - реализует команду save (сохраняет коллекцию в файл).</li>
+ *</ul>
+ */
 public class CollectionManager {
     public static TreeSet<Dragon> dragons = new TreeSet<Dragon>();
     protected static Date date;
@@ -16,20 +28,18 @@ public class CollectionManager {
     public void add(Dragon dragon){
         dragons.add(dragon);
     }
+
     public void remove(Dragon dragon){
         dragons.remove(dragon);
     }
-    public boolean isCollectionEmpty(){
-        return dragons.isEmpty();
-    }
 
-    public String info(){
+    public StringJoiner info(){
         StringJoiner stringJoiner = new StringJoiner("\n");
         stringJoiner.add("Information about the collection.");
         stringJoiner.add("Type: Dragon");
         stringJoiner.add("Date of initialization: " + date);
         stringJoiner.add("Quantity of elements: " + dragons.size());
-        return stringJoiner.toString();
+        return stringJoiner;
     }
 
     public Response update(Long id, Dragon request){
@@ -57,4 +67,9 @@ public class CollectionManager {
     public void save(){
         fileDao.save(dragons);
     }
+
+    public boolean isCollectionEmpty(){
+        return dragons.isEmpty();
+    }
+
 }

@@ -6,19 +6,26 @@ import commands.Command;
 import commands.ExecuteScript;
 import exceptions.InvalidCommandException;
 import exceptions.WrongNumberOfArguments;
+import io.FileReader;
 import transfer.Request;
 
 import java.util.ArrayList;
 
 import static invoker.CommandsStorage.commands;
 
+/**
+ * Класс является обработчиком пользовательского запроса.
+ * <p>
+ * Класс парсит введенную пользователем команду, проверяет количество и корректность аргументов
+ * и создает объект {@link Request}, содержащий команду, аргументы и список объектов {@link Dragon}, если они требуются.
+ * </p>
+ */
 public class Handler {
     private final String requestString;
-    private boolean inScript;
-
-    public Handler(String string){
+    private final ReadData readData;
+    public Handler(String string, ReadData readData){
         requestString = string;
-        inScript = false;
+        this.readData = readData;
     }
 
     public Request getRequest() throws WrongNumberOfArguments, InvalidCommandException, InterruptedException {
@@ -26,14 +33,6 @@ public class Handler {
         String[] input = requestString.trim().split("\\s+", 2);
         Command command = findCommand(input[0]);
         String[] args = input.length > 1 ? input[1].trim().split("\\s+") : new String[0];
-        ReadData readData;
-        if (command.getClass() == ExecuteScript.class){
-            inScript = true;
-            readData = new ReadData(args[0]);
-        }
-        else{
-            readData = new ReadData();
-        }
         if (args.length != command.getRequiredArgs()){
             throw new WrongNumberOfArguments();
         }
@@ -51,11 +50,6 @@ public class Handler {
             throw new InvalidCommandException();
         }
         return command;
-    }
-
-    private boolean ifInScript(String string){
-        String[] input = string.trim().split("\\s+",2);
-        return input[0].equals("execute_script");
     }
 
 }

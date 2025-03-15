@@ -3,6 +3,11 @@ package commands;
 import transfer.Request;
 import transfer.Response;
 
+/**
+ * Command adds an element {@link collection.Dragon} to the collection.
+ *  * <p>
+ *  * Managed by {@link collectionManager.CollectionManager}.
+ */
 
 public class  Add extends Command {
     public Add() {

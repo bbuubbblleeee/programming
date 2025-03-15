@@ -2,6 +2,10 @@ package collection;
 
 import static collection.checkers.CollectionChecker.*;
 
+/**
+ * Coordinates class.
+ */
+
 public class Coordinates {
     private long x; //Значение поля должно быть больше -28
     private long y;

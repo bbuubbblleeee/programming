@@ -6,6 +6,10 @@ import transfer.Response;
 
 import static collectionManager.CollectionManager.dragons;
 
+/**
+ * Класс реализует команду count_by_age.
+ * Команда считает количество элементов коллекции {@link collection.Dragon}, у которых возраст равен заданному.
+ */
 public class CountByAge extends Command {
     public CountByAge(){
         super("count_by_age", "prints the number of items whose age is equal to the specified value", 1, 0);

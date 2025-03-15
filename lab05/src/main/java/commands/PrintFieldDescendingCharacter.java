@@ -11,6 +11,11 @@ import java.util.StringJoiner;
 
 import static collectionManager.CollectionManager.dragons;
 
+/**
+ * Класс реализует команду print_field_descending_character.
+ * Команда выводит значения поля character всех элементов в порядке убывания.
+ */
+
 public class PrintFieldDescendingCharacter extends Command{
     public PrintFieldDescendingCharacter(){
         super("print_field_descending_character", "prints the character field values of all elements in descending order.", 0, 0);
@@ -29,6 +34,7 @@ public class PrintFieldDescendingCharacter extends Command{
             }
             stringJoiner.add(character.toString());
         }
-        return new Response(stringJoiner.toString());
+        String res = stringJoiner.toString();
+        return new Response(res.isEmpty() ? "The character field is empty for all elements in the collection." : res);
     }
 }

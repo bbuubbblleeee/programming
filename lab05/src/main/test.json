@@ -1,17 +1,19 @@
 [
   {
-    "id": 15,
+    "id": 1,
     "name": "Kirill",
     "coordinates": {
-      "x": 15,
-      "y": 20
+      "x": 19,
+      "y": 1
     },
-    "creationDate": "Mar 9, 2025, 8:01:31 PM",
-    "age": 18,
+    "creationDate": "Mar 15, 2025, 4:10:01 AM",
+    "age": 21,
+    "color": "BLACK",
     "type": "AIR",
+    "character": "WISE",
     "cave": {
-      "depth": 10.0,
-      "numberOfTreasures": 10
+      "depth": 1.0,
+      "numberOfTreasures": 2
     }
   }
 ]

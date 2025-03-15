@@ -1,6 +1,41 @@
+clear
+add
+Kirill
+20
+black
+air
+wise
+19
+1
+1
+2
+show
+add_if_max
+Kirill
+21
+black
+air
+wise
+19
+1
+1
+2
+count_by_age 21
 help
 info
-show
 print_field_descending_character
-clear
+remove_any_by_age 21
+remove_by_id 2
+show
+save
+update 1
+Kirill
+21
+black
+air
+wise
+19
+1
+1
+2
 save

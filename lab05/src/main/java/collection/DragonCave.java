@@ -2,6 +2,9 @@ package collection;
 
 import static collection.checkers.CollectionChecker.numberOfTreasuresChecker;
 
+/**
+ * Cave class.
+ */
 public class DragonCave {
     private float depth;
     private int numberOfTreasures; //Значение поля должно быть больше 0

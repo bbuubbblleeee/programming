@@ -1,10 +1,12 @@
 package dao;
 
 import collection.Dragon;
-import com.sun.source.tree.Tree;
 
 import java.util.TreeSet;
 
+/**
+ * Интерфейс для работы с хранилищем данных.
+ */
 public interface DAO {
     String getPath();
     TreeSet<Dragon> get();

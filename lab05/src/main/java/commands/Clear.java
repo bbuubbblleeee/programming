@@ -3,6 +3,12 @@ package commands;
 import transfer.Request;
 import transfer.Response;
 
+/**
+ * Command clears the collection.
+ * <p>
+ * Managed by {@link collectionManager.CollectionManager}.
+ */
+
 public class Clear extends Command{
     public Clear(){
         super("clear", "clears the collection", 0, 0);

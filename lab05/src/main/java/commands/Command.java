@@ -4,7 +4,13 @@ import collectionManager.CollectionManager;
 import collectionManager.InMemoryCollection;
 import transfer.Request;
 import transfer.Response;
-
+/**
+ * Интерфейс, задающий структуру команд.
+ * <p>
+ *     Каждая команда содержит имя, цель, количество необходимых драконов, количество необходимых аргументов.
+ *
+ * </p>
+ */
 public abstract class Command {
     private final String commandName;
     private final String purpose;

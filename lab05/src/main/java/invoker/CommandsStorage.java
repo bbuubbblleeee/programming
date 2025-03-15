@@ -4,7 +4,14 @@ import commands.*;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Класс хранит доступные команды.
+ * <p>
+ * Данный класс содержит коллекцию команд, доступных в системе.
+ * Команды представлены в виде Map, где ключом является название команды,
+ * а значением — соответствующий объект, реализующий интерфейс {@link Command}.
+ * </p>
+ */
 public class CommandsStorage {
     public static final HashMap<String, Command> commands = new HashMap<>(Map.ofEntries(
             Map.entry("add", new Add()),

@@ -6,6 +6,10 @@ import transfer.Response;
 import java.util.StringJoiner;
 
 import static invoker.CommandsStorage.commands;
+/**
+ * Класс реализует команду help.
+ * Команда выводит справку по доступным командам.
+ */
 public class Help extends Command{
     public Help(){
         super("help", "displays all available commands.", 0, 0);

@@ -6,7 +6,15 @@ import static collectionManager.CollectionManager.dragons;
 import java.util.Date;
 
 import static collection.checkers.CollectionChecker.*;
-
+/**
+ * Dragon class.
+ *
+ * @see Color
+ * @see Coordinates
+ * @see DragonCave
+ * @see DragonCharacter
+ * @see DragonType
+ */
 public class Dragon implements Comparable<Dragon> {
     private static Long freeId = 1L;
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -150,7 +158,7 @@ public class Dragon implements Comparable<Dragon> {
                 "color = " + color + "\n" +
                 "type = " + type + "\n" +
                 "character = " + character + "\n" +
-                "cave : " + cave.toString() +
+                "cave : " + cave.toString() + "\n" +
                 "}";
     }
 }
