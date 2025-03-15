@@ -7,8 +7,8 @@ import transfer.Response;
 import static collectionManager.CollectionManager.dragons;
 
 /**
- * Класс реализует команду remove_lower.
- * Команда удаляет из коллекции все элементы, меньшие, чем заданный.
+ * The class implements the remove_lower command.
+ * The command removes all elements smaller than the specified one from the collection.
  */
 public class RemoveLower extends Command{
     public RemoveLower(){

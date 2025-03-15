@@ -1,10 +1,9 @@
 package transfer;
 
-import collection.Dragon;
 
 /**
- * Класс предоставляет ответ на выполнение команды.
- * Класс хранит сообщения о результате выполнения команды.
+ * The class provides a response to the command execution.
+ * The class stores messages about the result of command execution.
  */
 public record Response (String message) {
     @Override

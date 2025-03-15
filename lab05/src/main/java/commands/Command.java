@@ -5,11 +5,8 @@ import collectionManager.InMemoryCollection;
 import transfer.Request;
 import transfer.Response;
 /**
- * Интерфейс, задающий структуру команд.
- * <p>
- *     Каждая команда содержит имя, цель, количество необходимых драконов, количество необходимых аргументов.
- *
- * </p>
+ * An interface that specifies the structure of the commands.
+ * Each command contains a name, a target, the number of dragons needed, and the number of arguments needed.
  */
 public abstract class Command {
     private final String commandName;

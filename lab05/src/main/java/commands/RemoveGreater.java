@@ -8,8 +8,8 @@ import static collectionManager.CollectionManager.dragons;
 
 
 /**
- * Класс реализует команду remove_greater.
- * Команда удаляет из коллекции все элементы, превышающие заданный.
+ * The class implements the remove_greater command.
+ * The command removes from the collection all elements exceeding the specified one.
  */
 public class RemoveGreater extends Command {
     public RemoveGreater(){

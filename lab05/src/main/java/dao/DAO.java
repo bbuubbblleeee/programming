@@ -5,10 +5,9 @@ import collection.Dragon;
 import java.util.TreeSet;
 
 /**
- * Интерфейс для работы с хранилищем данных.
+ * Interface for working with files and databases.
  */
 public interface DAO {
-    String getPath();
     TreeSet<Dragon> get();
     void save(TreeSet<Dragon> dragons);
 }

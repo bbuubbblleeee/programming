@@ -2,22 +2,20 @@ package collection.checkers;
 
 import collection.DragonType;
 import exceptions.WrongArgumentException;
-/*
-    Класс содержит методы для проверки всех необходимых значений аргументов объекта класса {@link Dragon}.
-    <p>
-    Проверки включают:
-    <ul>
-        <li> {@link nameChecker} - Имя не может быть null или пустой строкой.
-        <li> {@link ageChecker} - Возраст должен быть больше 0.
-        <li> {@link xChecker} - Координата x должна быть больше -28.
-        <li> {@link yChecker} - Координата y не может быть null.
-        <li> {@link typeChecker} - Тип не может быть null.
-        <li> {@link numberOfTreasuresChecker} - Количество сокровищ должно быть больше 0.
-    </ul>
-    <p>
-    Наследуется от {@ArgumentChecker} и использует его базовые проверки.
-    @throws WrongArgumentException при некорректном аргументе.
- */
+/**
+ * The class contains methods to check all the required values of the arguments of the class object {@link collection.Dragon}.
+ * <p>
+ *     The checks include:
+ *     <ul>
+ *         <li> {@link #nameChecker(String)} - The name cannot be null or an empty string.
+ *         <li> {@link #nameChecker(String)} - The age must be greater than 0.
+ *         <li> {@link #xChecker(Long)} - The x coordinate must be greater than -28.
+ *         <li> {@link #yChecker(Long)} - The y coordinate cannot be null.
+ *         <li> {@link #typeChecker(DragonType)} - The type cannot be null.
+ *         <li> {@link #numberOfTreasuresChecker(int)} - The number of treasures must be greater than 0.
+ *         </ul>
+ *         Наследуется от {@link ArgumentChecker} и использует его базовые проверки.
+ **/
 public class CollectionChecker extends ArgumentChecker{
     public static void nameChecker(String name) throws WrongArgumentException {
         nullChecker(name);

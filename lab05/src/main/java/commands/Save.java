@@ -4,8 +4,8 @@ import transfer.Request;
 import transfer.Response;
 
 /**
- * Класс реализует команду save.
- * Команда сохраняет коллекцию в файл.
+ * The class implements the save command.
+ * The command saves the collection to a file.
  */
 public class Save extends Command{
     public Save(){

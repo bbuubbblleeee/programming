@@ -12,15 +12,15 @@ wise
 show
 add_if_max
 Kirill
-21
-black
-air
-wise
+25
+green
+fire
+chaotic
 19
-1
-1
-2
-count_by_age 21
+10
+123
+23
+count_by_age 25
 help
 info
 print_field_descending_character

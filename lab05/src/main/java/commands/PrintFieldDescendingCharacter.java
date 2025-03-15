@@ -12,8 +12,8 @@ import java.util.StringJoiner;
 import static collectionManager.CollectionManager.dragons;
 
 /**
- * Класс реализует команду print_field_descending_character.
- * Команда выводит значения поля character всех элементов в порядке убывания.
+ * The class implements the print_field_descending_character command.
+ * The command prints the character field values of all elements in descending order.
  */
 
 public class PrintFieldDescendingCharacter extends Command{
@@ -26,7 +26,7 @@ public class PrintFieldDescendingCharacter extends Command{
             return new Response("The collection is empty, there's no point in running this command.");
         }
         StringJoiner stringJoiner = new StringJoiner("\n");
-        List<Dragon> dragonsReversed = new ArrayList<Dragon>(dragons);
+        List<Dragon> dragonsReversed = new ArrayList<>(dragons);
         for (int i = dragonsReversed.size() - 1; i >= 0; i--){
             DragonCharacter character = dragonsReversed.get(i).getCharacter();
             if (character == null){

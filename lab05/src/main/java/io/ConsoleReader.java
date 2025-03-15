@@ -6,10 +6,10 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
- * Реализация {@link MyReader}, которая считывает ввод с консоли.
+ * An implementation of {@link MyReader} that reads input from the console.
  * <p>
- * Использует {@link Scanner} для чтения строк из стандартного потока ввода.
- * При достижении конца ввода выбрасывает {@link EndOfInputException}.
+ * Uses {@link Scanner} to read strings from the standard input stream.
+ * Throws an {@link EndOfInputException} when the end of input is reached.
  * </p>
  */
 public class ConsoleReader implements MyReader {

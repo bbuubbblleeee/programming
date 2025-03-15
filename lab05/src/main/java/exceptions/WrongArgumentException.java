@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * Исключение, указывающее на некорректный аргумент.
+ * Exception indicating an invalid argument.
  */
 public class WrongArgumentException extends RuntimeException {
     public WrongArgumentException(String message) {

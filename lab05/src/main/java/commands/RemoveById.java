@@ -8,8 +8,8 @@ import transfer.Response;
 import static collectionManager.CollectionManager.dragons;
 
 /**
- * Класс реализует команду remove_by_id.
- * Команда удаляет элемент из коллекции по его id.
+ * The class implements the remove_by_id command.
+ * The command removes an item from the collection by its id.
  */
 public class RemoveById extends Command{
     public RemoveById(){

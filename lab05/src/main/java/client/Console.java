@@ -5,11 +5,10 @@ import invoker.Invoker;
 import transfer.Request;
 import transfer.Response;
 
-/*
-    Класс отвечает за логику и выполнение команды.
-    <p>
-    Выводит в консоль результат выполнения команды.
- */
+/**
+ * The class is responsible for the logic and execution of the command.
+ * Outputs the result of the command execution to the console.
+ **/
 public class Console {
     public Console(String string, ReadData readData){
         try {

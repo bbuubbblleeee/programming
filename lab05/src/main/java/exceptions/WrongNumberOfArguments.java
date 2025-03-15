@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * Исключение, указывающее на некорректное количество введённых аргументов.
+ * Exception indicating an invalid number of arguments entered.
  */
 public class WrongNumberOfArguments extends RuntimeException {
     public WrongNumberOfArguments() {

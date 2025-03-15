@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * Исключение, указывающее на ввод несуществующей команды.
+ * Exception indicating entry of a non-existent command.
  */
 public class InvalidCommandException extends RuntimeException {
     public InvalidCommandException() {

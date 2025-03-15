@@ -4,8 +4,8 @@ import transfer.Request;
 import transfer.Response;
 
 /**
- * Класс реализует команду info.
- * Команда выводит информацию о коллекции (тип, дата инициализации и количество элементов).
+ * The class implements the info command.
+ * The command outputs information about the collection (type, initialization date and number of elements).
  */
 public class Info extends Command{
     public Info(){

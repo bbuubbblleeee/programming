@@ -10,19 +10,19 @@ import transfer.Response;
 import java.util.*;
 
 /**
- * Класс хранит коллекцию и содержит методы, реализующие команды, работающие непосредственно с коллекцией.
- * Методы, реализующие команды:
+ * The class stores a collection and contains methods that implement commands that work directly with the collection.
+ * Methods that implement commands:
  * <ul>
- *  <li> {@link #add(Dragon)} - реализует команду add (добавляет элемент в коллекцию).</li>
- *  <li> {@link #remove(Dragon)} - реализует команды "remove%" (удаляет элемент из коллекции).</li>
- *  <li> {@link #info()} - реализует команду info (предоставляет основные данные о коллекции).</li>
- *  <li> {@link #update(Long, Dragon)} - реализует команду update (обновляет данные элемента из коллекции).</li>
- *  <li> {@link #clear()} - реализует команду clear (очищает коллекцию).</li>
- *  <li> {@link #save()} - реализует команду save (сохраняет коллекцию в файл).</li>
- *</ul>
+ *  <li> {@link #add(Dragon)} - implements the add command (adds an item to the collection).</li>
+ *  <li> {@link #remove(Dragon)} - implements “remove%” commands (removes an item from the collection).</li>
+ *  <li> {@link #info()} - implements the info command (provides basic data about the collection).</li>
+ *  <li> {@link #update(Long, Dragon)} - implements the update command (updates item data from the collection).</li>
+ *  <li> {@link #clear()} - implements the clear command (clears the collection).</li>
+ *  <li> {@link #save()} - implements the save command (saves the collection to a file).</li>
+ * </ul>
  */
 public class CollectionManager {
-    public static TreeSet<Dragon> dragons = new TreeSet<Dragon>();
+    public static TreeSet<Dragon> dragons = new TreeSet<>();
     protected static Date date;
     protected final FileDao fileDao = FileDao.getInstance();
     public void add(Dragon dragon){

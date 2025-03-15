@@ -5,11 +5,11 @@ import commands.*;
 import java.util.HashMap;
 import java.util.Map;
 /**
- * Класс хранит доступные команды.
+ * Class stores available commands.
  * <p>
- * Данный класс содержит коллекцию команд, доступных в системе.
- * Команды представлены в виде Map, где ключом является название команды,
- * а значением — соответствующий объект, реализующий интерфейс {@link Command}.
+ * This class contains a collection of commands available in the system.
+ * Commands are represented as Map, where the key is the command name,
+ * and the value is the corresponding object that implements the {@link Command} interface.
  * </p>
  */
 public class CommandsStorage {

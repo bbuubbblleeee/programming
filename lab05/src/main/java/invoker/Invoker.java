@@ -1,14 +1,13 @@
 package invoker;
 
-import collection.Dragon;
 import transfer.Request;
 import transfer.Response;
 
 /**
- * Класс запускающий выполнение команды.
+ * The class that starts the execution of the command.
  * <p>
- * Класс принимает объект {@link Request}, содержащий команду и ее параметры,
- * и выполняет команду, возвращая результат выполнения в виде {@link Response}.
+ * The class accepts a {@link Request} object containing the command and its parameters,
+ * and executes the command, returning the result as {@link Response}.
  * </p>
  */
 public class Invoker {

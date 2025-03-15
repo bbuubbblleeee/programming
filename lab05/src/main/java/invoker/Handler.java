@@ -3,10 +3,8 @@ package invoker;
 import client.ReadData;
 import collection.Dragon;
 import commands.Command;
-import commands.ExecuteScript;
 import exceptions.InvalidCommandException;
 import exceptions.WrongNumberOfArguments;
-import io.FileReader;
 import transfer.Request;
 
 import java.util.ArrayList;
@@ -14,10 +12,10 @@ import java.util.ArrayList;
 import static invoker.CommandsStorage.commands;
 
 /**
- * Класс является обработчиком пользовательского запроса.
+ * The class is the handler of a user request.
  * <p>
- * Класс парсит введенную пользователем команду, проверяет количество и корректность аргументов
- * и создает объект {@link Request}, содержащий команду, аргументы и список объектов {@link Dragon}, если они требуются.
+ * The class parses the command entered by the user, checks the number and correctness of arguments
+ * and creates a {@link Request} object containing the command, arguments and a list of {@link Dragon} objects, if required.
  * </p>
  */
 public class Handler {

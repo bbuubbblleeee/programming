@@ -4,8 +4,8 @@ import transfer.Request;
 import transfer.Response;
 
 /**
- * Класс реализует команду exit.
- * Команда завершает работу программы.
+ * The class implements the exit command.
+ * The command terminates the program.
  */
 public class Exit extends Command{
     public Exit(){

@@ -9,8 +9,8 @@ import java.util.StringJoiner;
 import static collectionManager.CollectionManager.dragons;
 
 /**
- * Класс реализует команду show.
- * Команда выводит все элементы коллекции в строковом представлении.
+ * The class implements the show command.
+ * The command outputs all elements of the collection in a string representation.
  */
 public class Show extends Command{
     public Show(){

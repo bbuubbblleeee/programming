@@ -7,8 +7,8 @@ import java.util.StringJoiner;
 
 import static invoker.CommandsStorage.commands;
 /**
- * Класс реализует команду help.
- * Команда выводит справку по доступным командам.
+ * The class implements the help command.
+ * The command outputs help for available commands.
  */
 public class Help extends Command{
     public Help(){

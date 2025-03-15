@@ -1,9 +1,9 @@
 package io;
 
 /**
- * Интерфейс для чтения строк данных.
+ * Interface for reading data strings.
  * <p>
- * Реализован для консольного ввода {@link ConsoleReader} и для чтения из файла {@link FileReader}.
+ * Implemented for console input {@link ConsoleReader} and for reading from a file {@link FileReader}.
  * </p>
  */
 public interface MyReader {

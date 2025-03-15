@@ -13,8 +13,8 @@ import exceptions.InvalidFileException;
 import transfer.GsonHelper;
 
 /**
- * Класс отвечает за чтение и запись коллекции объектов {@link Dragon} в файл.
- * Он использует Gson для сериализации и десериализации данных в формате JSON.
+ * The class is responsible for reading and writing a collection of {@link Dragon} objects to a file.
+ * It uses Gson to serialize and deserialize data in JSON format.
  */
 public class FileDao implements DAO {
     private static FileDao instance;
@@ -27,11 +27,6 @@ public class FileDao implements DAO {
             instance = new FileDao();
         }
         return instance;
-    }
-
-    @Override
-    public String getPath(){
-        return this.filePath;
     }
     @Override
     public TreeSet<Dragon> get() {
@@ -72,7 +67,7 @@ public class FileDao implements DAO {
                 .create();
 
         JsonElement jsons = JsonParser.parseString(json.toString());
-        TreeSet<Dragon> res = new TreeSet<Dragon>();
+        TreeSet<Dragon> res = new TreeSet<>();
 
         if (jsons.isJsonArray()) {
             JsonArray jsonArray = jsons.getAsJsonArray();

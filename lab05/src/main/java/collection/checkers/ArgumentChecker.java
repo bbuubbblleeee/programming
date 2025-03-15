@@ -1,11 +1,9 @@
 package collection.checkers;
 
 import exceptions.WrongArgumentException;
-/*
-    Класс отвечает за проверку и валидацию аргументов, введённых пользователем.
-    <p>
-    @throws WrongArgumentException при некорректном вводе.
- */
+/**
+ * The class is responsible for checking and validating arguments entered by the user.
+ **/
 public class ArgumentChecker {
     public static void nullChecker (Object object) throws WrongArgumentException{
         if (object == null || object.equals("")){

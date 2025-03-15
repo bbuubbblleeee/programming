@@ -5,8 +5,8 @@ import transfer.Response;
 
 
 /**
- * Класс реализует команду update.
- * Команда обновляет значение элемента коллекции, id которого равен заданному.
+ * The class implements the update command.
+ * The command updates the value of a collection item whose id is equal to the specified one.
  */
 public class Update extends Command{
     public Update(){

@@ -7,8 +7,8 @@ import transfer.Request;
 import transfer.Response;
 
 /**
- * Класс реализует команду execute_script.
- * Команда считывает и исполняет скрипт из указанного файла.
+ * The class implements the execute_script command.
+ * The command reads and executes a script from the specified file.
  */
 public class ExecuteScript extends Command{
     public ExecuteScript(){

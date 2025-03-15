@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * Исключение, указывающее на отсутствие необходимых прав для работы с файлом.
+ * Exception indicating that the user does not have the necessary permissions for using the file.
  */
 public class FilePermissionException extends RuntimeException {
     public FilePermissionException(String message) {

@@ -7,8 +7,8 @@ import transfer.Response;
 import static collectionManager.CollectionManager.dragons;
 
 /**
- * Класс реализует команду remove_any_by_age.
- * Команда удаляет из коллекции один элемент, значение поля age которого эквивалентно заданному.
+ * The class implements the remove_any_by_age command.
+ * The command removes from the collection one element whose age field value is equivalent to the specified one.
  */
 
 public class RemoveAnyByAge extends Command{

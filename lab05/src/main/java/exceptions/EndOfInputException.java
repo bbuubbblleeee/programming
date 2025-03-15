@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * Исключение, которое сигнализирует о завершении ввода пользователем.
+ * Exception that signals when user input is complete.
  */
 public class EndOfInputException extends RuntimeException {
     public EndOfInputException(String message) {

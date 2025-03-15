@@ -7,7 +7,7 @@ import exceptions.InvalidFileException;
 import java.lang.reflect.Type;
 
 /**
- * Класс, служащий для корректного преобразования JSON-объекта в объект класса {@link Dragon} при работе с библиотекой Gson.
+ * A class used to correctly convert a JSON object into an object of class {@link Dragon} when working with the Gson library.
  */
 public class GsonHelper implements JsonDeserializer<Dragon> {
     @Override
