@@ -1,8 +1,10 @@
 package collection;
 
 
-import static collectionManager.CollectionManager.dragons;
+import collection.id.IdGenerator;
+import com.google.gson.annotations.SerializedName;
 
+import java.text.DateFormat;
 import java.util.Date;
 
 import static collection.checkers.CollectionChecker.*;
@@ -17,14 +19,31 @@ import static collection.checkers.CollectionChecker.*;
  */
 public class Dragon implements Comparable<Dragon> {
     private static Long freeId = 1L;
+    @SerializedName("Идентификатор")
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+
+    @SerializedName("Имя")
     private String name; //Поле не может быть null, Строка не может быть пустой
+
+    @SerializedName("Координаты")
     private Coordinates coordinates; //Поле не может быть null
-    private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+
+    @SerializedName("Дата инициализации")
+    private String creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+
+    @SerializedName("Возраст")
     private int age; //Значение поля должно быть больше 0
+
+    @SerializedName("Цвет")
     private Color color; //Поле может быть null
+
+    @SerializedName("Тип")
     private DragonType type; //Поле не может быть null
+
+    @SerializedName("Характер")
     private DragonCharacter character; //Поле может быть null
+
+    @SerializedName("Пещера")
     private DragonCave cave; //Поле не может быть null
 
     public Dragon(String name, Coordinates coordinates, int age, Color color, DragonType type, DragonCave cave, DragonCharacter character) {
@@ -36,7 +55,19 @@ public class Dragon implements Comparable<Dragon> {
         this.type = type;
         this.character = character;
         this.cave = cave;
-        setDate();
+        setDateAuto();
+    }
+
+    public Dragon(Long id, String name, Coordinates coordinates, int age, Color color, DragonType type, DragonCave cave, DragonCharacter character) {
+        setId(id);
+        this.name = name;
+        this.coordinates = coordinates;
+        this.age = age;
+        this.color = color;
+        this.type = type;
+        this.character = character;
+        this.cave = cave;
+        setDateAuto();
     }
 
     public static void setFreeId(){
@@ -49,8 +80,14 @@ public class Dragon implements Comparable<Dragon> {
     }
 
     public void setIdAuto() {
-        this.id = freeId;
-        freeId++;
+        IdGenerator idGenerator = new IdGenerator();
+        try{
+            this.id = idGenerator.generateId();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            System.exit(0);
+        }
     }
 
     public void setId(Long id) {
@@ -60,8 +97,13 @@ public class Dragon implements Comparable<Dragon> {
     }
 
 
-    public void setDate() {
-        this.creationDate = new Date();
+    public void setDateAuto() {
+        Date date = new Date();
+        this.creationDate = DateFormat.getDateTimeInstance().format(date);
+    }
+
+    public void setCreationDate(String creationDate){
+        this.creationDate = creationDate;
     }
 
     public void setName(String name) {
@@ -115,7 +157,7 @@ public class Dragon implements Comparable<Dragon> {
         return this.coordinates;
     }
 
-    public java.util.Date getCreationDate() {
+    public String getCreationDate() {
         return this.creationDate;
     }
 
@@ -140,16 +182,14 @@ public class Dragon implements Comparable<Dragon> {
     }
 
     public String toString() {
-        return "{" +
-                "id = " + id + "\n" +
-                "name = " + name + "\n" +
-                "coordinates : " + coordinates.toString() + "\n" +
-                "creation date = " + creationDate + "\n" +
-                "age = " + age + "\n" +
-                "color = " + color + "\n" +
-                "type = " + type + "\n" +
-                "character = " + character + "\n" +
-                "cave : " + cave.toString() + "\n" +
-                "}";
+        return  "Идентификатор = " + id + "\n" +
+                "Имя = " + name + "\n" +
+                "Координаты = " + coordinates.toString() + "\n" +
+                "Дата инициализации = " + creationDate + "\n" +
+                "Возраст = " + age + "\n" +
+                "Цвет = " + color + "\n" +
+                "Тип = " + type + "\n" +
+                "Характер = " + character + "\n" +
+                "Пещера = " + cave.toString() + "\n";
     }
 }

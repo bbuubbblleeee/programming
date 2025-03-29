@@ -31,22 +31,22 @@ public class ReadData {
     }
 
     public Dragon get() throws InterruptedException {
-        String name = input("name", CollectionChecker::nameChecker, Function.identity()) ;
-        int age = input("age", CollectionChecker::ageChecker, Integer::valueOf) ;
-        Color color = input("color %s".formatted(
+        String name = input("имя", CollectionChecker::nameChecker, Function.identity()) ;
+        int age = input("возраст", CollectionChecker::ageChecker, Integer::valueOf) ;
+        Color color = input("цвет %s".formatted(
                 Arrays.toString(Color.values())), null , s -> Color.valueOf(s.toUpperCase()));
-        DragonType type = input("type %s".formatted(
+        DragonType type = input("тип %s".formatted(
                 Arrays.toString(DragonType.values())), CollectionChecker::typeChecker, s -> DragonType.valueOf(s.toUpperCase()));
 
-        DragonCharacter character = input("character %s".formatted(
+        DragonCharacter character = input("характер %s".formatted(
                 Arrays.toString(DragonCharacter.values())), null, s-> DragonCharacter.valueOf(s.toUpperCase()));
 
-        long x = input("coordinate x", CollectionChecker::xChecker, Long::valueOf) ;
-        long y = input("coordinate y", CollectionChecker::yChecker, Long::valueOf);
+        long x = input("координата х", CollectionChecker::xChecker, Long::valueOf) ;
+        long y = input("координата у", CollectionChecker::yChecker, Long::valueOf);
         Coordinates coordinates = new Coordinates(x, y);
 
-        Float depth = input("depth of the cave", null, Float::valueOf) ;
-        int numberOfTreasures = input("number of treasures in the cave", CollectionChecker::numberOfTreasuresChecker, Integer::valueOf) ;
+        Float depth = Float.parseFloat(input("глубина пещеры", CollectionChecker::depthChecker, Function.identity()));
+        int numberOfTreasures = input("количество сокровищ", CollectionChecker::numberOfTreasuresChecker, Integer::valueOf) ;
         DragonCave cave = new DragonCave(depth, numberOfTreasures);
 
         return new Dragon(name, coordinates, age, color, type, cave, character);
@@ -60,8 +60,15 @@ public class ReadData {
         while (true) {
             try {
                 String line = myReader.readLine(fieldName);
-                if (line == null || line.equals("return")) throw new InterruptedException("called return");
-                K result = line.isBlank() ? null : parser.apply(line);
+                if (line == null || line.equals("return")) throw new InterruptedException("Возврат вызван.");
+                K result = null;
+                if (!line.isBlank()) {
+                    try {
+                        result = parser.apply(line);
+                    } catch (NumberFormatException e) {
+                        throw new WrongArgumentException("Недопустимое значение.");
+                    }
+                }
                 if (action != null) {
                     action.accept(result);
                 }
@@ -70,10 +77,14 @@ public class ReadData {
                 throw e;
             } catch (WrongArgumentException | IllegalArgumentException | NullPointerException ex) {
                 if (inScript) {
-                    throw new InvalidFileException("Invalid script File.");
+                    throw new InvalidFileException("Недопустимый файл скрипта.");
                 }
                 System.out.println(ex.getMessage());
             }
+            catch (Exception exx){
+                System.out.println(exx.getMessage());
+            }
+
         }
     }
 }

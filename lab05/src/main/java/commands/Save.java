@@ -9,19 +9,19 @@ import transfer.Response;
  */
 public class Save extends Command{
     public Save(){
-        super("save", "saves the collection to a file.", 0, 0);
+        super("save", "сохраняет коллекцию в файл.", 0, 0);
     }
     @Override
     public Response execute(Request request) {
-        if (collectionManager.isCollectionEmpty()){
-            return new Response("The collection is empty, there's no point in running this command.");
+        if (request.collectionManager().isCollectionEmpty()){
+            return new Response("Коллекция пуста, выполнение этой команды не имеет смысла.");
         }
         try{
-            collectionManager.save();
-            return new Response("The collection was saved.");
+            request.collectionManager().save();
+            return new Response("Коллекция была успешно сохранена.");
         }
         catch (Exception e){
-            return new Response(e.getMessage() + ".\nThe collection wasn't saved.");
+            return new Response(e.getMessage() + ".\nКоллекция не была сохранена.");
         }
     }
 }

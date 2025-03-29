@@ -13,21 +13,21 @@ import client.ReadData.*;
  */
 public class Update extends Command{
     public Update(){
-        super("update", "update the value of the collection item whose id is equal to the given one.", 1, 1);
+        super("update", "обновляет значение элемента коллекции, идентификатор которого равен заданному.", 1, 1);
     }
 
     @Override
     public Response execute(Request request) {
-        if (collectionManager.isCollectionEmpty()){
-            return new Response("The collection is empty, there's no point in running this command.");
+        if (request.collectionManager().isCollectionEmpty()){
+            return new Response("Коллекция пуста, выполнение этой команды не имеет смысла.");
         }
         long id;
         try{
             id = Long.parseLong(request.args()[0]);
         }
         catch (NumberFormatException e){
-            return new Response("Invalid type of argument. Expected long.");
+            return new Response("Недопустимое значение.\nОжидался аргумент типа long.");
         }
-        return collectionManager.update(id, request.readData()[0]);
+        return request.collectionManager().update(id, request.readData()[0]);
     }
 }

@@ -2,6 +2,9 @@ package collection.checkers;
 
 import collection.DragonType;
 import exceptions.WrongArgumentException;
+
+import java.util.PropertyPermission;
+
 /**
  * The class contains methods to check all the required values of the arguments of the class object {@link collection.Dragon}.
  * <p>
@@ -19,17 +22,17 @@ import exceptions.WrongArgumentException;
 public class CollectionChecker extends ArgumentChecker{
     public static void nameChecker(String name) throws WrongArgumentException {
         nullChecker(name);
-        argumentChecker(!name.isEmpty(), "Argument can't be empty.");
+        argumentChecker(!name.isEmpty(), "Аргумент не может быть пустым.");
     }
 
     public static void ageChecker(Integer age) throws WrongArgumentException{
         nullChecker(age);
-        argumentChecker(age > 0, "Invalid value.\nExpected value > 0.");
+        argumentChecker(age > 0, "Недопустимое значение.\nОжидалось значение > 0.");
     }
 
     public static void xChecker(Long x) throws WrongArgumentException{
         nullChecker(x);
-        argumentChecker(x > - 28, "Invalid value.\nExpected value > -28.");
+        argumentChecker(x > - 28, "Недопустимое значение.\nОжидалось значение > -28.");
     }
     public static void yChecker(Long y) throws WrongArgumentException{
         nullChecker(y);
@@ -40,6 +43,24 @@ public class CollectionChecker extends ArgumentChecker{
     }
 
     public static void numberOfTreasuresChecker(int numberOfTreasures) throws WrongArgumentException{
-        argumentChecker(numberOfTreasures > 0, "Invalid value.\nExpected value > 0.");
+        argumentChecker(numberOfTreasures > 0, "Недопустимое значение.\nОжидалось значение > 0.");
     }
+
+    public static String depthChecker(String depth) throws WrongArgumentException {
+        if (depth.isBlank()) {
+            return null;
+        }
+        Float depthFloat;
+        try {
+            depthFloat = Float.parseFloat(depth);
+            if (!depthFloat.toString().replaceAll("\\.?0*$", "").equals(depth)){
+                throw new WrongArgumentException("Недопустимое значение.\nОжидался аргумент типа float.");
+            }
+            return depth;
+        }
+        catch (NumberFormatException e){
+            throw new WrongArgumentException("Недопустимое значение.\nОжидался аргумент типа float.");
+        }
+    }
+
 }

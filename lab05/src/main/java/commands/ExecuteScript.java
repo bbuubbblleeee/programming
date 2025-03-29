@@ -12,7 +12,7 @@ import transfer.Response;
  */
 public class ExecuteScript extends Command{
     public ExecuteScript(){
-        super("execute_script", "reads and executes a script from the specified file.", 1, 0);
+        super("execute_script", "считывает и исполняет скрипт из указанного файла.", 1, 0);
     }
 
     @Override
@@ -26,9 +26,9 @@ public class ExecuteScript extends Command{
         }
         while (readData.myReader.hasNextLine()){
             String command = readData.myReader.readLine();
-            System.out.println("Command: " + command + ".");
-            new Console(command, readData);
+            System.out.println("Текущая команда: " + command + ".");
+            new Console(command, readData, request.collectionManager());
         }
-        return new Response("Script was successfully executed.");
+        return new Response("Скрипт был успешно исполнен.");
     }
 }

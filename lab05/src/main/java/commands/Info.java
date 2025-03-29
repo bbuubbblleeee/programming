@@ -9,13 +9,13 @@ import transfer.Response;
  */
 public class Info extends Command{
     public Info(){
-        super("info", "shows information about the collection.", 0, 0);
+        super("info", "выводит в стандартный поток вывода информацию о коллекции.", 0, 0);
     }
     @Override
     public Response execute(Request request) {
-        if (collectionManager.isCollectionEmpty()){
-            return new Response("The collection is empty, there's no point in running this command.");
+        if (request.collectionManager().isCollectionEmpty()){
+            return new Response("Коллекция пуста, выполнение этой команды не имеет смысла.");
         }
-        return new Response(collectionManager.info().toString());
+        return new Response(request.collectionManager().info().toString());
     }
 }

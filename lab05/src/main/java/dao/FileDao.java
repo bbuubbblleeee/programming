@@ -4,6 +4,9 @@ import collection.Dragon;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.TreeSet;
 
@@ -19,7 +22,7 @@ import transfer.GsonHelper;
 public class FileDao implements DAO {
     private static FileDao instance;
     private String filePath;
-
+    private String date;
     private FileDao() {
         try {
             this.filePath = System.getenv("DRAGON_FILE");
@@ -36,13 +39,13 @@ public class FileDao implements DAO {
         return instance;
     }
     @Override
-    public TreeSet<Dragon> get() {
+    public DateAndDragons get() {
         try {
             return readFile();
         } catch (FileNotFoundException e) {
-            throw new InvalidFileException("File not found");
+            throw new InvalidFileException("Файл не найден.");
         } catch (FilePermissionException b) {
-            throw new InvalidFileException("There is no permission to read the file");
+            throw new InvalidFileException("Недостаточно прав к файлу.");
         }
     }
 
@@ -51,15 +54,15 @@ public class FileDao implements DAO {
         try{
             writeInFile(dragons);
         } catch (FileNotFoundException e) {
-            throw new InvalidFileException("File not found");
+            throw new InvalidFileException("Файл не найден.");
         }
         catch (FilePermissionException b) {
-            throw new InvalidFileException("There is no permission to read the file");
+            throw new FilePermissionException("Недостаточно прав к файлу.");
         }
     }
 
-    public TreeSet<Dragon> readFile() throws FileNotFoundException, FilePermissionException {
-        checkFileRead();
+    public DateAndDragons readFile() throws FileNotFoundException, FilePermissionException {
+        checkFileRead(this.filePath);
         StringBuilder json = new StringBuilder();
 
         try (Scanner scanner = new Scanner(new File(this.filePath))) {
@@ -73,14 +76,20 @@ public class FileDao implements DAO {
                 .setPrettyPrinting()
                 .create();
 
-        JsonElement jsons = JsonParser.parseString(json.toString());
+        JsonObject jsons = JsonParser.parseString(json.toString()).getAsJsonObject();
+        try{
+            date = jsons.get("Дата инициализации коллекции").getAsString();
+        }
+        catch (NullPointerException e){
+            date = DateFormat.getDateTimeInstance().format(new Date());
+        }
         TreeSet<Dragon> res = new TreeSet<>();
 
-        if (jsons.isJsonArray()) {
-            JsonArray jsonArray = jsons.getAsJsonArray();
-            for (JsonElement js : jsonArray) {
+        if (jsons.get("Драконы").isJsonArray()) {
+            JsonArray jsonArray = jsons.get("Драконы").getAsJsonArray();
+            for (JsonElement jsonElement : jsonArray) {
                 try {
-                    res.add(gson.fromJson(js, Dragon.class));
+                    res.add(gson.fromJson(jsonElement, Dragon.class));
                 }
                 catch (InvalidFileException e){
                     System.out.println(e.getMessage());
@@ -88,15 +97,18 @@ public class FileDao implements DAO {
                 }
             }
         }
-        return res;
+        return new DateAndDragons(date, res);
 
     }
 
 
     private void writeInFile(TreeSet<Dragon> dragons) throws FileNotFoundException, FilePermissionException {
-        checkFileWrite();
+        checkFileWrite(this.filePath);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json = gson.toJson(dragons);
+        JsonObject fullJson = new JsonObject();
+        fullJson.addProperty("Дата инициализации коллекции", date); // Добавляем дату
+        fullJson.add("Драконы", gson.toJsonTree(dragons)); // Преобразуем список драконов в JSON
+        String json = gson.toJson(fullJson);
 
         try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(this.filePath, false))){
             out.write(json.getBytes(StandardCharsets.UTF_8));
@@ -107,26 +119,55 @@ public class FileDao implements DAO {
         }
     }
 
-    private void checkFileRead() throws FileNotFoundException, FilePermissionException {
+    private void checkFileRead(String filePath) throws FileNotFoundException, FilePermissionException {
         if (filePath == null || filePath.isEmpty()) {
-            throw new IllegalArgumentException("File path cannot be null or empty");
+            throw new IllegalArgumentException("Путь к файлу не может быть пустым.");
         }
-        File file = new File(this.filePath);
+        File file = new File(filePath);
         if (!file.exists())
-            throw new FileNotFoundException("File " + this.filePath + " not found");
+            throw new FileNotFoundException("Файл " + filePath + " не найден.");
         if (!file.canRead())
-            throw new FilePermissionException("There is no read permission for file " + this.filePath);
+            throw new FilePermissionException("Недостаточно прав для чтение файла: " + filePath);
     }
 
-    private void checkFileWrite() throws FileNotFoundException, FilePermissionException {
+    private void checkFileWrite(String filePath) throws FileNotFoundException, FilePermissionException {
         if (filePath == null || filePath.isEmpty()) {
-            throw new IllegalArgumentException("File path cannot be null or empty");
+            throw new IllegalArgumentException("Путь к файлу не может быть пустым.");
         }
-        File file = new File(this.filePath);
+        File file = new File(filePath);
         if (!file.exists())
-            throw new FileNotFoundException("File " + this.filePath + " not found");
+            throw new FileNotFoundException("Файл " + filePath + " не найден.");
         if (!file.canWrite())
-            throw new FilePermissionException("There is no read permission for file " + this.filePath);
+            throw new FilePermissionException("Недостаточно прав для чтение файла: " + filePath);
+    }
+
+    public void saveLastId(Long id, Path filePath) throws FileNotFoundException, FilePermissionException {
+        checkFileWrite(filePath.toString());
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("Последний использованный идентификатор", id);
+        String json = gson.toJson(jsonObject);
+        try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(filePath.toString(), false))){
+            out.write(json.getBytes(StandardCharsets.UTF_8));
+            out.write(System.lineSeparator().getBytes(StandardCharsets.UTF_8));
+            out.flush();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public Long getLastId(Path filePath) throws FileNotFoundException, FilePermissionException {
+        checkFileRead(filePath.toString());
+        StringBuilder json = new StringBuilder();
+
+        try (Scanner scanner = new Scanner(new File(filePath.toString()))) {
+            while (scanner.hasNextLine()) {
+                json.append(scanner.nextLine());
+            }
+        }
+
+        JsonObject jsons = JsonParser.parseString(json.toString()).getAsJsonObject();
+        return jsons.get("Последний использованный идентификатор").getAsLong();
     }
 
 

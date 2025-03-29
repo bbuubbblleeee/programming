@@ -1,5 +1,6 @@
 package invoker;
 
+import collectionManager.CollectionManager;
 import transfer.Request;
 import transfer.Response;
 

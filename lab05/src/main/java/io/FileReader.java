@@ -23,10 +23,10 @@ public class FileReader implements MyReader{
             scanner = new Scanner(new File(filePath));
         }
         catch (FileNotFoundException e){
-            throw new InvalidFileException("Script file wasn't found.");
+            throw new InvalidFileException("Скрипт не был найден.");
         }
         catch (Exception b){
-            throw new InvalidFileException("Invalid script file.");
+            throw new InvalidFileException("Неверный скрипт.");
         }
     }
     @Override
@@ -39,7 +39,7 @@ public class FileReader implements MyReader{
         try{
             return scanner.nextLine();
         } catch (NoSuchElementException e) {
-            throw new EndOfInputException("file");
+            throw new EndOfInputException("файла");
         }    }
 
     @Override
@@ -47,6 +47,6 @@ public class FileReader implements MyReader{
         try{
             return scanner.nextLine();
         } catch (NoSuchElementException e) {
-            throw new EndOfInputException("file");
+            throw new EndOfInputException("файла");
         }    }
 }

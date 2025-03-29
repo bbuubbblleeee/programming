@@ -5,9 +5,12 @@ import client.ReadData;
 import collection.*;
 
 import dao.FileDao;
+import exceptions.FilePermissionException;
 import transfer.Response;
 
 
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
 import java.util.*;
 
 /**
@@ -17,15 +20,16 @@ import java.util.*;
  *  <li> {@link #add(Dragon)} - implements the add command (adds an item to the collection).</li>
  *  <li> {@link #remove(Dragon)} - implements “remove%” commands (removes an item from the collection).</li>
  *  <li> {@link #info()} - implements the info command (provides basic data about the collection).</li>
- *  <li> {@link #update(Long, Dragon)} - implements the update command (updates item data from the collection).</li>
+ *  <li> {@link #update(Long, ReadData)} - implements the update command (updates item data from the collection).</li>
  *  <li> {@link #clear()} - implements the clear command (clears the collection).</li>
  *  <li> {@link #save()} - implements the save command (saves the collection to a file).</li>
  * </ul>
  */
 public class CollectionManager {
     public static TreeSet<Dragon> dragons = new TreeSet<>();
-    protected static Date date;
+    protected static String date;
     protected final FileDao fileDao = FileDao.getInstance();
+    protected final Path idFilePath = Path.of("id.json");
     public void add(Dragon dragon){
         dragons.add(dragon);
     }
@@ -36,10 +40,10 @@ public class CollectionManager {
 
     public StringJoiner info(){
         StringJoiner stringJoiner = new StringJoiner("\n");
-        stringJoiner.add("Information about the collection.");
-        stringJoiner.add("Type: Dragon");
-        stringJoiner.add("Date of initialization: " + date);
-        stringJoiner.add("Quantity of elements: " + dragons.size());
+        stringJoiner.add("Информация о коллекции.");
+        stringJoiner.add("Тип: Dragon");
+        stringJoiner.add("Дата инициализации: " + date);
+        stringJoiner.add("Количество элементов: " + dragons.size());
         return stringJoiner;
     }
 
@@ -53,7 +57,7 @@ public class CollectionManager {
             }
         }
         if (!found){
-            return new Response("The element, whose id = " + id + " wasn't found.");
+            return new Response("Элемент, идентификатор которого равен " + id + ", не был найден.");
         }
 
         Dragon request;
@@ -64,7 +68,6 @@ public class CollectionManager {
             System.out.println(e.getMessage());
             return new Response(e.getMessage());
         }
-
         dragonUpdate.setName(request.getName());
         dragonUpdate.setAge(request.getAge());
         dragonUpdate.setCharacter(request.getCharacter());
@@ -74,9 +77,7 @@ public class CollectionManager {
         dragonUpdate.setDepthCave(request.getCave().getDepth());
         dragonUpdate.setNumberOfTreasures(request.getCave().getNumberOfTreasures());
         dragonUpdate.setColor(request.getColor());
-        return new Response("The element was successfully updated.");
-
-
+        return new Response("Элемент был успешно обновлен.");
     }
 
     public void clear(){
@@ -84,11 +85,23 @@ public class CollectionManager {
         Dragon.setFreeId();
     }
     public void save(){
-        fileDao.save(dragons);
+        try{
+            fileDao.save(dragons);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public boolean isCollectionEmpty(){
         return dragons.isEmpty();
     }
 
+    public void saveLastId(Long id) throws FileNotFoundException, FilePermissionException {
+        fileDao.saveLastId(id, idFilePath);
+    }
+
+    public Long getLastId() throws FileNotFoundException, FilePermissionException {
+        return fileDao.getLastId(idFilePath);
+    }
 }

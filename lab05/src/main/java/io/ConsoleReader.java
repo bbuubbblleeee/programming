@@ -27,17 +27,17 @@ public class ConsoleReader implements MyReader {
         try{
             return scanner.nextLine();
         } catch (NoSuchElementException e) {
-            throw new EndOfInputException("input");
+            throw new EndOfInputException("ввода");
         }
     }
 
     @Override
     public String readLine(String string){
         try{
-            System.out.print("Enter the " + string + ": ");
+            System.out.print("Введите " + string + ": ");
             return scanner.nextLine();
         } catch (NoSuchElementException e) {
-            throw new EndOfInputException("input");
+            throw new EndOfInputException("ввода");
         }
     }
 

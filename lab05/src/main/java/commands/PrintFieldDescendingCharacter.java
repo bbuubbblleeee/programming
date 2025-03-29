@@ -18,12 +18,12 @@ import static collectionManager.CollectionManager.dragons;
 
 public class PrintFieldDescendingCharacter extends Command{
     public PrintFieldDescendingCharacter(){
-        super("print_field_descending_character", "prints the character field values of all elements in descending order.", 0, 0);
+        super("print_field_descending_character", "выводит значения поля character всех элементов в порядке убывания.", 0, 0);
     }
     @Override
     public Response execute(Request request) {
-        if (collectionManager.isCollectionEmpty()){
-            return new Response("The collection is empty, there's no point in running this command.");
+        if (request.collectionManager().isCollectionEmpty()){
+            return new Response("Коллекция пуста, выполнение этой команды не имеет смысла.");
         }
         StringJoiner stringJoiner = new StringJoiner("\n");
         List<Dragon> dragonsReversed = new ArrayList<>(dragons);
@@ -35,6 +35,6 @@ public class PrintFieldDescendingCharacter extends Command{
             stringJoiner.add(character.toString());
         }
         String res = stringJoiner.toString();
-        return new Response(res.isEmpty() ? "The character field is empty for all elements in the collection." : res);
+        return new Response(res.isEmpty() ? "Поле character пусто у всех элементов коллекции." : res);
     }
 }

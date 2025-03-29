@@ -14,8 +14,6 @@ public abstract class Command {
     private final int requiredDragon;
     private final int requiredArgs;
 
-    protected static CollectionManager collectionManager = new InMemoryCollection();
-
     public Command(String commandName, String purpose, int requiredArgs, int requiredDragon){
         this.commandName = commandName;
         this.purpose = purpose;

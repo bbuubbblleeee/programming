@@ -11,12 +11,12 @@ import transfer.Response;
 
 public class  Add extends Command {
     public Add() {
-        super("add", "adds new item to the collection", 0, 1);
+        super("add", "добавляет новый элемент в коллекцию.", 0, 1);
     }
 
     @Override
     public Response execute(Request request) {
-        collectionManager.add(request.dragons().get(0));
-        return new Response("Dragon successfully added.");
+        request.collectionManager().add(request.dragons().get(0));
+        return new Response("Дракон был успешно добавлен.");
     }
 }

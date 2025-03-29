@@ -1,41 +1,18 @@
-clear
 add
-Kirill
-20
+Клювокрыл
+35
 black
 air
 wise
 19
-1
-1
-2
+123456
+13
+21
 show
-add_if_max
-Kirill
-25
-green
-fire
-chaotic
-19
-10
-123
-23
-count_by_age 25
+count_by_age 35
 help
 info
 print_field_descending_character
 remove_any_by_age 21
 remove_by_id 2
 show
-save
-update 1
-Kirill
-21
-black
-air
-wise
-19
-1
-1
-2
-save

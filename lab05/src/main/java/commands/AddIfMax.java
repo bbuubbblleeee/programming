@@ -14,16 +14,16 @@ import static collectionManager.CollectionManager.dragons;
 
 public class AddIfMax extends Command{
     public AddIfMax(){
-        super("add_if_max", "adds new item to the collection if its value exceeds the value of the largest element of this collection", 0, 1);
+        super("add_if_max", "добавляет новый элемент в коллекцию, если его значение превышает значение наибольшего элемента этой коллекции", 0, 1);
     }
     @Override
     public Response execute(Request request) {
         Dragon dragon = request.dragons().get(0);
         if (dragon.getId() > getLastId()){
-            collectionManager.add(dragon);
-            return new Response("Dragon successfully added.");
+            request.collectionManager().add(dragon);
+            return new Response("Дракон был успешно добавлен.");
         }
-        return new Response("The dragon wasn't added to the collection, as it's smaller than the biggest one.");
+        return new Response("Дракон не был добавлен в коллекцию, так как его значение меньше значения наибольшего элемента коллекции.");
 
     }
 

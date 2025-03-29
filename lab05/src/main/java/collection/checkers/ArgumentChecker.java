@@ -7,7 +7,7 @@ import exceptions.WrongArgumentException;
 public class ArgumentChecker {
     public static void nullChecker (Object object) throws WrongArgumentException{
         if (object == null || object.equals("")){
-            throw new WrongArgumentException("Argument can't be null.");
+            throw new WrongArgumentException("Аргумент не может быть нулевым.");
         }
     }
     public static void argumentChecker (boolean statement, String message) throws WrongArgumentException {

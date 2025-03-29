@@ -2,6 +2,7 @@ package invoker;
 
 import client.ReadData;
 import collection.Dragon;
+import collectionManager.CollectionManager;
 import commands.Command;
 import exceptions.InvalidCommandException;
 import exceptions.WrongNumberOfArguments;
@@ -21,9 +22,11 @@ import static invoker.CommandsStorage.commands;
 public class Handler {
     private final String requestString;
     private final ReadData readData;
-    public Handler(String string, ReadData readData){
-        requestString = string;
+    private final CollectionManager collectionManager;
+    public Handler(String string, ReadData readData, CollectionManager collectionManager){
+        this.requestString = string;
         this.readData = readData;
+        this.collectionManager = collectionManager;
     }
 
     public Request getRequest() throws WrongNumberOfArguments, InvalidCommandException, InterruptedException {
@@ -35,14 +38,14 @@ public class Handler {
             throw new WrongNumberOfArguments();
         }
         if (command.getName().equals("update")){
-            return new Request(command, args, dragons, this.readData);
+            return new Request(command, args, dragons, collectionManager, this.readData);
         }
         long dragonNeed = command.getRequiredDragon();
         while (dragonNeed > 0){
             dragons.add(readData.get());
             dragonNeed--;
         }
-        return new Request(command, args, dragons);
+        return new Request(command, args, dragons, collectionManager);
     }
 
     private Command findCommand(String commandString) {

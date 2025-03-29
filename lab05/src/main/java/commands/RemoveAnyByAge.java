@@ -13,26 +13,26 @@ import static collectionManager.CollectionManager.dragons;
 
 public class RemoveAnyByAge extends Command{
     public RemoveAnyByAge(){
-        super("remove_any_dy_age", "removes from the collection one element whose age equals the given value.", 1, 0);
+        super("remove_any_dy_age", "удаляет из коллекции один элемент, значение поля age которого эквивалентно заданному.", 1, 0);
     }
     @Override
     public Response execute(Request request) {
-        if (collectionManager.isCollectionEmpty()){
-            return new Response("The collection is empty, there's no point in running this command.");
+        if (request.collectionManager().isCollectionEmpty()){
+            return new Response("Коллекция пуста, выполнение этой команды не имеет смысла.");
         }
         int age;
         try{
             age = Integer.parseInt(request.args()[0]);
         }
         catch (NumberFormatException e){
-            return new Response("Invalid type of argument. Expected int.");
+            return new Response("Недопустимое значение.\nОжидался аргумент типа int.");
         }
         for (Dragon dragon : dragons){
             if (dragon.getAge() == age){
-                collectionManager.remove(dragon);
-                return new Response("The element, whose age = " + age + ", was successfully removed from the collection.");
+                request.collectionManager().remove(dragon);
+                return new Response("Элемент, чей возраст = " + age + ", был успешно удалён из коллекции.");
             }
         }
-        return new Response("The element with such age wasn't found.");
+        return new Response("Элемент с таким возрастом не был найден.");
     }
 }

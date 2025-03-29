@@ -1,12 +1,17 @@
 package collection;
 
+import com.google.gson.annotations.SerializedName;
+
 import static collection.checkers.CollectionChecker.numberOfTreasuresChecker;
 
 /**
  * Cave class.
  */
 public class DragonCave {
+    @SerializedName("Глубина")
     private float depth;
+
+    @SerializedName("Количество сокровищ")
     private int numberOfTreasures; //Значение поля должно быть больше 0
 
     public DragonCave(float depth, int numberOfTreasures) {
@@ -32,10 +37,10 @@ public class DragonCave {
         return this.numberOfTreasures;
     }
     public String toString(){
-        return "{" +
-                "depth = " + depth + ", " +
-                "number of treasures = " + numberOfTreasures +
-                "}";
+        return "(" +
+                "Глубина = " + depth + ", " +
+                "Количество сокровищ = " + numberOfTreasures +
+                ")";
     }
 }
 

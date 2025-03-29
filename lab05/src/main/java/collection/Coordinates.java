@@ -31,9 +31,9 @@ public class Coordinates {
         return this.y;
     }
     public String toString(){
-        return "{" +
+        return "(" +
                 "x = " + x + ", " +
                 "y = " + y +
-                "}";
+                ")";
     }
 }

@@ -12,12 +12,12 @@ import static invoker.CommandsStorage.commands;
  */
 public class Help extends Command{
     public Help(){
-        super("help", "displays all available commands.", 0, 0);
+        super("help", "выводит справку по доступным командам", 0, 0);
     }
     @Override
     public Response execute(Request request) {
         StringJoiner stringJoiner = new StringJoiner("\n");
-        stringJoiner.add("Available commands:");
+        stringJoiner.add("Доступные команды:");
         for (Command command : commands.values()){
             stringJoiner.add(" - " + command.getName() + ": " + command.getPurpose());
         }

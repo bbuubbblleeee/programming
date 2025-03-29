@@ -14,13 +14,13 @@ import static collectionManager.CollectionManager.dragons;
  */
 public class Show extends Command{
     public Show(){
-        super("show", "prints all elements of the collection in string representation.", 0, 0);
+        super("show", "выводит в стандартный поток вывода все элементы коллекции в строковом представлении.", 0, 0);
     }
 
     @Override
     public Response execute(Request request) {
-        if (collectionManager.isCollectionEmpty()){
-            return new Response("The collection is empty, there's no point in running this command.");
+        if (request.collectionManager().isCollectionEmpty()){
+            return new Response("Коллекция пуста, выполнение этой команды не имеет смысла.");
         }
         StringJoiner stringJoiner = new StringJoiner("\n");
         for (Dragon dragon : dragons){

@@ -1,5 +1,6 @@
 package client;
 
+import collectionManager.CollectionManager;
 import invoker.Handler;
 import invoker.Invoker;
 import transfer.Request;
@@ -7,12 +8,12 @@ import transfer.Response;
 
 /**
  * The class is responsible for the logic and execution of the command.
- * Outputs the result of the command execution to the console.
+ * Outputs the result of the command execution to the console.:
  **/
 public class Console {
-    public Console(String string, ReadData readData){
+    public Console(String string, ReadData readData, CollectionManager collectionManager){
         try {
-            Handler handler = new Handler(string, readData);
+            Handler handler = new Handler(string, readData, collectionManager);
             Request request = handler.getRequest();
             Invoker invoker = new Invoker();
             Response response = invoker.executeCommand(request);

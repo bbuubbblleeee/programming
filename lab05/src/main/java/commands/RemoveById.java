@@ -13,32 +13,32 @@ import static collectionManager.CollectionManager.dragons;
  */
 public class RemoveById extends Command{
     public RemoveById(){
-        super("remove_by_id", "removes from the collection an element whose id equals the given value.", 1, 0);
+        super("remove_by_id", "удаляет элемент из коллекции по его идентификатору.", 1, 0);
     }
     @Override
     public Response execute(Request request) {
-        if (collectionManager.isCollectionEmpty()){
-            return new Response("The collection is empty, there's no point in running this command.");
+        if (request.collectionManager().isCollectionEmpty()){
+            return new Response("Коллекция пуста, выполнение этой команды не имеет смысла.");
         }
         long id;
         try{
             id = Long.parseLong(request.args()[0]);
             if (id < 0){
-                throw new WrongArgumentException("Invalid value.\nExpected value > 0.");
+                throw new WrongArgumentException("Недопустимое значение.\nОжидалось значение > 0.");
             }
         }
         catch (NumberFormatException e){
-            return new Response("Invalid type of argument. Expected long.");
+            return new Response("Недопустимое значение.\nОжидался аргумент типа long.");
         }
         catch (WrongArgumentException ex){
             return new Response(ex.getMessage());
         }
         for (Dragon dragon : dragons){
             if (dragon.getId() == id){
-                collectionManager.remove(dragon);
-                return new Response("The element, whose id = " + id + ", was successfully removed from the collection.");
+                request.collectionManager().remove(dragon);
+                return new Response("Элемент, чей идентификатор = " + id + ", был успешно удалён из коллекции.");
             }
         }
-        return new Response("The element with such id wasn't found.");
+        return new Response("Элемент с идентификатором = " + id + " не был найден.");
     }
 }
