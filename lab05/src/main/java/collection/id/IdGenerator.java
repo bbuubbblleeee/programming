@@ -9,6 +9,7 @@ public class IdGenerator {
 
     public Long generateId(){
         try{
+
             freeId = collectionManager.getLastId();
             freeId++;
             collectionManager.saveLastId(freeId);

@@ -21,8 +21,7 @@ public class GsonHelper implements JsonDeserializer<Dragon> {
             try {
                 String colorString = jsonObject.get("Цвет").getAsString();
                 color = Color.valueOf(colorString);
-            }
-            catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 color = null;
             }
 
@@ -30,8 +29,7 @@ public class GsonHelper implements JsonDeserializer<Dragon> {
             try {
                 String characterString = jsonObject.get("Характер").getAsString();
                 character = DragonCharacter.valueOf(characterString);
-            }
-            catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 character = null;
             }
             DragonType type = DragonType.valueOf(jsonObject.get("Тип").getAsString());
@@ -44,6 +42,7 @@ public class GsonHelper implements JsonDeserializer<Dragon> {
             dragon.setCreationDate(creationDate);
             return dragon;
         }
+
         catch (Exception e){
             System.out.println(e.getMessage());
             throw new InvalidFileException("Неверный файл.\nКоллекция из файла не была загружена, так как имеет неверные аргументы объекта.");

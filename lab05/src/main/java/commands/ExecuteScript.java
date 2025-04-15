@@ -2,7 +2,6 @@ package commands;
 
 import client.Console;
 import client.ReadData;
-import exceptions.InvalidFileException;
 import transfer.Request;
 import transfer.Response;
 
@@ -17,18 +16,17 @@ public class ExecuteScript extends Command{
 
     @Override
     public Response execute(Request request) {
-        ReadData readData;
         try {
-            readData = new ReadData(request.args()[0]);
+            ReadData readData = new ReadData(request.args()[0]);
+            while (readData.myReader.hasNextLine()){
+                String command = readData.myReader.readLine();
+                System.out.println("Текущая команда: " + command + ".");
+                new Console(command, readData, request.collectionManager());
+            }
+            return new Response("Скрипт был исполнен.");
         }
-        catch (InvalidFileException e){
+        catch (Exception e){
             return new Response(e.getMessage());
         }
-        while (readData.myReader.hasNextLine()){
-            String command = readData.myReader.readLine();
-            System.out.println("Текущая команда: " + command + ".");
-            new Console(command, readData, request.collectionManager());
-        }
-        return new Response("Скрипт был успешно исполнен.");
     }
 }

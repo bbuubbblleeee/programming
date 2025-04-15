@@ -29,7 +29,7 @@ public class CollectionManager {
     public static TreeSet<Dragon> dragons = new TreeSet<>();
     protected static String date;
     protected final FileDao fileDao = FileDao.getInstance();
-    protected final Path idFilePath = Path.of("id.json");
+    protected final Path idFilePath = Path.of("src\\main\\id.json");
     public void add(Dragon dragon){
         dragons.add(dragon);
     }
