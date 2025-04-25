@@ -3,10 +3,15 @@ package collection;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
-import static collection.checkers.CollectionChecker.*;
+import static collection.checkers.CollectionChecker.ageChecker;
+import static collection.checkers.CollectionChecker.nameChecker;
+
+
 /**
  * Dragon class.
  *
@@ -16,7 +21,7 @@ import static collection.checkers.CollectionChecker.*;
  * @see DragonCharacter
  * @see DragonType
  */
-public class Dragon implements Comparable<Dragon> {
+public class Dragon implements Comparable<Dragon>, Serializable {
     private static Long freeId = 1L;
     @SerializedName("Идентификатор")
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -69,8 +74,12 @@ public class Dragon implements Comparable<Dragon> {
         setDateAuto();
     }
 
-    public static void setFreeId(){
+    public static void setFreeId() {
         freeId = 1L;
+    }
+
+    public static Long getFreeId() {
+        return freeId;
     }
 
     @Override
@@ -83,45 +92,14 @@ public class Dragon implements Comparable<Dragon> {
         freeId++;
     }
 
-    public void setId(Long id) {
-        if (id < freeId){
-            return;
-        }
-        this.id = id;
-        freeId = id;
-        freeId++;
-    }
-
-
     public void setDateAuto() {
         Date date = new Date();
-        this.creationDate = DateFormat.getDateTimeInstance().format(date);
-    }
-
-    public void setCreationDate(String creationDate){
-        this.creationDate = creationDate;
-    }
-
-    public void setName(String name) {
-        nameChecker(name);
-        this.name = name;
-    }
-
-    public void setAge(int age) {
-        ageChecker(age);
-        this.age = age;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public void setType(DragonType type) {
-        this.type = type;
-    }
-
-    public void setCharacter(DragonCharacter character) {
-        this.character = character;
+        DateFormat formatter = DateFormat.getDateTimeInstance(
+                DateFormat.DEFAULT,
+                DateFormat.DEFAULT,
+                new Locale("ru", "RU") // Русская локаль
+        );
+        this.creationDate = formatter.format(date);
     }
 
     public void setCoordinateX(Long x) {
@@ -144,9 +122,21 @@ public class Dragon implements Comparable<Dragon> {
         return this.id;
     }
 
+    public void setId(Long id) {
+        if (id < freeId) {
+            return;
+        }
+        this.id = freeId;
+        freeId++;
+    }
 
     public String getName() {
         return this.name;
+    }
+
+    public void setName(String name) {
+        nameChecker(name);
+        this.name = name;
     }
 
     public Coordinates getCoordinates() {
@@ -157,20 +147,41 @@ public class Dragon implements Comparable<Dragon> {
         return this.creationDate;
     }
 
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public int getAge() {
         return this.age;
+    }
+
+    public void setAge(int age) {
+        ageChecker(age);
+        this.age = age;
     }
 
     public Color getColor() {
         return this.color;
     }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
     public DragonType getType() {
         return this.type;
     }
 
+    public void setType(DragonType type) {
+        this.type = type;
+    }
+
     public DragonCharacter getCharacter() {
         return this.character;
+    }
+
+    public void setCharacter(DragonCharacter character) {
+        this.character = character;
     }
 
     public DragonCave getCave() {
@@ -178,7 +189,7 @@ public class Dragon implements Comparable<Dragon> {
     }
 
     public String toString() {
-        return  "Идентификатор = " + id + "\n" +
+        return "Идентификатор = " + id + "\n" +
                 "Имя = " + name + "\n" +
                 "Координаты = " + coordinates.toString() + "\n" +
                 "Дата инициализации = " + creationDate + "\n" +
