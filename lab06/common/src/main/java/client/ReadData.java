@@ -50,7 +50,6 @@ public class ReadData implements Serializable, AutoCloseable {
         Float depth = Float.parseFloat(input("глубина пещеры", CollectionChecker::depthChecker, Function.identity()));
         int numberOfTreasures = input("количество сокровищ", CollectionChecker::numberOfTreasuresChecker, Integer::valueOf);
         DragonCave cave = new DragonCave(depth, numberOfTreasures);
-        System.out.println(Dragon.getFreeId());
         return new Dragon(name, coordinates, age, color, type, cave, character);
     }
 
@@ -65,7 +64,6 @@ public class ReadData implements Serializable, AutoCloseable {
                 if (line == null || line.equals("return")) throw new InterruptedException("Возврат вызван.");
                 K result = null;
                 if (!line.isBlank()) {
-                    System.out.println(1);
                     try {
                         result = parser.apply(line);
                     } catch (NumberFormatException e) {
@@ -80,7 +78,6 @@ public class ReadData implements Serializable, AutoCloseable {
                 throw e;
             } catch (WrongArgumentException | IllegalArgumentException | NullPointerException ex) {
                 if (inScript) {
-                    System.out.println(1);
                     throw new InvalidFileException("Недопустимый файл скрипта.");
                 }
                 System.out.println(ex.getMessage());

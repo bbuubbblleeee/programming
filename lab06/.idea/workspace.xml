@@ -4,10 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cfd89416-8641-425e-aa0e-73e393d918d2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../lab05/src/main/id.json" beforeDir="false" afterPath="$PROJECT_DIR$/../lab05/src/main/id.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab05/src/main/java/client/Console.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab05/src/main/java/client/Console.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab05/src/main/java/collection/Dragon.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab05/src/main/java/collection/Dragon.java" afterDir="false" />
+    <list default="true" id="cfd89416-8641-425e-aa0e-73e393d918d2" name="Changes" comment="Lab06 added.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/ClientMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Execute_script.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Execute_script.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Handler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/client/ReadData.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/client/ReadData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/collection/Dragon.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/collection/Dragon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/transfer/Serializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/transfer/Serializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab05 diagram.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/collectionManager/CollectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/collectionManager/CollectionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/Command.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/CountByAge.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/CountByAge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Exit.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/Exit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/Help.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/PrintFieldDescendingCharacter.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/PrintFieldDescendingCharacter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/RemoveAnyByAge.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/RemoveAnyByAge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/RemoveById.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/RemoveById.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/RemoveGreater.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/RemoveGreater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/RemoveLower.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/RemoveLower.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Save.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/serverCommands/Save.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Show.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/Show.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/invoker/CommandsStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/invoker/CommandsStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/main/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/ServerMain.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +47,9 @@
           <activation />
         </task>
         <task path="$PROJECT_DIR$/client">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$/common">
           <activation />
         </task>
         <projects_view>
@@ -51,35 +75,13 @@
                 <item name="lab06" type="f1a62948:ProjectNode" />
                 <item name="client" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="distribution" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="lab06" type="f1a62948:ProjectNode" />
-                <item name="client" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="documentation" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="lab06" type="f1a62948:ProjectNode" />
-                <item name="client" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="help" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="lab06" type="f1a62948:ProjectNode" />
-                <item name="client" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="shadow" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="lab06" type="f1a62948:ProjectNode" />
                 <item name="client" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="verification" type="c8890929:TasksNode$1" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -149,6 +151,9 @@
     &quot;accountId&quot;: &quot;b2b7e9b2-3b32-4630-9912-c4e06812aba3&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 5
@@ -185,7 +190,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -480,12 +485,26 @@
       <workItem from="1745410244170" duration="994000" />
       <workItem from="1745490820306" duration="12000" />
       <workItem from="1745524092521" duration="14266000" />
-      <workItem from="1745589396419" duration="12847000" />
+      <workItem from="1745589396419" duration="26507000" />
+      <workItem from="1745642398095" duration="9076000" />
     </task>
+    <task id="LOCAL-00001" summary="Lab06 added.">
+      <option name="closed" value="true" />
+      <created>1745608851181</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1745608851181</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Lab06 added." />
+    <option name="LAST_COMMIT_MESSAGE" value="Lab06 added." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

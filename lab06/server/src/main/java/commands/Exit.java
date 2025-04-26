@@ -9,6 +9,7 @@ import transfer.Response;
  * The command terminates the program.
  */
 public class Exit extends Command {
+    //закрытие клиента реализовано на клиенте, здесь осталось только ради команды help
     public Exit() {
         super("exit", "завершает программу", 0, 0);
     }

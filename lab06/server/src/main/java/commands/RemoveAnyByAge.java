@@ -4,6 +4,8 @@ import collection.Dragon;
 import transfer.Request;
 import transfer.Response;
 
+import java.util.Optional;
+
 import static collectionManager.CollectionManager.dragons;
 import static main.ServerMain.getCollectionManager;
 
@@ -28,12 +30,12 @@ public class RemoveAnyByAge extends Command {
         } catch (NumberFormatException e) {
             return new Response("Недопустимое значение.\nОжидался аргумент типа int.");
         }
-        for (Dragon dragon : dragons) {
-            if (dragon.getAge() == age) {
-                getCollectionManager().remove(dragon);
-                return new Response("Элемент, чей возраст = " + age + ", был успешно удалён из коллекции.");
-            }
+        Optional<Dragon> dragonRemove = dragons.stream().filter(dragon -> dragon.getAge() == age).findAny();
+        Dragon dragon = dragonRemove.orElse(null);
+        if (dragon == null){
+            return new Response("Элемент с таким возрастом не был найден.");
         }
-        return new Response("Элемент с таким возрастом не был найден.");
+        dragons.remove(dragon);
+        return new Response("Элемент, чей возраст = " + age + ", был успешно удалён из коллекции.");
     }
 }

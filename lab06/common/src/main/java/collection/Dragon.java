@@ -51,7 +51,6 @@ public class Dragon implements Comparable<Dragon>, Serializable {
     private DragonCave cave; //Поле не может быть null
 
     public Dragon(String name, Coordinates coordinates, int age, Color color, DragonType type, DragonCave cave, DragonCharacter character) {
-        setIdAuto();
         this.name = name;
         this.coordinates = coordinates;
         this.age = age;
@@ -59,7 +58,6 @@ public class Dragon implements Comparable<Dragon>, Serializable {
         this.type = type;
         this.character = character;
         this.cave = cave;
-        setDateAuto();
     }
 
     public Dragon(Long id, String name, Coordinates coordinates, int age, Color color, DragonType type, DragonCave cave, DragonCharacter character) {

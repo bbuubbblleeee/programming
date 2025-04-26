@@ -1,6 +1,7 @@
 package invoker;
 
 import commands.*;
+import serverCommands.Save;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +30,6 @@ public class CommandsStorage {
             Map.entry("remove_lower", new RemoveLower()),
             Map.entry("show", new Show()),
             Map.entry("update", new Update()),
-            Map.entry("save", new Save()),
             Map.entry("execute_script", new ExecuteScript())
     ));
 }

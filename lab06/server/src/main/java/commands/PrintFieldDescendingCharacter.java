@@ -6,8 +6,10 @@ import transfer.Request;
 import transfer.Response;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import static collectionManager.CollectionManager.dragons;
 import static main.ServerMain.getCollectionManager;
@@ -29,14 +31,8 @@ public class PrintFieldDescendingCharacter extends Command {
         }
         StringJoiner stringJoiner = new StringJoiner("\n");
         List<Dragon> dragonsReversed = new ArrayList<>(dragons);
-        for (int i = dragonsReversed.size() - 1; i >= 0; i--) {
-            DragonCharacter character = dragonsReversed.get(i).getCharacter();
-            if (character == null) {
-                continue;
-            }
-            stringJoiner.add(character.toString());
-        }
-        String res = stringJoiner.toString();
+        String res = dragonsReversed.stream().sorted(Comparator.reverseOrder()).
+                map(dragon -> dragon.getCharacter() == null ? "-" : dragon.getCharacter().toString()).collect(Collectors.joining("\n"));
         return new Response(res.isEmpty() ? "Поле character пусто у всех элементов коллекции." : res);
     }
 }

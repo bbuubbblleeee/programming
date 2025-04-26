@@ -5,6 +5,8 @@ import exceptions.WrongArgumentException;
 import transfer.Request;
 import transfer.Response;
 
+import java.util.Optional;
+
 import static collectionManager.CollectionManager.dragons;
 import static main.ServerMain.getCollectionManager;
 
@@ -33,12 +35,12 @@ public class RemoveById extends Command {
         } catch (WrongArgumentException ex) {
             return new Response(ex.getMessage());
         }
-        for (Dragon dragon : dragons) {
-            if (dragon.getId() == id) {
-                getCollectionManager().remove(dragon);
-                return new Response("Элемент, чей идентификатор = " + id + ", был успешно удалён из коллекции.");
-            }
+        Optional<Dragon> dragonRemove = dragons.stream().filter(dragon -> dragon.getId() == id).findAny();
+        Dragon dragon = dragonRemove.orElse(null);
+        if (dragon == null){
+            return new Response("Элемент с идентификатором = " + id + " не был найден.");
         }
-        return new Response("Элемент с идентификатором = " + id + " не был найден.");
+        dragons.remove(dragon);
+        return new Response("Элемент, чей идентификатор = " + id + ", был успешно удалён из коллекции.");
     }
 }

@@ -35,7 +35,5 @@ public abstract class Command {
     public int getRequiredArgs() {
         return requiredArgs;
     }
-//    public int getRequiredDragon(){ TODO убрать, вроде нигде не используется
-//        return requiredDragon;
-//    }
+
 }

@@ -14,7 +14,6 @@ import static transfer.Serializer.serialize;
 
 public class Client {
     private static final int TIME_OUT = 5000;
-    //TODO закрыть канал
     private int port = 1234;
     private SocketAddress serverAddress;
     private DatagramChannel channel;
@@ -32,13 +31,19 @@ public class Client {
     }
 
     public void sendRequest(Request request) throws IOException {
-        ByteBuffer byteBuffer = ByteBuffer.allocate(65535);
+        ByteBuffer.allocate(8096);
+        ByteBuffer byteBuffer;
         byteBuffer = ByteBuffer.wrap(serialize(request));
-        channel.write(byteBuffer);
+        try {
+            channel.write(byteBuffer);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public Response recieveResponse() throws IOException, ClassNotFoundException {
-        ByteBuffer byteBuffer = ByteBuffer.allocate(65535);
+        ByteBuffer byteBuffer = ByteBuffer.allocate(8096);
         long startTime = System.currentTimeMillis();
 
         while (System.currentTimeMillis() - startTime < TIME_OUT) {
@@ -59,5 +64,8 @@ public class Client {
         return new Response("Ошибка: нет ответа от сервера.");
     }
 
+    public void close() throws IOException {
+        channel.close();
+    }
 
 }

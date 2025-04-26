@@ -43,8 +43,13 @@ public class Handler {
                     }
 
                     Execute_script executeScript = new Execute_script(args[0]);
+                    pathStack.pop();
+                    return null;
                 }
-                case "exit" -> System.exit(0);
+                case "exit" -> {
+                    ClientMain.getClient().close();
+                    System.exit(0);
+                }
                 case "update", "add", "add_if_max", "remove_greater", "remove_lower" -> {
                     dragons.add(readData.get());
                     return new Request(commandStr, args, dragons);

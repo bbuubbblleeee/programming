@@ -26,9 +26,10 @@ public class ClientMain {
     }
 
     public static String sendAndGetResponse(Request request) throws IOException, ClassNotFoundException {
-        System.out.println("реквест получен");
         client.sendRequest(request);
-        System.out.println("успех");
         return client.recieveResponse().toString();
+    }
+    public static Client getClient(){
+        return client;
     }
 }

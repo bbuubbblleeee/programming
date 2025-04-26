@@ -5,6 +5,7 @@ import transfer.Request;
 import transfer.Response;
 
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import static collectionManager.CollectionManager.dragons;
 import static main.ServerMain.getCollectionManager;
@@ -23,10 +24,6 @@ public class Show extends Command {
         if (getCollectionManager().isCollectionEmpty()) {
             return new Response("Коллекция пуста, выполнение этой команды не имеет смысла.");
         }
-        StringJoiner stringJoiner = new StringJoiner("\n");
-        for (Dragon dragon : dragons) {
-            stringJoiner.add(dragon.toString());
-        }
-        return new Response(stringJoiner.toString());
+        return new Response(dragons.stream().map(Dragon::toString).collect(Collectors.joining("\n")));
     }
 }

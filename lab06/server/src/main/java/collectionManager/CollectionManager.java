@@ -7,8 +7,11 @@ import dao.FileDao;
 import transfer.Response;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 /**
  * The class stores a collection and contains methods that implement commands that work directly with the collection.
@@ -17,7 +20,7 @@ import java.util.TreeSet;
  *  <li> {@link #add(Dragon)} - implements the add command (adds an item to the collection).</li>
  *  <li> {@link #remove(Dragon)} - implements “remove%” commands (removes an item from the collection).</li>
  *  <li> {@link #info()} - implements the info command (provides basic data about the collection).</li>
- *  <li> {@link #update(Long, ReadData)} - implements the update command (updates item data from the collection).</li>
+ *  <li> {@link #update(Long, Dragon)} - implements the update command (updates item data from the collection).</li>
  *  <li> {@link #clear()} - implements the clear command (clears the collection).</li>
  *  <li> {@link #save()} - implements the save command (saves the collection to a file).</li>
  * </ul>
@@ -25,8 +28,7 @@ import java.util.TreeSet;
 public class CollectionManager {
     public static TreeSet<Dragon> dragons = new TreeSet<>();
     protected static String date;
-    protected final FileDao fileDao = FileDao.getInstance(); //TODO мб сделать статик?
-    protected final Path idFilePath = Path.of("src\\main\\id.json");
+    protected final FileDao fileDao = FileDao.getInstance();
 
     public void add(Dragon dragon) {
         dragons.add(dragon);
@@ -48,13 +50,10 @@ public class CollectionManager {
     public Response update(Long id, Dragon dragonNew) {
         Dragon dragonUpdate = null;
         boolean found = false;
-        for (Dragon dragon : dragons) {
-            if (dragon.getId().equals(id)) {
-                dragonUpdate = dragon;
-                found = true;
-            }
-        }
-        if (!found) {
+        List<Dragon> dragonList = dragons.stream()
+                .filter(dragon -> dragon.getId() != null && dragon.getId().equals(id)).toList();
+        dragonUpdate = dragonList.isEmpty() ? null : dragonList.get(0);
+        if (dragonUpdate == null) {
             return new Response("Элемент, идентификатор которого равен " + id + ", не был найден.");
         }
         dragonUpdate.setName(dragonNew.getName());
@@ -86,11 +85,4 @@ public class CollectionManager {
         return dragons.isEmpty();
     }
 
-//    public void saveLastId(Long id) throws FileNotFoundException, FilePermissionException {
-//        fileDao.saveLastId(id, idFilePath);
-//    }
-//
-//    public Long getLastId() throws FileNotFoundException, FilePermissionException {
-//        return fileDao.getLastId(idFilePath);
-//    }
 }

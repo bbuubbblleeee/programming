@@ -3,7 +3,9 @@ package commands;
 import transfer.Request;
 import transfer.Response;
 
+import java.util.List;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import static invoker.CommandsStorage.commands;
 
@@ -20,9 +22,10 @@ public class Help extends Command {
     public Response execute(Request request) {
         StringJoiner stringJoiner = new StringJoiner("\n");
         stringJoiner.add("Доступные команды:");
-        for (Command command : commands.values()) {
-            stringJoiner.add(" - " + command.getName() + ": " + command.getPurpose());
-        }
-        return new Response(stringJoiner.toString());
+        String string = commands.values().stream().map(command -> "- " + command.getName() + ": " + command.getPurpose()).collect(Collectors.joining("\n"));
+//        for (Command command : commands.values()) {
+//            stringJoiner.add(" - " + command.getName() + ": " + command.getPurpose());
+//        }
+        return new Response(string);
     }
 }

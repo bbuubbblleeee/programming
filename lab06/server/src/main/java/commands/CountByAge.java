@@ -4,6 +4,8 @@ import collection.Dragon;
 import transfer.Request;
 import transfer.Response;
 
+import java.util.List;
+
 import static collectionManager.CollectionManager.dragons;
 import static main.ServerMain.getCollectionManager;
 
@@ -27,12 +29,8 @@ public class CountByAge extends Command {
         } catch (Exception e) {
             return new Response("Недопустимое значение.\nОжидался аргумент типа int.");
         }
-        long count = 0L;
-        for (Dragon dragon : dragons) {
-            if (dragon.getAge() == age) {
-                count++;
-            }
-        }
+        long count = dragons.stream().filter(dragon -> dragon.getAge() == age).toList().size();
+
         return new Response("Количество элементов, значение поля age которых равно " + age + ": " + count);
     }
 }

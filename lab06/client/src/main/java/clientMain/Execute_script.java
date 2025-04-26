@@ -2,6 +2,7 @@ package clientMain;
 
 import client.ReadData;
 import exceptions.InvalidFileException;
+import transfer.Request;
 
 public class Execute_script {
 
@@ -9,9 +10,12 @@ public class Execute_script {
         try (ReadData readData = new ReadData(filePath)) {
             while (readData.myReader.hasNextLine()) {
                 String command = readData.myReader.readLine();
-                System.out.println("Текущая команда: " + command + ".");
                 Handler handler = new Handler(command, readData);
-                System.out.println(ClientMain.sendAndGetResponse(handler.getRequest()));
+                Request request = handler.getRequest();
+                if (request == null){
+                    throw new InvalidFileException("Ошибка скрипта.");
+                }
+                System.out.println(ClientMain.sendAndGetResponse(request));
             }
         } catch (Exception e) {
             throw new InvalidFileException(e.getMessage());
