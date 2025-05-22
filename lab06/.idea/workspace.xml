@@ -5,29 +5,86 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfd89416-8641-425e-aa0e-73e393d918d2" name="Changes" comment="Lab06 added.">
+      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/labs.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/settings.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/client/Console.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/client/ReadData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collection/Color.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collection/Coordinates.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collection/Dragon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collection/DragonCave.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collection/DragonCharacter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collection/DragonType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collection/checkers/ArgumentChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collection/checkers/CollectionChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collectionManager/CollectionManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collectionManager/InMemoryCollection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/Add.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/AddIfMax.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/Clear.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/CountByAge.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/ExecuteScript.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/Exit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/Help.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/Info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/PrintFieldDescendingCharacter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/RemoveAnyByAge.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/RemoveById.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/RemoveGreater.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/RemoveLower.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/Save.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/Show.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/Update.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/dao/DAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/dao/FileDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/exceptions/EndOfInputException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/exceptions/FilePermissionException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/exceptions/InvalidCommandException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/exceptions/InvalidFileException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/exceptions/WrongArgumentException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/exceptions/WrongNumberOfArguments.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/invoker/CommandsStorage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/invoker/Handler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/invoker/Invoker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/io/ConsoleReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/io/FileReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/io/MyReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/main/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/transfer/GsonHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/transfer/Request.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/transfer/Response.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/test.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/test.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab06.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/serverCommands/ExitServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/serverCommands/ServerCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/ClientMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Execute_script.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Execute_script.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Handler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/client/ReadData.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/client/ReadData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/collection/Dragon.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/collection/Dragon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/transfer/Serializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/transfer/Serializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab05 diagram.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/collectionManager/CollectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/collectionManager/CollectionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/Command.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/CountByAge.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/CountByAge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Exit.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/Exit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/Help.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/PrintFieldDescendingCharacter.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/PrintFieldDescendingCharacter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/RemoveAnyByAge.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/RemoveAnyByAge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/RemoveById.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/RemoveById.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/RemoveGreater.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/RemoveGreater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/RemoveLower.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/RemoveLower.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Save.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/serverCommands/Save.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Show.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/Show.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/invoker/CommandsStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/invoker/CommandsStorage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/main/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/ServerMain.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -80,12 +137,6 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="lab06" type="f1a62948:ProjectNode" />
-                <item name="client" type="2d1252cf:ModuleNode" />
-                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="lab06" type="f1a62948:ProjectNode" />
                 <item name="server" type="2d1252cf:ModuleNode" />
               </path>
               <path>
@@ -93,20 +144,6 @@
                 <item name="lab06" type="f1a62948:ProjectNode" />
                 <item name="server" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="lab06" type="f1a62948:ProjectNode" />
-                <item name="server" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="application" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="lab06" type="f1a62948:ProjectNode" />
-                <item name="server" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -114,12 +151,6 @@
                 <item name="server" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="shadow" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="lab06" type="f1a62948:ProjectNode" />
-                <item name="server" type="2d1252cf:ModuleNode" />
-                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
               </path>
             </expand>
             <select />
@@ -180,7 +211,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Liza/Desktop/ITMO/programming java/labs/lab06&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Liza/Desktop/untitled1&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -486,7 +517,23 @@
       <workItem from="1745490820306" duration="12000" />
       <workItem from="1745524092521" duration="14266000" />
       <workItem from="1745589396419" duration="26507000" />
-      <workItem from="1745642398095" duration="9076000" />
+      <workItem from="1745642398095" duration="12329000" />
+      <workItem from="1745677405469" duration="333000" />
+      <workItem from="1745697403564" duration="2427000" />
+      <workItem from="1745699875983" duration="1594000" />
+      <workItem from="1745748285387" duration="2518000" />
+      <workItem from="1746643049667" duration="142000" />
+      <workItem from="1746644177078" duration="236000" />
+      <workItem from="1746648273989" duration="31000" />
+      <workItem from="1746830430836" duration="212000" />
+      <workItem from="1746864589144" duration="526000" />
+      <workItem from="1746865129716" duration="547000" />
+      <workItem from="1747071792717" duration="625000" />
+      <workItem from="1747147017106" duration="3397000" />
+      <workItem from="1747223454896" duration="61000" />
+      <workItem from="1747930258752" duration="480000" />
+      <workItem from="1747930756128" duration="88000" />
+      <workItem from="1747930979327" duration="519000" />
     </task>
     <task id="LOCAL-00001" summary="Lab06 added.">
       <option name="closed" value="true" />
@@ -496,13 +543,77 @@
       <option name="project" value="LOCAL" />
       <updated>1745608851181</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Lab06 added.">
+      <option name="closed" value="true" />
+      <created>1745653364585</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1745653364585</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Lab06 added.">
+      <option name="closed" value="true" />
+      <created>1745677662201</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1745677662201</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Lab06 added.">
+      <option name="closed" value="true" />
+      <created>1745698401725</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1745698401725</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Lab06 added.">
+      <option name="closed" value="true" />
+      <created>1745698659168</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1745698659168</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Lab06 added.">
+      <option name="closed" value="true" />
+      <created>1745699290254</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1745699290254</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;lab06/.idea/workspace.xml" />
     <MESSAGE value="Lab06 added." />
     <option name="LAST_COMMIT_MESSAGE" value="Lab06 added." />
   </component>

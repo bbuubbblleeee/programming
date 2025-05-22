@@ -3,7 +3,7 @@ package main;
 import collectionManager.CollectionManager;
 import collectionManager.InMemoryCollection;
 import commands.Command;
-import commands.ExitServer;
+import serverCommands.ExitServer;
 import exceptions.InvalidCommandException;
 import exceptions.WrongNumberOfArguments;
 import invoker.Invoker;
