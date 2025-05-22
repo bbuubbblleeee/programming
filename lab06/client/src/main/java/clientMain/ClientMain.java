@@ -7,7 +7,6 @@ import transfer.Request;
 
 import java.io.IOException;
 
-
 public class ClientMain {
     private static final Client client = new Client();
 

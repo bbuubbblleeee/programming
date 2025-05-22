@@ -1,7 +1,6 @@
 package serverCommands;
 
-import commands.Command;
-import transfer.Request;
+
 import transfer.Response;
 
 import static main.ServerMain.getCollectionManager;

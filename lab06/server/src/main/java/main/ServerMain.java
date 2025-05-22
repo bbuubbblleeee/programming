@@ -8,7 +8,6 @@ import exceptions.InvalidCommandException;
 import exceptions.WrongNumberOfArguments;
 import invoker.Invoker;
 import serverCommands.Save;
-import serverCommands.ServerCommand;
 import transfer.Request;
 import transfer.Response;
 
