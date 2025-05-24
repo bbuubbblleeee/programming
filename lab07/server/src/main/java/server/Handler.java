@@ -16,65 +16,38 @@ import java.nio.channels.DatagramChannel;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveTask;
 
 import static invoker.CommandsStorage.commands;
 import static transfer.Serializer.serialize;
 
-public class Handler implements Runnable{
-    private final BlockingQueue<RequestTask> requestQueue;
-    private final DatagramChannel channel;
-
-    public Handler(BlockingQueue<RequestTask> requestQueue, DatagramChannel channel) {
-        this.requestQueue = requestQueue;
-        this.channel = channel;
+public class Handler extends RecursiveTask<Response> {
+    private Request request;
+    public Handler (Request request){
+        this.request = request;
     }
 
     @Override
-    public void run() {
-        while (true) {
-            try {
-                RequestTask task = requestQueue.take();
-                ForkJoinPool.commonPool().submit(() -> {
-                    Request request = task.request;
-                    Command command = findCommand(request.command());
-                    String[] arguments = request.args();
+    protected Response compute() {
+        try {
+            Command command = findCommand(request.command());
+            String[] arguments = request.args();
 
-                    if (request.login() == null && request.password() == null){
-                        throw new LoginUserException("Выполнение команд недоступно без авторизации. Пожалуйста, авторизуйтесь или создайте новый аккаунт.");
-                    }
-                    User user = new User(request.login(), request.password());
-
-                    if (arguments.length != command.getRequiredArgs()) {
-                        throw new WrongNumberOfArguments();
-                    }
-
-                    Invoker invoker = new Invoker();
-                    try {
-                        sendResponse(invoker.executeCommand(request), channel, task.clientAddress);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-            } catch (Exception e) {
-                Thread.currentThread().interrupt();
-                break;
+            if (request.login() == null && request.password() == null){
+                throw new LoginUserException("Выполнение команд недоступно без авторизации. Пожалуйста, авторизуйтесь или создайте новый аккаунт.");
             }
+            User user = new User(request.login(), request.password());
+
+            if (arguments.length != command.getRequiredArgs()) {
+                throw new WrongNumberOfArguments();
+            }
+
+            Invoker invoker = new Invoker();
+            Response response = invoker.executeCommand(request);
+            return response;
+        } catch (Exception e) {
+            return new Response(e.getMessage());
         }
-    }
-
-    public void sendResponse(Response response, DatagramChannel datagramChannel, InetSocketAddress inetSocketAddress) throws IOException {
-        Executors.newCachedThreadPool().submit(() -> {
-            try {
-                ByteBuffer byteBuffer = ByteBuffer.allocate(8096);
-                byteBuffer.clear();
-                byteBuffer = ByteBuffer.wrap(serialize(response));
-                synchronized (channel) { // или через ReentrantLock
-                    datagramChannel.send(byteBuffer, inetSocketAddress);
-                }
-            } catch (IOException e) {
-                System.err.println("Ошибка отправки: " + e.getMessage());
-            }
-        });
     }
 
     private static Command findCommand(String commandString) throws InvalidCommandException {

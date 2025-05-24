@@ -22,6 +22,7 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.*;
 
 import static invoker.CommandsStorage.commands;
 import static transfer.Serializer.deserialize;
@@ -31,6 +32,9 @@ import static transfer.Serializer.serialize;
 public class ServerMain {
     private static final CollectionManager collectionManager = new DatabaseManager();
     private static InetSocketAddress inetSocketAddress;
+    private static final ExecutorService recievePool = Executors.newCachedThreadPool();
+    private static ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
+    private static final ExecutorService responsePool = Executors.newCachedThreadPool();
     private static int port = 1234;
 
 
@@ -50,7 +54,29 @@ public class ServerMain {
                     SelectionKey key = iterator.next();
                     iterator.remove();
                     if (key.isReadable()){
-                        handler(datagramChannel);
+                        Request request = null;
+                        try {
+                            RequestTask requestTask = recieveRequest(datagramChannel);
+                            if (requestTask == null){
+                                return;
+                            }
+                            inetSocketAddress = requestTask.clientAddress;
+                            request = requestTask.request;
+                            System.out.println(inetSocketAddress);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                        ForkJoinTask<Response> task = forkJoinPool.submit(new Handler(request));
+                        responsePool.execute(() -> {
+                            try {
+                                Response response = task.join();
+                                System.out.println(response);
+                                System.out.println(inetSocketAddress);
+                                sendResponse(response, datagramChannel);
+                            } catch (IOException e) {
+                                System.out.println(123);
+                            }
+                        });
                     }
                 }
 
@@ -66,8 +92,11 @@ public class ServerMain {
                     }
                 }
             }
+
         } catch (Exception e) {
         }
+        System.out.println(123);
+
     }
 
     public static DatabaseManager getCollectionManager() {
@@ -76,22 +105,24 @@ public class ServerMain {
 
 
 
-    private static Request recieveRequest(DatagramChannel datagramChannel) throws IOException, ClassNotFoundException {
+    private static synchronized RequestTask recieveRequest(DatagramChannel datagramChannel) throws IOException, ClassNotFoundException {
         ByteBuffer byteBuffer = ByteBuffer.allocate(8096);
         byteBuffer.clear();
-        inetSocketAddress = (InetSocketAddress) datagramChannel.receive(byteBuffer);
+        InetSocketAddress temp = (InetSocketAddress) datagramChannel.receive(byteBuffer);
+        if (temp == null){
+            return null;
+        }
+        inetSocketAddress = temp;
         byteBuffer.flip(); // переходим от записи в буфер к чтению
         Object object = deserialize(byteBuffer.array());
         if (object instanceof Request request) {
-            return request;
+            return new RequestTask(request, inetSocketAddress);
         }
         return null;
     }
 
-    private static void sendResponse(Response response, DatagramChannel datagramChannel) throws IOException {
-        if (response == null){
-            return;
-        }
+    private static synchronized void sendResponse(Response response, DatagramChannel datagramChannel) throws IOException {
+        if (response == null || inetSocketAddress == null) return;
         ByteBuffer byteBuffer = ByteBuffer.allocate(8096);
         byteBuffer.clear();
         byteBuffer = ByteBuffer.wrap(serialize(response));
@@ -109,9 +140,8 @@ public class ServerMain {
     }
 
 
-    private static void handler(DatagramChannel datagramChannel) throws IOException {
+    private static synchronized Response handler(Request request) throws IOException {
         try {
-            Request request = recieveRequest(datagramChannel);
             Command command = findCommand(request.command());
             String[] arguments = request.args();
 
@@ -124,16 +154,11 @@ public class ServerMain {
                 throw new WrongNumberOfArguments();
             }
 
-//            if (command.getName().equals("add") || command.getName().equals("add_if_max") || command.getName().equals("remove_lower") || command.getName().equals("remove_greater")){
-//                request.dragons().get(0).setIdAuto();
-//                request.dragons().get(0).setDateAuto();
-//            }
-
             Invoker invoker = new Invoker();
             Response response = invoker.executeCommand(request);
-            sendResponse(response, datagramChannel);
+            return response;
         } catch (Exception e) {
-            sendResponse(new Response(e.getMessage()), datagramChannel);
+            return new Response(e.getMessage());
         }
     }
 }
