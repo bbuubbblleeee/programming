@@ -1,0 +1,2964 @@
+Index: ../lab05 откат на англ версию/src/main/java/commands/RemoveAnyByAge.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/commands/RemoveAnyByAge.java b/../lab05 откат на англ версию/src/main/java/commands/RemoveAnyByAge.java
+new file mode 100644
+--- /dev/null	(date 1742002009499)
++++ b/../lab05 откат на англ версию/src/main/java/commands/RemoveAnyByAge.java	(date 1742002009499)
+@@ -0,0 +1,38 @@
++package commands;
++
++import collection.Dragon;
++import transfer.Request;
++import transfer.Response;
++
++import static collectionManager.CollectionManager.dragons;
++
++/**
++ * The class implements the remove_any_by_age command.
++ * The command removes from the collection one element whose age field value is equivalent to the specified one.
++ */
++
++public class RemoveAnyByAge extends Command{
++    public RemoveAnyByAge(){
++        super("remove_any_dy_age", "removes from the collection one element whose age equals the given value.", 1, 0);
++    }
++    @Override
++    public Response execute(Request request) {
++        if (collectionManager.isCollectionEmpty()){
++            return new Response("The collection is empty, there's no point in running this command.");
++        }
++        int age;
++        try{
++            age = Integer.parseInt(request.args()[0]);
++        }
++        catch (NumberFormatException e){
++            return new Response("Invalid type of argument. Expected int.");
++        }
++        for (Dragon dragon : dragons){
++            if (dragon.getAge() == age){
++                collectionManager.remove(dragon);
++                return new Response("The element, whose age = " + age + ", was successfully removed from the collection.");
++            }
++        }
++        return new Response("The element with such age wasn't found.");
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/client/ReadData.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/client/ReadData.java b/../lab05 откат на англ версию/src/main/java/client/ReadData.java
+new file mode 100644
+--- /dev/null	(date 1742033376360)
++++ b/../lab05 откат на англ версию/src/main/java/client/ReadData.java	(date 1742033376360)
+@@ -0,0 +1,79 @@
++package client;
++
++import collection.*;
++
++import collection.checkers.CollectionChecker;
++import exceptions.InvalidFileException;
++import exceptions.WrongArgumentException;
++import io.ConsoleReader;
++import io.FileReader;
++import io.MyReader;
++
++import java.util.Arrays;
++import java.util.function.Consumer;
++import java.util.function.Function;
++
++/**
++ * The class is responsible for inputting, checking and validating the arguments required to create an object of the lass {@link Dragon}.
++ * Can read data from the console or from a file.
++ **/
++public class ReadData {
++    public final MyReader myReader;
++    private final boolean inScript;
++
++    public ReadData(String filePath){
++        this.inScript = true;
++        myReader = new FileReader(filePath);
++    }
++    public ReadData(){
++        this.inScript = false;
++        myReader = new ConsoleReader();
++    }
++
++    public Dragon get() throws InterruptedException {
++        String name = input("name", CollectionChecker::nameChecker, Function.identity()) ;
++        int age = input("age", CollectionChecker::ageChecker, Integer::valueOf) ;
++        Color color = input("color %s".formatted(
++                Arrays.toString(Color.values())), null , s -> Color.valueOf(s.toUpperCase()));
++        DragonType type = input("type %s".formatted(
++                Arrays.toString(DragonType.values())), CollectionChecker::typeChecker, s -> DragonType.valueOf(s.toUpperCase()));
++
++        DragonCharacter character = input("character %s".formatted(
++                Arrays.toString(DragonCharacter.values())), null, s-> DragonCharacter.valueOf(s.toUpperCase()));
++
++        long x = input("coordinate x", CollectionChecker::xChecker, Long::valueOf) ;
++        long y = input("coordinate y", CollectionChecker::yChecker, Long::valueOf);
++        Coordinates coordinates = new Coordinates(x, y);
++
++        Float depth = input("depth of the cave", null, Float::valueOf);
++        int numberOfTreasures = input("number of treasures in the cave", CollectionChecker::numberOfTreasuresChecker, Integer::valueOf) ;
++        DragonCave cave = new DragonCave(depth, numberOfTreasures);
++
++        return new Dragon(name, coordinates, age, color, type, cave, character);
++    }
++
++    private <K> K input(
++            final String fieldName,
++            final Consumer<K> action,
++            final Function<String, K> parser
++    ) throws InterruptedException {
++        while (true) {
++            try {
++                String line = myReader.readLine(fieldName);
++                if (line == null || line.equals("return")) throw new InterruptedException("called return");
++                K result = line.isBlank() ? null : parser.apply(line);
++                if (action != null) {
++                    action.accept(result);
++                }
++                return result;
++            } catch (InterruptedException e) {
++                throw e;
++            } catch (WrongArgumentException | IllegalArgumentException | NullPointerException ex) {
++                if (inScript) {
++                    throw new InvalidFileException("Invalid script File.");
++                }
++                System.out.println(ex.getMessage());
++            }
++        }
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/commands/RemoveGreater.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/commands/RemoveGreater.java b/../lab05 откат на англ версию/src/main/java/commands/RemoveGreater.java
+new file mode 100644
+--- /dev/null	(date 1742002022259)
++++ b/../lab05 откат на англ версию/src/main/java/commands/RemoveGreater.java	(date 1742002022259)
+@@ -0,0 +1,33 @@
++package commands;
++
++import collection.Dragon;
++import transfer.Request;
++import transfer.Response;
++
++import static collectionManager.CollectionManager.dragons;
++
++
++/**
++ * The class implements the remove_greater command.
++ * The command removes from the collection all elements exceeding the specified one.
++ */
++public class RemoveGreater extends Command {
++    public RemoveGreater(){
++        super("remove_greater", "removes all elements from the collection that exceed the specified value.", 0, 1);
++    }
++    @Override
++    public Response execute(Request request) {
++        if (collectionManager.isCollectionEmpty()){
++            return new Response("The collection is empty, there's no point in running this command.");
++        }
++        long id = request.dragons().get(0).getId();
++        long count = 0L;
++        for (Dragon dragon : dragons){
++            if (dragon.getId() > id){
++                collectionManager.remove(dragon);
++                count++;
++            }
++        }
++        return new Response(count + " elements was removed from the collection.");
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/commands/RemoveById.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/commands/RemoveById.java b/../lab05 откат на англ версию/src/main/java/commands/RemoveById.java
+new file mode 100644
+--- /dev/null	(date 1742002015426)
++++ b/../lab05 откат на англ версию/src/main/java/commands/RemoveById.java	(date 1742002015426)
+@@ -0,0 +1,44 @@
++package commands;
++
++import collection.Dragon;
++import exceptions.WrongArgumentException;
++import transfer.Request;
++import transfer.Response;
++
++import static collectionManager.CollectionManager.dragons;
++
++/**
++ * The class implements the remove_by_id command.
++ * The command removes an item from the collection by its id.
++ */
++public class RemoveById extends Command{
++    public RemoveById(){
++        super("remove_by_id", "removes from the collection an element whose id equals the given value.", 1, 0);
++    }
++    @Override
++    public Response execute(Request request) {
++        if (collectionManager.isCollectionEmpty()){
++            return new Response("The collection is empty, there's no point in running this command.");
++        }
++        long id;
++        try{
++            id = Long.parseLong(request.args()[0]);
++            if (id < 0){
++                throw new WrongArgumentException("Invalid value.\nExpected value > 0.");
++            }
++        }
++        catch (NumberFormatException e){
++            return new Response("Invalid type of argument. Expected long.");
++        }
++        catch (WrongArgumentException ex){
++            return new Response(ex.getMessage());
++        }
++        for (Dragon dragon : dragons){
++            if (dragon.getId() == id){
++                collectionManager.remove(dragon);
++                return new Response("The element, whose id = " + id + ", was successfully removed from the collection.");
++            }
++        }
++        return new Response("The element with such id wasn't found.");
++    }
++}
+Index: ../lab05 откат на англ версию/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/.gitignore b/../lab05 откат на англ версию/.gitignore
+new file mode 100644
+--- /dev/null	(date 1741097146074)
++++ b/../lab05 откат на англ версию/.gitignore	(date 1741097146074)
+@@ -0,0 +1,42 @@
++.gradle
++build/
++!gradle/wrapper/gradle-wrapper.jar
++!**/src/main/**/build/
++!**/src/test/**/build/
++
++### IntelliJ IDEA ###
++.idea/modules.xml
++.idea/jarRepositories.xml
++.idea/compiler.xml
++.idea/libraries/
++*.iws
++*.iml
++*.ipr
++out/
++!**/src/main/**/out/
++!**/src/test/**/out/
++
++### Eclipse ###
++.apt_generated
++.classpath
++.factorypath
++.project
++.settings
++.springBeans
++.sts4-cache
++bin/
++!**/src/main/**/bin/
++!**/src/test/**/bin/
++
++### NetBeans ###
++/nbproject/private/
++/nbbuild/
++/dist/
++/nbdist/
++/.nb-gradle/
++
++### VS Code ###
++.vscode/
++
++### Mac OS ###
++.DS_Store
+\ No newline at end of file
+Index: ../lab05 откат на англ версию/src/main/java/transfer/Request.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/transfer/Request.java b/../lab05 откат на англ версию/src/main/java/transfer/Request.java
+new file mode 100644
+--- /dev/null	(date 1742035031958)
++++ b/../lab05 откат на англ версию/src/main/java/transfer/Request.java	(date 1742035031958)
+@@ -0,0 +1,16 @@
++package transfer;
++
++import client.ReadData;
++import collection.Dragon;
++import commands.Command;
++import io.MyReader;
++
++import java.util.ArrayList;
++
++/**
++ * The class creates a request to execute a command.
++ * <p>
++ * The request contains information about the command, its arguments, and a list of {@link Dragon} objects if they are required.
++ */
++public record Request(Command command, String[] args, ArrayList<Dragon> dragons, ReadData...readData) {
++}
+Index: ../lab05 откат на англ версию/.idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/.idea/.gitignore b/../lab05 откат на англ версию/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1742059075207)
++++ b/../lab05 откат на англ версию/.idea/.gitignore	(date 1742059075207)
+@@ -0,0 +1,8 @@
++# Default ignored files
++/shelf/
++/workspace.xml
++# Editor-based HTTP Client requests
++/httpRequests/
++# Datasource local storage ignored files
++/dataSources/
++/dataSources.local.xml
+Index: ../lab05 откат на англ версию/src/main/java/commands/RemoveLower.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/commands/RemoveLower.java b/../lab05 откат на англ версию/src/main/java/commands/RemoveLower.java
+new file mode 100644
+--- /dev/null	(date 1742002029474)
++++ b/../lab05 откат на англ версию/src/main/java/commands/RemoveLower.java	(date 1742002029474)
+@@ -0,0 +1,32 @@
++package commands;
++
++import collection.Dragon;
++import transfer.Request;
++import transfer.Response;
++
++import static collectionManager.CollectionManager.dragons;
++
++/**
++ * The class implements the remove_lower command.
++ * The command removes all elements smaller than the specified one from the collection.
++ */
++public class RemoveLower extends Command{
++    public RemoveLower(){
++        super("remove_lower", "removes from the collection all elements smaller than the specified value.", 0, 1);
++    }
++    @Override
++    public Response execute(Request request) {
++        if (collectionManager.isCollectionEmpty()){
++            return new Response("The collection is empty, there's no point in running this command.");
++        }
++        long id = request.dragons().get(0).getId();
++        long count = 0L;
++        for (Dragon dragon : dragons){
++            if (dragon.getId() < id){
++                collectionManager.remove(dragon);
++                count++;
++            }
++        }
++        return new Response(count + " elements was removed from the collection.");
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/commands/Save.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/commands/Save.java b/../lab05 откат на англ версию/src/main/java/commands/Save.java
+new file mode 100644
+--- /dev/null	(date 1742002037350)
++++ b/../lab05 откат на англ версию/src/main/java/commands/Save.java	(date 1742002037350)
+@@ -0,0 +1,27 @@
++package commands;
++
++import transfer.Request;
++import transfer.Response;
++
++/**
++ * The class implements the save command.
++ * The command saves the collection to a file.
++ */
++public class Save extends Command{
++    public Save(){
++        super("save", "saves the collection to a file.", 0, 0);
++    }
++    @Override
++    public Response execute(Request request) {
++        if (collectionManager.isCollectionEmpty()){
++            return new Response("The collection is empty, there's no point in running this command.");
++        }
++        try{
++            collectionManager.save();
++            return new Response("The collection was saved.");
++        }
++        catch (Exception e){
++            return new Response(e.getMessage() + ".\nThe collection wasn't saved.");
++        }
++    }
++}
+Index: ../lab05 откат на англ версию/.idea/.name
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/.idea/.name b/../lab05 откат на англ версию/.idea/.name
+new file mode 100644
+--- /dev/null	(date 1742059147615)
++++ b/../lab05 откат на англ версию/.idea/.name	(date 1742059147615)
+@@ -0,0 +1,1 @@
++lab05
+\ No newline at end of file
+Index: ../lab05 откат на англ версию/src/main/java/transfer/Response.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/transfer/Response.java b/../lab05 откат на англ версию/src/main/java/transfer/Response.java
+new file mode 100644
+--- /dev/null	(date 1742002572703)
++++ b/../lab05 откат на англ версию/src/main/java/transfer/Response.java	(date 1742002572703)
+@@ -0,0 +1,13 @@
++package transfer;
++
++
++/**
++ * The class provides a response to the command execution.
++ * The class stores messages about the result of command execution.
++ */
++public record Response (String message) {
++    @Override
++    public String toString(){
++        return message;
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/commands/Add.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/commands/Add.java b/../lab05 откат на англ версию/src/main/java/commands/Add.java
+new file mode 100644
+--- /dev/null	(date 1741999004921)
++++ b/../lab05 откат на англ версию/src/main/java/commands/Add.java	(date 1741999004921)
+@@ -0,0 +1,22 @@
++package commands;
++
++import transfer.Request;
++import transfer.Response;
++
++/**
++ * Command adds an element {@link collection.Dragon} to the collection.
++ *  * <p>
++ *  * Managed by {@link collectionManager.CollectionManager}.
++ */
++
++public class  Add extends Command {
++    public Add() {
++        super("add", "adds new item to the collection", 0, 1);
++    }
++
++    @Override
++    public Response execute(Request request) {
++        collectionManager.add(request.dragons().get(0));
++        return new Response("Dragon successfully added.");
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/commands/Show.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/commands/Show.java b/../lab05 откат на англ версию/src/main/java/commands/Show.java
+new file mode 100644
+--- /dev/null	(date 1742002045396)
++++ b/../lab05 откат на англ версию/src/main/java/commands/Show.java	(date 1742002045396)
+@@ -0,0 +1,31 @@
++package commands;
++
++import collection.Dragon;
++import transfer.Request;
++import transfer.Response;
++
++import java.util.StringJoiner;
++
++import static collectionManager.CollectionManager.dragons;
++
++/**
++ * The class implements the show command.
++ * The command outputs all elements of the collection in a string representation.
++ */
++public class Show extends Command{
++    public Show(){
++        super("show", "prints all elements of the collection in string representation.", 0, 0);
++    }
++
++    @Override
++    public Response execute(Request request) {
++        if (collectionManager.isCollectionEmpty()){
++            return new Response("The collection is empty, there's no point in running this command.");
++        }
++        StringJoiner stringJoiner = new StringJoiner("\n");
++        for (Dragon dragon : dragons){
++            stringJoiner.add(dragon.toString());
++        }
++        return new Response(stringJoiner.toString());
++    }
++}
+Index: ../lab05 откат на англ версию/settings.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/settings.gradle.kts b/../lab05 откат на англ версию/settings.gradle.kts
+new file mode 100644
+--- /dev/null	(date 1741097145854)
++++ b/../lab05 откат на англ версию/settings.gradle.kts	(date 1741097145854)
+@@ -0,0 +1,2 @@
++rootProject.name = "lab05"
++
+Index: ../lab05 откат на англ версию/src/main/java/commands/Update.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/commands/Update.java b/../lab05 откат на англ версию/src/main/java/commands/Update.java
+new file mode 100644
+--- /dev/null	(date 1742035776961)
++++ b/../lab05 откат на англ версию/src/main/java/commands/Update.java	(date 1742035776961)
+@@ -0,0 +1,33 @@
++package commands;
++
++import client.ReadData;
++import collection.Dragon;
++import transfer.Request;
++import transfer.Response;
++import client.ReadData.*;
++
++
++/**
++ * The class implements the update command.
++ * The command updates the value of a collection item whose id is equal to the specified one.
++ */
++public class Update extends Command{
++    public Update(){
++        super("update", "update the value of the collection item whose id is equal to the given one.", 1, 1);
++    }
++
++    @Override
++    public Response execute(Request request) {
++        if (collectionManager.isCollectionEmpty()){
++            return new Response("The collection is empty, there's no point in running this command.");
++        }
++        long id;
++        try{
++            id = Long.parseLong(request.args()[0]);
++        }
++        catch (NumberFormatException e){
++            return new Response("Invalid type of argument. Expected long.");
++        }
++        return collectionManager.update(id, request.readData()[0]);
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/test.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/test.txt b/../lab05 откат на англ версию/src/main/test.txt
+new file mode 100644
+--- /dev/null	(date 1742035367102)
++++ b/../lab05 откат на англ версию/src/main/test.txt	(date 1742035367102)
+@@ -0,0 +1,42 @@
++clear
++add
++Kirill
++20
++black
++air
++wise
++19
++1
++1
++2
++show
++add_if_max
++Kirill
++25
++green
++fire
++chaotic
++19
++10
++123
++23
++count_by_age 25
++help
++info
++print_field_descending_character
++remove_any_by_age 21
++remove_by_id 2
++show
++save
++update 1
++Kirill
++21
++black
++air
++wise
++19
++1
++1
++2
++save
++update 1000000
+\ No newline at end of file
+Index: ../lab05 откат на англ версию/src/main/test.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/test.json b/../lab05 откат на англ версию/src/main/test.json
+new file mode 100644
+--- /dev/null	(date 1742058842178)
++++ b/../lab05 откат на англ версию/src/main/test.json	(date 1742058842178)
+@@ -0,0 +1,19 @@
++[
++  {
++    "id": 1,
++    "name": "Kirill",
++    "coordinates": {
++      "x": 19,
++      "y": 1
++    },
++    "creationDate": "Mar 15, 2025, 8:14:02 PM",
++    "age": 21,
++    "color": "BLACK",
++    "type": "AIR",
++    "character": "WISE",
++    "cave": {
++      "depth": 1.0,
++      "numberOfTreasures": 2
++    }
++  }
++]
+Index: ../lab05 откат на англ версию/src/main/java/exceptions/WrongArgumentException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/exceptions/WrongArgumentException.java b/../lab05 откат на англ версию/src/main/java/exceptions/WrongArgumentException.java
+new file mode 100644
+--- /dev/null	(date 1742002168325)
++++ b/../lab05 откат на англ версию/src/main/java/exceptions/WrongArgumentException.java	(date 1742002168325)
+@@ -0,0 +1,10 @@
++package exceptions;
++
++/**
++ * Exception indicating an invalid argument.
++ */
++public class WrongArgumentException extends RuntimeException {
++    public WrongArgumentException(String message) {
++        super(message);
++    }
++}
+Index: ../lab05 откат на англ версию/.idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/.idea/vcs.xml b/../lab05 откат на англ версию/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1742059074636)
++++ b/../lab05 откат на англ версию/.idea/vcs.xml	(date 1742059074636)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ../lab05/.idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05/.idea/vcs.xml b/../lab05/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1741970566877)
++++ b/../lab05/.idea/vcs.xml	(date 1741970566877)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ../lab05 откат на англ версию/src/main/java/commands/AddIfMax.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/commands/AddIfMax.java b/../lab05 откат на англ версию/src/main/java/commands/AddIfMax.java
+new file mode 100644
+--- /dev/null	(date 1741999004932)
++++ b/../lab05 откат на англ версию/src/main/java/commands/AddIfMax.java	(date 1741999004932)
+@@ -0,0 +1,36 @@
++package commands;
++
++import collection.Dragon;
++import transfer.Request;
++import transfer.Response;
++
++import static collectionManager.CollectionManager.dragons;
++
++/**
++ * Command adds an element {@link collection.Dragon} to the collection if it's bigger than the max one.
++ * <p>
++ * Managed by {@link collectionManager.CollectionManager}.
++ */
++
++public class AddIfMax extends Command{
++    public AddIfMax(){
++        super("add_if_max", "adds new item to the collection if its value exceeds the value of the largest element of this collection", 0, 1);
++    }
++    @Override
++    public Response execute(Request request) {
++        Dragon dragon = request.dragons().get(0);
++        if (dragon.getId() > getLastId()){
++            collectionManager.add(dragon);
++            return new Response("Dragon successfully added.");
++        }
++        return new Response("The dragon wasn't added to the collection, as it's smaller than the biggest one.");
++
++    }
++
++    public Long getLastId(){
++        if (dragons.isEmpty()){
++            return -1L;
++        }
++        return dragons.last().getId();
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/exceptions/WrongNumberOfArguments.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/exceptions/WrongNumberOfArguments.java b/../lab05 откат на англ версию/src/main/java/exceptions/WrongNumberOfArguments.java
+new file mode 100644
+--- /dev/null	(date 1742002179505)
++++ b/../lab05 откат на англ версию/src/main/java/exceptions/WrongNumberOfArguments.java	(date 1742002179505)
+@@ -0,0 +1,10 @@
++package exceptions;
++
++/**
++ * Exception indicating an invalid number of arguments entered.
++ */
++public class WrongNumberOfArguments extends RuntimeException {
++    public WrongNumberOfArguments() {
++        super("Wrong number of arguments.");
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/collection/checkers/ArgumentChecker.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/collection/checkers/ArgumentChecker.java b/../lab05 откат на англ версию/src/main/java/collection/checkers/ArgumentChecker.java
+new file mode 100644
+--- /dev/null	(date 1742001485780)
++++ b/../lab05 откат на англ версию/src/main/java/collection/checkers/ArgumentChecker.java	(date 1742001485780)
+@@ -0,0 +1,18 @@
++package collection.checkers;
++
++import exceptions.WrongArgumentException;
++/**
++ * The class is responsible for checking and validating arguments entered by the user.
++ **/
++public class ArgumentChecker {
++    public static void nullChecker (Object object) throws WrongArgumentException{
++        if (object == null || object.equals("")){
++            throw new WrongArgumentException("Argument can't be null.");
++        }
++    }
++    public static void argumentChecker (boolean statement, String message) throws WrongArgumentException {
++        if (!statement){
++            throw new WrongArgumentException(message);
++        }
++    }
++}
+Index: ../.idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../.idea/gradle.xml b/../.idea/gradle.xml
+new file mode 100644
+--- /dev/null	(date 1741203465882)
++++ b/../.idea/gradle.xml	(date 1741203465882)
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="GradleMigrationSettings" migrationVersion="1" />
++  <component name="GradleSettings">
++    <option name="linkedExternalProjectsSettings">
++      <GradleProjectSettings>
++        <option name="externalProjectPath" value="$PROJECT_DIR$/lab05" />
++        <option name="modules">
++          <set>
++            <option value="$PROJECT_DIR$/lab05" />
++          </set>
++        </option>
++      </GradleProjectSettings>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../lab05 откат на англ версию/src/main/java/commands/Clear.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/commands/Clear.java b/../lab05 откат на англ версию/src/main/java/commands/Clear.java
+new file mode 100644
+--- /dev/null	(date 1741999004941)
++++ b/../lab05 откат на англ версию/src/main/java/commands/Clear.java	(date 1741999004941)
+@@ -0,0 +1,24 @@
++package commands;
++
++import transfer.Request;
++import transfer.Response;
++
++/**
++ * Command clears the collection.
++ * <p>
++ * Managed by {@link collectionManager.CollectionManager}.
++ */
++
++public class Clear extends Command{
++    public Clear(){
++        super("clear", "clears the collection", 0, 0);
++    }
++    @Override
++    public Response execute(Request request) {
++        if (collectionManager.isCollectionEmpty()){
++            return new Response("The collection is empty, there's no point in running this command.");
++        }
++        collectionManager.clear();
++        return new Response("Collection was cleared.");
++    }
++}
+Index: ../.idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../.idea/.gitignore b/../.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1741174617030)
++++ b/../.idea/.gitignore	(date 1741174617030)
+@@ -0,0 +1,8 @@
++# Default ignored files
++/shelf/
++/workspace.xml
++# Editor-based HTTP Client requests
++/httpRequests/
++# Datasource local storage ignored files
++/dataSources/
++/dataSources.local.xml
+Index: ../lab05 откат на англ версию/build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/build.gradle.kts b/../lab05 откат на англ версию/build.gradle.kts
+new file mode 100644
+--- /dev/null	(date 1742004195316)
++++ b/../lab05 откат на англ версию/build.gradle.kts	(date 1742004195316)
+@@ -0,0 +1,40 @@
++plugins {
++    id("java")
++    application
++    id("com.github.johnrengelman.shadow") version "7.1.2"
++}
++
++group = "org.example"
++version = "1.0-SNAPSHOT"
++
++repositories {
++    mavenCentral()
++}
++
++dependencies {
++    // https://mvnrepository.com/artifact/com.google.code.gson/gson
++    implementation("com.google.code.gson:gson:2.12.1")
++    testImplementation(platform("org.junit:junit-bom:5.10.0"))
++    testImplementation("org.junit.jupiter:junit-jupiter")
++}
++
++tasks.test {
++    useJUnitPlatform()
++}
++
++application {
++    mainClass.set("main.Main")
++}
++tasks.jar {
++    manifest{
++        attributes(
++            "Class-Path" to configurations.runtimeClasspath.get().files.joinToString(" ") { it.name },
++            "Main-Class" to "main.Main"
++        )
++    }
++
++}
++java {
++    sourceCompatibility = JavaVersion.VERSION_17
++    targetCompatibility = JavaVersion.VERSION_17
++}
+\ No newline at end of file
+Index: ../lab05 откат на англ версию/src/main/java/collectionManager/CollectionManager.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/collectionManager/CollectionManager.java b/../lab05 откат на англ версию/src/main/java/collectionManager/CollectionManager.java
+new file mode 100644
+--- /dev/null	(date 1742035776947)
++++ b/../lab05 откат на англ версию/src/main/java/collectionManager/CollectionManager.java	(date 1742035776947)
+@@ -0,0 +1,94 @@
++package collectionManager;
++
++
++import client.ReadData;
++import collection.*;
++
++import dao.FileDao;
++import transfer.Response;
++
++
++import java.util.*;
++
++/**
++ * The class stores a collection and contains methods that implement commands that work directly with the collection.
++ * Methods that implement commands:
++ * <ul>
++ *  <li> {@link #add(Dragon)} - implements the add command (adds an item to the collection).</li>
++ *  <li> {@link #remove(Dragon)} - implements “remove%” commands (removes an item from the collection).</li>
++ *  <li> {@link #info()} - implements the info command (provides basic data about the collection).</li>
++ *  <li> {@link #update(Long, Dragon)} - implements the update command (updates item data from the collection).</li>
++ *  <li> {@link #clear()} - implements the clear command (clears the collection).</li>
++ *  <li> {@link #save()} - implements the save command (saves the collection to a file).</li>
++ * </ul>
++ */
++public class CollectionManager {
++    public static TreeSet<Dragon> dragons = new TreeSet<>();
++    protected static Date date;
++    protected final FileDao fileDao = FileDao.getInstance();
++    public void add(Dragon dragon){
++        dragons.add(dragon);
++    }
++
++    public void remove(Dragon dragon){
++        dragons.remove(dragon);
++    }
++
++    public StringJoiner info(){
++        StringJoiner stringJoiner = new StringJoiner("\n");
++        stringJoiner.add("Information about the collection.");
++        stringJoiner.add("Type: Dragon");
++        stringJoiner.add("Date of initialization: " + date);
++        stringJoiner.add("Quantity of elements: " + dragons.size());
++        return stringJoiner;
++    }
++
++    public Response update(Long id, ReadData readData){
++        Dragon dragonUpdate = null;
++        boolean found = false;
++        for (Dragon dragon : dragons){
++            if (dragon.getId().equals(id)){
++                dragonUpdate = dragon;
++                found = true;
++            }
++        }
++        if (!found){
++            return new Response("The element, whose id = " + id + " wasn't found.");
++        }
++
++        Dragon request;
++        try {
++            request = readData.get();
++        }
++        catch (InterruptedException e){
++            System.out.println(e.getMessage());
++            return new Response(e.getMessage());
++        }
++
++        dragonUpdate.setName(request.getName());
++        dragonUpdate.setAge(request.getAge());
++        dragonUpdate.setCharacter(request.getCharacter());
++        dragonUpdate.setColor(request.getColor());
++        dragonUpdate.setCoordinateX(request.getCoordinates().getX());
++        dragonUpdate.setCoordinateY(request.getCoordinates().getY());
++        dragonUpdate.setDepthCave(request.getCave().getDepth());
++        dragonUpdate.setNumberOfTreasures(request.getCave().getNumberOfTreasures());
++        dragonUpdate.setColor(request.getColor());
++        return new Response("The element was successfully updated.");
++
++
++    }
++
++    public void clear(){
++        dragons.clear();
++        Dragon.setFreeId();
++    }
++    public void save(){
++        fileDao.save(dragons);
++    }
++
++    public boolean isCollectionEmpty(){
++        return dragons.isEmpty();
++    }
++
++}
+Index: ../.idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../.idea/misc.xml b/../.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1741540409535)
++++ b/../.idea/misc.xml	(date 1741540409535)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ExternalStorageConfigurationManager" enabled="true" />
++  <component name="FrameworkDetectionExcludesConfiguration">
++    <file type="web" url="file://$PROJECT_DIR$/lab05" />
++  </component>
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
++    <output url="file://$PROJECT_DIR$/out" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ../.idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../.idea/compiler.xml b/../.idea/compiler.xml
+new file mode 100644
+--- /dev/null	(date 1741174616314)
++++ b/../.idea/compiler.xml	(date 1741174616314)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CompilerConfiguration">
++    <bytecodeTargetLevel target="17" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ../lab05 откат на англ версию/src/main/java/collection/checkers/CollectionChecker.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/collection/checkers/CollectionChecker.java b/../lab05 откат на англ версию/src/main/java/collection/checkers/CollectionChecker.java
+new file mode 100644
+--- /dev/null	(date 1742026834982)
++++ b/../lab05 откат на англ версию/src/main/java/collection/checkers/CollectionChecker.java	(date 1742026834982)
+@@ -0,0 +1,63 @@
++package collection.checkers;
++
++import collection.DragonType;
++import exceptions.WrongArgumentException;
++
++import java.math.BigDecimal;
++
++/**
++ * The class contains methods to check all the required values of the arguments of the class object {@link collection.Dragon}.
++ * <p>
++ *     The checks include:
++ *     <ul>
++ *         <li> {@link #nameChecker(String)} - The name cannot be null or an empty string.
++ *         <li> {@link #nameChecker(String)} - The age must be greater than 0.
++ *         <li> {@link #xChecker(Long)} - The x coordinate must be greater than -28.
++ *         <li> {@link #yChecker(Long)} - The y coordinate cannot be null.
++ *         <li> {@link #typeChecker(DragonType)} - The type cannot be null.
++ *         <li> {@link #numberOfTreasuresChecker(int)} - The number of treasures must be greater than 0.
++ *         </ul>
++ *         Наследуется от {@link ArgumentChecker} и использует его базовые проверки.
++ **/
++public class CollectionChecker extends ArgumentChecker{
++    public static void nameChecker(String name) throws WrongArgumentException {
++        nullChecker(name);
++        argumentChecker(!name.isEmpty(), "Argument can't be empty.");
++    }
++
++    public static void ageChecker(Integer age) throws WrongArgumentException{
++        nullChecker(age);
++        argumentChecker(age > 0, "Invalid value.\nExpected value > 0.");
++    }
++
++    public static void xChecker(Long x) throws WrongArgumentException{
++        nullChecker(x);
++        argumentChecker(x > - 28, "Invalid value.\nExpected value > -28.");
++    }
++    public static void yChecker(Long y) throws WrongArgumentException{
++        nullChecker(y);
++    }
++
++    public static void typeChecker(DragonType type) throws WrongArgumentException{
++        nullChecker(type);
++    }
++
++    public static void numberOfTreasuresChecker(int numberOfTreasures) throws WrongArgumentException{
++        argumentChecker(numberOfTreasures > 0, "Invalid value.\nExpected value > 0.");
++    }
++
++    public static void depthChecker(String depth) throws WrongArgumentException {
++        BigDecimal depth_decimal = new BigDecimal(depth);
++        Float depth_float;
++        try {
++            depth_float = Float.parseFloat(depth);
++            if (!new BigDecimal(depth_float.toString()).equals(depth_decimal)){
++                throw new WrongArgumentException("Invalid value.\nExpected float.");
++            }
++        }
++        catch (NumberFormatException e){
++            throw new WrongArgumentException("Invalid value.\nExpected float.");
++        }
++    }
++
++}
+Index: ../lab05 откат на англ версию/src/main/java/collection/Color.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/collection/Color.java b/../lab05 откат на англ версию/src/main/java/collection/Color.java
+new file mode 100644
+--- /dev/null	(date 1741997943663)
++++ b/../lab05 откат на англ версию/src/main/java/collection/Color.java	(date 1741997943663)
+@@ -0,0 +1,12 @@
++package collection;
++
++/**
++ * Color enumeration.
++ */
++
++public enum Color {
++    GREEN,
++    BLACK,
++    WHITE
++}
++
+Index: ../lab05 откат на англ версию/src/main/java/invoker/CommandsStorage.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/invoker/CommandsStorage.java b/../lab05 откат на англ версию/src/main/java/invoker/CommandsStorage.java
+new file mode 100644
+--- /dev/null	(date 1742002188699)
++++ b/../lab05 откат на англ версию/src/main/java/invoker/CommandsStorage.java	(date 1742002188699)
+@@ -0,0 +1,34 @@
++package invoker;
++
++import commands.*;
++
++import java.util.HashMap;
++import java.util.Map;
++/**
++ * Class stores available commands.
++ * <p>
++ * This class contains a collection of commands available in the system.
++ * Commands are represented as Map, where the key is the command name,
++ * and the value is the corresponding object that implements the {@link Command} interface.
++ * </p>
++ */
++public class CommandsStorage {
++    public static final HashMap<String, Command> commands = new HashMap<>(Map.ofEntries(
++            Map.entry("add", new Add()),
++            Map.entry("add_if_max", new AddIfMax()),
++            Map.entry("clear", new Clear()),
++            Map.entry("count_by_age", new CountByAge()),
++            Map.entry("exit", new Exit()),
++            Map.entry("help", new Help()),
++            Map.entry("info", new Info()),
++            Map.entry("print_field_descending_character", new PrintFieldDescendingCharacter()),
++            Map.entry("remove_any_by_age", new RemoveAnyByAge()),
++            Map.entry("remove_by_id", new RemoveById()),
++            Map.entry("remove_greater", new RemoveGreater()),
++            Map.entry("remove_lower", new RemoveLower()),
++            Map.entry("show", new Show()),
++            Map.entry("update", new Update()),
++            Map.entry("save", new Save()),
++            Map.entry("execute_script", new ExecuteScript())
++    ));
++}
+Index: ../lab05 откат на англ версию/src/main/java/commands/Command.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/commands/Command.java b/../lab05 откат на англ версию/src/main/java/commands/Command.java
+new file mode 100644
+--- /dev/null	(date 1742001941039)
++++ b/../lab05 откат на англ версию/src/main/java/commands/Command.java	(date 1742001941039)
+@@ -0,0 +1,43 @@
++package commands;
++
++import collectionManager.CollectionManager;
++import collectionManager.InMemoryCollection;
++import transfer.Request;
++import transfer.Response;
++/**
++ * An interface that specifies the structure of the commands.
++ * Each command contains a name, a target, the number of dragons needed, and the number of arguments needed.
++ */
++public abstract class Command {
++    private final String commandName;
++    private final String purpose;
++    private final int requiredDragon;
++    private final int requiredArgs;
++
++    protected static CollectionManager collectionManager = new InMemoryCollection();
++
++    public Command(String commandName, String purpose, int requiredArgs, int requiredDragon){
++        this.commandName = commandName;
++        this.purpose = purpose;
++        this.requiredArgs = requiredArgs;
++        this.requiredDragon = requiredDragon;
++    }
++
++
++    abstract public Response execute(Request request);
++
++    public String getName(){
++        return commandName;
++    }
++
++    public String getPurpose(){
++        return purpose;
++    }
++
++    public int getRequiredArgs(){
++        return requiredArgs;
++    }
++    public int getRequiredDragon(){
++        return requiredDragon;
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/client/Console.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/client/Console.java b/../lab05 откат на англ версию/src/main/java/client/Console.java
+new file mode 100644
+--- /dev/null	(date 1742024676651)
++++ b/../lab05 откат на англ версию/src/main/java/client/Console.java	(date 1742024676651)
+@@ -0,0 +1,26 @@
++package client;
++
++import invoker.Handler;
++import invoker.Invoker;
++import transfer.Request;
++import transfer.Response;
++
++/**
++ * The class is responsible for the logic and execution of the command.
++ * Outputs the result of the command execution to the console.:
++ **/
++public class Console {
++    public Console(String string, ReadData readData){
++        try {
++            Handler handler = new Handler(string, readData);
++            Request request = handler.getRequest();
++            Invoker invoker = new Invoker();
++            Response response = invoker.executeCommand(request);
++            System.out.print(response.toString());
++            System.out.println("\n");
++        }
++        catch (Exception e){
++            System.out.println(e.getMessage());
++        }
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/io/ConsoleReader.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/io/ConsoleReader.java b/../lab05 откат на англ версию/src/main/java/io/ConsoleReader.java
+new file mode 100644
+--- /dev/null	(date 1742002211817)
++++ b/../lab05 откат на англ версию/src/main/java/io/ConsoleReader.java	(date 1742002211817)
+@@ -0,0 +1,44 @@
++package io;
++
++import exceptions.EndOfInputException;
++
++import java.util.NoSuchElementException;
++import java.util.Scanner;
++
++/**
++ * An implementation of {@link MyReader} that reads input from the console.
++ * <p>
++ * Uses {@link Scanner} to read strings from the standard input stream.
++ * Throws an {@link EndOfInputException} when the end of input is reached.
++ * </p>
++ */
++public class ConsoleReader implements MyReader {
++    private final Scanner scanner;
++    public ConsoleReader(){
++        scanner = new Scanner(System.in);
++    }
++    @Override
++    public boolean hasNextLine(){
++        return scanner.hasNextLine();
++    }
++
++    @Override
++    public String readLine(){
++        try{
++            return scanner.nextLine();
++        } catch (NoSuchElementException e) {
++            throw new EndOfInputException("input");
++        }
++    }
++
++    @Override
++    public String readLine(String string){
++        try{
++            System.out.print("Enter the " + string + ": ");
++            return scanner.nextLine();
++        } catch (NoSuchElementException e) {
++            throw new EndOfInputException("input");
++        }
++    }
++
++}
+Index: ../lab05 откат на англ версию/src/main/java/collection/Coordinates.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/collection/Coordinates.java b/../lab05 откат на англ версию/src/main/java/collection/Coordinates.java
+new file mode 100644
+--- /dev/null	(date 1741998193790)
++++ b/../lab05 откат на англ версию/src/main/java/collection/Coordinates.java	(date 1741998193790)
+@@ -0,0 +1,39 @@
++package collection;
++
++import static collection.checkers.CollectionChecker.*;
++
++/**
++ * Coordinates class.
++ */
++
++public class Coordinates {
++    private long x; //Значение поля должно быть больше -28
++    private long y;
++
++    public Coordinates(long x, long y){
++        xChecker(x);
++        this.x = x;
++        this.y = y;
++    }
++    public void setX(long x){
++        xChecker(x);
++        this.x = x;
++    }
++    public void setY(long y){
++        this.y = y;
++    }
++
++    public long getX(){
++        return this.x;
++    }
++
++    public long getY(){
++        return this.y;
++    }
++    public String toString(){
++        return "{" +
++                "x = " + x + ", " +
++                "y = " + y +
++                "}";
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/dao/DAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/dao/DAO.java b/../lab05 откат на англ версию/src/main/java/dao/DAO.java
+new file mode 100644
+--- /dev/null	(date 1742002572746)
++++ b/../lab05 откат на англ версию/src/main/java/dao/DAO.java	(date 1742002572746)
+@@ -0,0 +1,13 @@
++package dao;
++
++import collection.Dragon;
++
++import java.util.TreeSet;
++
++/**
++ * Interface for working with files and databases.
++ */
++public interface DAO {
++    TreeSet<Dragon> get();
++    void save(TreeSet<Dragon> dragons);
++}
+Index: ../lab05 откат на англ версию/src/main/java/commands/CountByAge.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/commands/CountByAge.java b/../lab05 откат на англ версию/src/main/java/commands/CountByAge.java
+new file mode 100644
+--- /dev/null	(date 1742001956876)
++++ b/../lab05 откат на англ версию/src/main/java/commands/CountByAge.java	(date 1742001956876)
+@@ -0,0 +1,37 @@
++package commands;
++
++import collection.Dragon;
++import transfer.Request;
++import transfer.Response;
++
++import static collectionManager.CollectionManager.dragons;
++
++/**
++ * The class implements the count_by_age command.
++ * The command counts the number of items in the {@link collection.Dragon} collection that have the same age as the specified age.
++ */
++public class CountByAge extends Command {
++    public CountByAge(){
++        super("count_by_age", "prints the number of items whose age is equal to the specified value", 1, 0);
++    }
++    @Override
++    public Response execute(Request request) {
++        if (collectionManager.isCollectionEmpty()){
++            return new Response("The collection is empty, there's no point in running this command.");
++        }
++        int age;
++        try{
++            age = Integer.parseInt(request.args()[0]);
++        }
++        catch (Exception e){
++            return new Response("Invalid type of argument. Expected int.");
++        }
++        long count = 0L;
++        for (Dragon dragon : dragons){
++            if (dragon.getAge() == age){
++                count++;
++            }
++        }
++        return new Response("The number of items whose age is equal " + age + ": " + count);
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/collection/Dragon.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/collection/Dragon.java b/../lab05 откат на англ версию/src/main/java/collection/Dragon.java
+new file mode 100644
+--- /dev/null	(date 1742025993495)
++++ b/../lab05 откат на англ версию/src/main/java/collection/Dragon.java	(date 1742025993495)
+@@ -0,0 +1,155 @@
++package collection;
++
++
++import static collectionManager.CollectionManager.dragons;
++
++import java.util.Date;
++
++import static collection.checkers.CollectionChecker.*;
++/**
++ * Dragon class.
++ *
++ * @see Color
++ * @see Coordinates
++ * @see DragonCave
++ * @see DragonCharacter
++ * @see DragonType
++ */
++public class Dragon implements Comparable<Dragon> {
++    private static Long freeId = 1L;
++    private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
++    private String name; //Поле не может быть null, Строка не может быть пустой
++    private Coordinates coordinates; //Поле не может быть null
++    private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
++    private int age; //Значение поля должно быть больше 0
++    private Color color; //Поле может быть null
++    private DragonType type; //Поле не может быть null
++    private DragonCharacter character; //Поле может быть null
++    private DragonCave cave; //Поле не может быть null
++
++    public Dragon(String name, Coordinates coordinates, int age, Color color, DragonType type, DragonCave cave, DragonCharacter character) {
++        setIdAuto();
++        this.name = name;
++        this.coordinates = coordinates;
++        this.age = age;
++        this.color = color;
++        this.type = type;
++        this.character = character;
++        this.cave = cave;
++        setDate();
++    }
++
++    public static void setFreeId(){
++        freeId = 1L;
++    }
++
++    @Override
++    public int compareTo(Dragon other) {
++        return Long.compare(this.id, other.id);
++    }
++
++    public void setIdAuto() {
++        this.id = freeId;
++        freeId++;
++    }
++
++    public void setId(Long id) {
++        this.id = id;
++        freeId = id;
++        freeId++;
++    }
++
++
++    public void setDate() {
++        this.creationDate = new Date();
++    }
++
++    public void setName(String name) {
++        nameChecker(name);
++        this.name = name;
++    }
++
++    public void setAge(int age) {
++        ageChecker(age);
++        this.age = age;
++    }
++
++    public void setColor(Color color) {
++        this.color = color;
++    }
++
++    public void setType(DragonType type) {
++        this.type = type;
++    }
++
++    public void setCharacter(DragonCharacter character) {
++        this.character = character;
++    }
++
++    public void setCoordinateX(Long x) {
++        this.coordinates.setX(x);
++    }
++
++    public void setCoordinateY(Long y) {
++        this.coordinates.setY(y);
++    }
++
++    public void setDepthCave(float depth) {
++        this.cave.setDepth(depth);
++    }
++
++    public void setNumberOfTreasures(int numberOfTreasures) {
++        this.cave.setNumberOfTreasures(numberOfTreasures);
++    }
++
++    public Long getId() {
++        return this.id;
++    }
++
++
++    public String getName() {
++        return this.name;
++    }
++
++    public Coordinates getCoordinates() {
++        return this.coordinates;
++    }
++
++    public java.util.Date getCreationDate() {
++        return this.creationDate;
++    }
++
++    public int getAge() {
++        return this.age;
++    }
++
++    public Color getColor() {
++        return this.color;
++    }
++
++    public DragonType getType() {
++        return this.type;
++    }
++
++    public DragonCharacter getCharacter() {
++        return this.character;
++    }
++
++    public DragonCave getCave() {
++        return this.cave;
++    }
++
++    public String toString() {
++        return "{" +
++                "id = " + id + "\n" +
++                "name = " + name + "\n" +
++                "coordinates : " + coordinates.toString() + "\n" +
++                "creation date = " + creationDate + "\n" +
++                "age = " + age + "\n" +
++                "color = " + color + "\n" +
++                "type = " + type + "\n" +
++                "character = " + character + "\n" +
++                "cave : " + cave.toString() + "\n" +
++                "}";
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/collection/DragonCharacter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/collection/DragonCharacter.java b/../lab05 откат на англ версию/src/main/java/collection/DragonCharacter.java
+new file mode 100644
+--- /dev/null	(date 1742002572675)
++++ b/../lab05 откат на англ версию/src/main/java/collection/DragonCharacter.java	(date 1742002572675)
+@@ -0,0 +1,10 @@
++package collection;
++
++/**
++ * Character enumeration.
++ */
++public enum DragonCharacter {
++    CUNNING,
++    WISE,
++    CHAOTIC
++}
+Index: ../lab05 откат на англ версию/src/main/java/collection/DragonCave.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/collection/DragonCave.java b/../lab05 откат на англ версию/src/main/java/collection/DragonCave.java
+new file mode 100644
+--- /dev/null	(date 1741998193762)
++++ b/../lab05 откат на англ версию/src/main/java/collection/DragonCave.java	(date 1741998193762)
+@@ -0,0 +1,42 @@
++package collection;
++
++import static collection.checkers.CollectionChecker.numberOfTreasuresChecker;
++
++/**
++ * Cave class.
++ */
++public class DragonCave {
++    private float depth;
++    private int numberOfTreasures; //Значение поля должно быть больше 0
++
++    public DragonCave(float depth, int numberOfTreasures) {
++        numberOfTreasuresChecker(numberOfTreasures);
++        this.depth = depth;
++        this.numberOfTreasures = numberOfTreasures;
++    }
++
++    public void setDepth(float depth) {
++        this.depth = depth;
++    }
++
++    public void setNumberOfTreasures(int numberOfTreasures) {
++        numberOfTreasuresChecker(numberOfTreasures);
++        this.numberOfTreasures = numberOfTreasures;
++    }
++
++    public float getDepth() {
++        return this.depth;
++    }
++
++    public int getNumberOfTreasures() {
++        return this.numberOfTreasures;
++    }
++    public String toString(){
++        return "{" +
++                "depth = " + depth + ", " +
++                "number of treasures = " + numberOfTreasures +
++                "}";
++    }
++}
++
++
+Index: ../lab05 откат на англ версию/src/main/java/exceptions/EndOfInputException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/exceptions/EndOfInputException.java b/../lab05 откат на англ версию/src/main/java/exceptions/EndOfInputException.java
+new file mode 100644
+--- /dev/null	(date 1742002119236)
++++ b/../lab05 откат на англ версию/src/main/java/exceptions/EndOfInputException.java	(date 1742002119236)
+@@ -0,0 +1,10 @@
++package exceptions;
++
++/**
++ * Exception that signals when user input is complete.
++ */
++public class EndOfInputException extends RuntimeException {
++    public EndOfInputException(String message) {
++        super("End of " + message);
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/collection/DragonType.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/collection/DragonType.java b/../lab05 откат на англ версию/src/main/java/collection/DragonType.java
+new file mode 100644
+--- /dev/null	(date 1742002572718)
++++ b/../lab05 откат на англ версию/src/main/java/collection/DragonType.java	(date 1742002572718)
+@@ -0,0 +1,11 @@
++package collection;
++
++/**
++ * Type enumeration.
++ */
++public enum DragonType {
++    WATER,
++    UNDERGROUND,
++    AIR,
++    FIRE
++}
+Index: ../lab05 откат на англ версию/src/main/java/commands/ExecuteScript.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/commands/ExecuteScript.java b/../lab05 откат на англ версию/src/main/java/commands/ExecuteScript.java
+new file mode 100644
+--- /dev/null	(date 1742021938480)
++++ b/../lab05 откат на англ версию/src/main/java/commands/ExecuteScript.java	(date 1742021938480)
+@@ -0,0 +1,34 @@
++package commands;
++
++import client.Console;
++import client.ReadData;
++import exceptions.InvalidFileException;
++import transfer.Request;
++import transfer.Response;
++
++/**
++ * The class implements the execute_script command.
++ * The command reads and executes a script from the specified file.
++ */
++public class ExecuteScript extends Command{
++    public ExecuteScript(){
++        super("execute_script", "reads and executes a script from the specified file.", 1, 0);
++    }
++
++    @Override
++    public Response execute(Request request) {
++        ReadData readData;
++        try {
++            readData = new ReadData(request.args()[0]);
++        }
++        catch (InvalidFileException e){
++            return new Response(e.getMessage());
++        }
++        while (readData.myReader.hasNextLine()){
++            String command = readData.myReader.readLine();
++            System.out.println("Command: " + command + ".");
++            new Console(command, readData);
++        }
++        return new Response("Script was successfully executed.");
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/dao/FileDao.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/dao/FileDao.java b/../lab05 откат на англ версию/src/main/java/dao/FileDao.java
+new file mode 100644
+--- /dev/null	(date 1742019761689)
++++ b/../lab05 откат на англ версию/src/main/java/dao/FileDao.java	(date 1742019761689)
+@@ -0,0 +1,133 @@
++package dao;
++
++import collection.Dragon;
++
++import java.io.*;
++import java.nio.charset.StandardCharsets;
++import java.util.Scanner;
++import java.util.TreeSet;
++
++import com.google.gson.*;
++import exceptions.FilePermissionException;
++import exceptions.InvalidFileException;
++import transfer.GsonHelper;
++
++/**
++ * The class is responsible for reading and writing a collection of {@link Dragon} objects to a file.
++ * It uses Gson to serialize and deserialize data in JSON format.
++ */
++public class FileDao implements DAO {
++    private static FileDao instance;
++    private String filePath;
++
++    private FileDao() {
++        try {
++            this.filePath = System.getenv("DRAGON_FILE");
++        }
++        catch (Exception e){
++            System.out.println(e.getMessage());
++        }
++    }
++
++    public static FileDao getInstance() {
++        if (instance == null) {
++            instance = new FileDao();
++        }
++        return instance;
++    }
++    @Override
++    public TreeSet<Dragon> get() {
++        try {
++            return readFile();
++        } catch (FileNotFoundException e) {
++            throw new InvalidFileException("File not found");
++        } catch (FilePermissionException b) {
++            throw new InvalidFileException("There is no permission to read the file");
++        }
++    }
++
++    @Override
++    public void save(TreeSet<Dragon> dragons) {
++        try{
++            writeInFile(dragons);
++        } catch (FileNotFoundException e) {
++            throw new InvalidFileException("File not found");
++        }
++        catch (FilePermissionException b) {
++            throw new InvalidFileException("There is no permission to read the file");
++        }
++    }
++
++    public TreeSet<Dragon> readFile() throws FileNotFoundException, FilePermissionException {
++        checkFileRead();
++        StringBuilder json = new StringBuilder();
++
++        try (Scanner scanner = new Scanner(new File(this.filePath))) {
++            while (scanner.hasNextLine()) {
++                json.append(scanner.nextLine());
++            }
++        }
++
++        Gson gson = new GsonBuilder()
++                .registerTypeAdapter(Dragon.class, new GsonHelper())
++                .setPrettyPrinting()
++                .create();
++
++        JsonElement jsons = JsonParser.parseString(json.toString());
++        TreeSet<Dragon> res = new TreeSet<>();
++
++        if (jsons.isJsonArray()) {
++            JsonArray jsonArray = jsons.getAsJsonArray();
++            for (JsonElement js : jsonArray) {
++                try {
++                    res.add(gson.fromJson(js, Dragon.class));
++                }
++                catch (InvalidFileException e){
++                    System.out.println(e.getMessage());
++                    break;
++                }
++            }
++        }
++        return res;
++
++    }
++
++
++    private void writeInFile(TreeSet<Dragon> dragons) throws FileNotFoundException, FilePermissionException {
++        checkFileWrite();
++        Gson gson = new GsonBuilder().setPrettyPrinting().create();
++        String json = gson.toJson(dragons);
++
++        try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(this.filePath, false))){
++            out.write(json.getBytes(StandardCharsets.UTF_8));
++            out.write(System.lineSeparator().getBytes(StandardCharsets.UTF_8));
++            out.flush();
++        } catch (IOException e) {
++            System.out.println(e.getMessage());
++        }
++    }
++
++    private void checkFileRead() throws FileNotFoundException, FilePermissionException {
++        if (filePath == null || filePath.isEmpty()) {
++            throw new IllegalArgumentException("File path cannot be null or empty");
++        }
++        File file = new File(this.filePath);
++        if (!file.exists())
++            throw new FileNotFoundException("File " + this.filePath + " not found");
++        if (!file.canRead())
++            throw new FilePermissionException("There is no read permission for file " + this.filePath);
++    }
++
++    private void checkFileWrite() throws FileNotFoundException, FilePermissionException {
++        if (filePath == null || filePath.isEmpty()) {
++            throw new IllegalArgumentException("File path cannot be null or empty");
++        }
++        File file = new File(this.filePath);
++        if (!file.exists())
++            throw new FileNotFoundException("File " + this.filePath + " not found");
++        if (!file.canWrite())
++            throw new FilePermissionException("There is no read permission for file " + this.filePath);
++    }
++
++
++}
+Index: ../lab05 откат на англ версию/src/main/java/commands/Exit.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/commands/Exit.java b/../lab05 откат на англ версию/src/main/java/commands/Exit.java
+new file mode 100644
+--- /dev/null	(date 1742001974599)
++++ b/../lab05 откат на англ версию/src/main/java/commands/Exit.java	(date 1742001974599)
+@@ -0,0 +1,20 @@
++package commands;
++
++import transfer.Request;
++import transfer.Response;
++
++/**
++ * The class implements the exit command.
++ * The command terminates the program.
++ */
++public class Exit extends Command{
++    public Exit(){
++        super("exit", "ends the program", 0, 0);
++    }
++
++    @Override
++    public Response execute(Request request) {
++        System.exit(0);
++        return new Response("The program is ending...");
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/io/FileReader.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/io/FileReader.java b/../lab05 откат на англ версию/src/main/java/io/FileReader.java
+new file mode 100644
+--- /dev/null	(date 1742021925388)
++++ b/../lab05 откат на англ версию/src/main/java/io/FileReader.java	(date 1742021925388)
+@@ -0,0 +1,52 @@
++package io;
++
++import exceptions.EndOfInputException;
++import exceptions.InvalidFileException;
++
++import java.io.File;
++import java.io.FileNotFoundException;
++import java.util.NoSuchElementException;
++import java.util.Scanner;
++
++/**
++ * An implementation of {@link MyReader} that reads strings from a file.
++ * <p>
++ * Uses {@link Scanner} to read lines from the specified file.
++ * Throws {@link InvalidFileException} or {@link EndOfInputException} when errors occur while opening or reading a file.
++ * </p>
++ */
++public class FileReader implements MyReader{
++    private final Scanner scanner;
++
++    public FileReader(String filePath) throws InvalidFileException{
++        try {
++            scanner = new Scanner(new File(filePath));
++        }
++        catch (FileNotFoundException e){
++            throw new InvalidFileException("Script file wasn't found.");
++        }
++        catch (Exception b){
++            throw new InvalidFileException("Invalid script file.");
++        }
++    }
++    @Override
++    public boolean hasNextLine(){
++        return scanner.hasNextLine();
++    }
++
++    @Override
++    public String readLine(){
++        try{
++            return scanner.nextLine();
++        } catch (NoSuchElementException e) {
++            throw new EndOfInputException("file");
++        }    }
++
++    @Override
++    public String readLine(String string){
++        try{
++            return scanner.nextLine();
++        } catch (NoSuchElementException e) {
++            throw new EndOfInputException("file");
++        }    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/exceptions/FilePermissionException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/exceptions/FilePermissionException.java b/../lab05 откат на англ версию/src/main/java/exceptions/FilePermissionException.java
+new file mode 100644
+--- /dev/null	(date 1742002142679)
++++ b/../lab05 откат на англ версию/src/main/java/exceptions/FilePermissionException.java	(date 1742002142679)
+@@ -0,0 +1,10 @@
++package exceptions;
++
++/**
++ * Exception indicating that the user does not have the necessary permissions for using the file.
++ */
++public class FilePermissionException extends RuntimeException {
++    public FilePermissionException(String message) {
++        super(message);
++    }
++}
+Index: ../.idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../.idea/vcs.xml b/../.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1741545974679)
++++ b/../.idea/vcs.xml	(date 1741545974679)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ../lab05 откат на англ версию/.idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/.idea/gradle.xml b/../lab05 откат на англ версию/.idea/gradle.xml
+new file mode 100644
+--- /dev/null	(date 1741542479761)
++++ b/../lab05 откат на англ версию/.idea/gradle.xml	(date 1741542479761)
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="GradleMigrationSettings" migrationVersion="1" />
++  <component name="GradleSettings">
++    <option name="linkedExternalProjectsSettings">
++      <GradleProjectSettings>
++        <option name="externalProjectPath" value="$PROJECT_DIR$" />
++        <option name="gradleHome" value="" />
++        <option name="modules">
++          <set>
++            <option value="$PROJECT_DIR$" />
++          </set>
++        </option>
++      </GradleProjectSettings>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../lab05 откат на англ версию/gradle/wrapper/gradle-wrapper.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/../lab05 откат на англ версию/gradle/wrapper/gradle-wrapper.properties b/../lab05 откат на англ версию/gradle/wrapper/gradle-wrapper.properties
+new file mode 100644
+--- /dev/null	(date 1741097147777)
++++ b/../lab05 откат на англ версию/gradle/wrapper/gradle-wrapper.properties	(date 1741097147777)
+@@ -0,0 +1,6 @@
++#Tue Mar 04 17:05:47 MSK 2025
++distributionBase=GRADLE_USER_HOME
++distributionPath=wrapper/dists
++distributionUrl=https\://services.gradle.org/distributions/gradle-8.10-bin.zip
++zipStoreBase=GRADLE_USER_HOME
++zipStorePath=wrapper/dists
+Index: ../lab05 откат на англ версию/gradlew.bat
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/gradlew.bat b/../lab05 откат на англ версию/gradlew.bat
+new file mode 100644
+--- /dev/null	(date 1741097147786)
++++ b/../lab05 откат на англ версию/gradlew.bat	(date 1741097147786)
+@@ -0,0 +1,89 @@
++@rem
++@rem Copyright 2015 the original author or authors.
++@rem
++@rem Licensed under the Apache License, Version 2.0 (the "License");
++@rem you may not use this file except in compliance with the License.
++@rem You may obtain a copy of the License at
++@rem
++@rem      https://www.apache.org/licenses/LICENSE-2.0
++@rem
++@rem Unless required by applicable law or agreed to in writing, software
++@rem distributed under the License is distributed on an "AS IS" BASIS,
++@rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++@rem See the License for the specific language governing permissions and
++@rem limitations under the License.
++@rem
++
++@if "%DEBUG%" == "" @echo off
++@rem ##########################################################################
++@rem
++@rem  Gradle startup script for Windows
++@rem
++@rem ##########################################################################
++
++@rem Set local scope for the variables with windows NT shell
++if "%OS%"=="Windows_NT" setlocal
++
++set DIRNAME=%~dp0
++if "%DIRNAME%" == "" set DIRNAME=.
++set APP_BASE_NAME=%~n0
++set APP_HOME=%DIRNAME%
++
++@rem Resolve any "." and ".." in APP_HOME to make it shorter.
++for %%i in ("%APP_HOME%") do set APP_HOME=%%~fi
++
++@rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
++set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
++
++@rem Find java.exe
++if defined JAVA_HOME goto findJavaFromJavaHome
++
++set JAVA_EXE=java.exe
++%JAVA_EXE% -version >NUL 2>&1
++if "%ERRORLEVEL%" == "0" goto execute
++
++echo.
++echo ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
++echo.
++echo Please set the JAVA_HOME variable in your environment to match the
++echo location of your Java installation.
++
++goto fail
++
++:findJavaFromJavaHome
++set JAVA_HOME=%JAVA_HOME:"=%
++set JAVA_EXE=%JAVA_HOME%/bin/java.exe
++
++if exist "%JAVA_EXE%" goto execute
++
++echo.
++echo ERROR: JAVA_HOME is set to an invalid directory: %JAVA_HOME%
++echo.
++echo Please set the JAVA_HOME variable in your environment to match the
++echo location of your Java installation.
++
++goto fail
++
++:execute
++@rem Setup the command line
++
++set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar
++
++
++@rem Execute Gradle
++"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain %*
++
++:end
++@rem End local scope for the variables with windows NT shell
++if "%ERRORLEVEL%"=="0" goto mainEnd
++
++:fail
++rem Set variable GRADLE_EXIT_CONSOLE if you need the _script_ return code instead of
++rem the _cmd.exe /c_ return code!
++if  not "" == "%GRADLE_EXIT_CONSOLE%" exit 1
++exit /b 1
++
++:mainEnd
++if "%OS%"=="Windows_NT" endlocal
++
++:omega
+Index: ../lab05 откат на англ версию/gradlew
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/gradlew b/../lab05 откат на англ версию/gradlew
+new file mode 100644
+--- /dev/null	(date 1741097147783)
++++ b/../lab05 откат на англ версию/gradlew	(date 1741097147783)
+@@ -0,0 +1,234 @@
++#!/bin/sh
++
++#
++# Copyright © 2015-2021 the original authors.
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#      https://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++#
++
++##############################################################################
++#
++#   Gradle start up script for POSIX generated by Gradle.
++#
++#   Important for running:
++#
++#   (1) You need a POSIX-compliant shell to run this script. If your /bin/sh is
++#       noncompliant, but you have some other compliant shell such as ksh or
++#       bash, then to run this script, type that shell name before the whole
++#       command line, like:
++#
++#           ksh Gradle
++#
++#       Busybox and similar reduced shells will NOT work, because this script
++#       requires all of these POSIX shell features:
++#         * functions;
++#         * expansions «$var», «${var}», «${var:-default}», «${var+SET}»,
++#           «${var#prefix}», «${var%suffix}», and «$( cmd )»;
++#         * compound commands having a testable exit status, especially «case»;
++#         * various built-in commands including «command», «set», and «ulimit».
++#
++#   Important for patching:
++#
++#   (2) This script targets any POSIX shell, so it avoids extensions provided
++#       by Bash, Ksh, etc; in particular arrays are avoided.
++#
++#       The "traditional" practice of packing multiple parameters into a
++#       space-separated string is a well documented source of bugs and security
++#       problems, so this is (mostly) avoided, by progressively accumulating
++#       options in "$@", and eventually passing that to Java.
++#
++#       Where the inherited environment variables (DEFAULT_JVM_OPTS, JAVA_OPTS,
++#       and GRADLE_OPTS) rely on word-splitting, this is performed explicitly;
++#       see the in-line comments for details.
++#
++#       There are tweaks for specific operating systems such as AIX, CygWin,
++#       Darwin, MinGW, and NonStop.
++#
++#   (3) This script is generated from the Groovy template
++#       https://github.com/gradle/gradle/blob/master/subprojects/plugins/src/main/resources/org/gradle/api/internal/plugins/unixStartScript.txt
++#       within the Gradle project.
++#
++#       You can find Gradle at https://github.com/gradle/gradle/.
++#
++##############################################################################
++
++# Attempt to set APP_HOME
++
++# Resolve links: $0 may be a link
++app_path=$0
++
++# Need this for daisy-chained symlinks.
++while
++    APP_HOME=${app_path%"${app_path##*/}"}  # leaves a trailing /; empty if no leading path
++    [ -h "$app_path" ]
++do
++    ls=$( ls -ld "$app_path" )
++    link=${ls#*' -> '}
++    case $link in             #(
++      /*)   app_path=$link ;; #(
++      *)    app_path=$APP_HOME$link ;;
++    esac
++done
++
++APP_HOME=$( cd "${APP_HOME:-./}" && pwd -P ) || exit
++
++APP_NAME="Gradle"
++APP_BASE_NAME=${0##*/}
++
++# Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
++DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
++
++# Use the maximum available, or set MAX_FD != -1 to use that value.
++MAX_FD=maximum
++
++warn () {
++    echo "$*"
++} >&2
++
++die () {
++    echo
++    echo "$*"
++    echo
++    exit 1
++} >&2
++
++# OS specific support (must be 'true' or 'false').
++cygwin=false
++msys=false
++darwin=false
++nonstop=false
++case "$( uname )" in                #(
++  CYGWIN* )         cygwin=true  ;; #(
++  Darwin* )         darwin=true  ;; #(
++  MSYS* | MINGW* )  msys=true    ;; #(
++  NONSTOP* )        nonstop=true ;;
++esac
++
++CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
++
++
++# Determine the Java command to use to start the JVM.
++if [ -n "$JAVA_HOME" ] ; then
++    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
++        # IBM's JDK on AIX uses strange locations for the executables
++        JAVACMD=$JAVA_HOME/jre/sh/java
++    else
++        JAVACMD=$JAVA_HOME/bin/java
++    fi
++    if [ ! -x "$JAVACMD" ] ; then
++        die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
++
++Please set the JAVA_HOME variable in your environment to match the
++location of your Java installation."
++    fi
++else
++    JAVACMD=java
++    which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
++
++Please set the JAVA_HOME variable in your environment to match the
++location of your Java installation."
++fi
++
++# Increase the maximum file descriptors if we can.
++if ! "$cygwin" && ! "$darwin" && ! "$nonstop" ; then
++    case $MAX_FD in #(
++      max*)
++        MAX_FD=$( ulimit -H -n ) ||
++            warn "Could not query maximum file descriptor limit"
++    esac
++    case $MAX_FD in  #(
++      '' | soft) :;; #(
++      *)
++        ulimit -n "$MAX_FD" ||
++            warn "Could not set maximum file descriptor limit to $MAX_FD"
++    esac
++fi
++
++# Collect all arguments for the java command, stacking in reverse order:
++#   * args from the command line
++#   * the main class name
++#   * -classpath
++#   * -D...appname settings
++#   * --module-path (only if needed)
++#   * DEFAULT_JVM_OPTS, JAVA_OPTS, and GRADLE_OPTS environment variables.
++
++# For Cygwin or MSYS, switch paths to Windows format before running java
++if "$cygwin" || "$msys" ; then
++    APP_HOME=$( cygpath --path --mixed "$APP_HOME" )
++    CLASSPATH=$( cygpath --path --mixed "$CLASSPATH" )
++
++    JAVACMD=$( cygpath --unix "$JAVACMD" )
++
++    # Now convert the arguments - kludge to limit ourselves to /bin/sh
++    for arg do
++        if
++            case $arg in                                #(
++              -*)   false ;;                            # don't mess with options #(
++              /?*)  t=${arg#/} t=/${t%%/*}              # looks like a POSIX filepath
++                    [ -e "$t" ] ;;                      #(
++              *)    false ;;
++            esac
++        then
++            arg=$( cygpath --path --ignore --mixed "$arg" )
++        fi
++        # Roll the args list around exactly as many times as the number of
++        # args, so each arg winds up back in the position where it started, but
++        # possibly modified.
++        #
++        # NB: a `for` loop captures its iteration list before it begins, so
++        # changing the positional parameters here affects neither the number of
++        # iterations, nor the values presented in `arg`.
++        shift                   # remove old arg
++        set -- "$@" "$arg"      # push replacement arg
++    done
++fi
++
++# Collect all arguments for the java command;
++#   * $DEFAULT_JVM_OPTS, $JAVA_OPTS, and $GRADLE_OPTS can contain fragments of
++#     shell script including quotes and variable substitutions, so put them in
++#     double quotes to make sure that they get re-expanded; and
++#   * put everything else in single quotes, so that it's not re-expanded.
++
++set -- \
++        "-Dorg.gradle.appname=$APP_BASE_NAME" \
++        -classpath "$CLASSPATH" \
++        org.gradle.wrapper.GradleWrapperMain \
++        "$@"
++
++# Use "xargs" to parse quoted args.
++#
++# With -n1 it outputs one arg per line, with the quotes and backslashes removed.
++#
++# In Bash we could simply go:
++#
++#   readarray ARGS < <( xargs -n1 <<<"$var" ) &&
++#   set -- "${ARGS[@]}" "$@"
++#
++# but POSIX shell has neither arrays nor command substitution, so instead we
++# post-process each arg (as a line of input to sed) to backslash-escape any
++# character that might be a shell metacharacter, then use eval to reverse
++# that process (while maintaining the separation between arguments), and wrap
++# the whole thing up as a single "set" statement.
++#
++# This will of course break if any of these variables contains a newline or
++# an unmatched quote.
++#
++
++eval "set -- $(
++        printf '%s\n' "$DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS" |
++        xargs -n1 |
++        sed ' s~[^-[:alnum:]+,./:=@_]~\\&~g; ' |
++        tr '\n' ' '
++    )" '"$@"'
++
++exec "$JAVACMD" "$@"
+Index: ../.idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../.idea/modules.xml b/../.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1741541622979)
++++ b/../.idea/modules.xml	(date 1741541622979)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/labs.iml" filepath="$PROJECT_DIR$/.idea/labs.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../lab05 откат на англ версию/src/main/java/transfer/GsonHelper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/transfer/GsonHelper.java b/../lab05 откат на англ версию/src/main/java/transfer/GsonHelper.java
+new file mode 100644
+--- /dev/null	(date 1742035082951)
++++ b/../lab05 откат на англ версию/src/main/java/transfer/GsonHelper.java	(date 1742035082951)
+@@ -0,0 +1,40 @@
++package transfer;
++
++import collection.*;
++import com.google.gson.*;
++import exceptions.InvalidFileException;
++
++import java.lang.reflect.Type;
++
++/**
++ * A class used to correctly convert a JSON object into an object of class {@link Dragon} when working with the Gson library.
++ */
++public class GsonHelper implements JsonDeserializer<Dragon> {
++    @Override
++    public Dragon deserialize(JsonElement jsonElement, Type typee, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
++        JsonObject jsonObject = jsonElement.getAsJsonObject();
++        try {
++            Long id = jsonObject.get("id").getAsLong();
++            String name = jsonObject.get("name").getAsString();
++            int age = jsonObject.get("age").getAsInt();
++
++            Color color = null;
++            DragonCharacter character = null;
++            try {
++                color = Color.valueOf(jsonObject.get("color").getAsString());
++                character = DragonCharacter.valueOf(jsonObject.get("character").getAsString());
++            } catch (Exception ignored) {}
++            DragonType type = DragonType.valueOf(jsonObject.get("type").getAsString());
++            JsonObject coordinatesObject = jsonObject.getAsJsonObject("coordinates");
++            Coordinates coordinates = new Coordinates(coordinatesObject.get("x").getAsLong(), coordinatesObject.get("y").getAsLong());
++            JsonObject caveObject = jsonObject.getAsJsonObject("cave");
++            DragonCave cave = new DragonCave(caveObject.get("depth").getAsFloat(), caveObject.get("numberOfTreasures").getAsInt());
++            Dragon dragon = new Dragon(name, coordinates, age, color, type, cave, character);
++            dragon.setId(id);
++            return dragon;
++        }
++        catch (Exception e){
++            throw new InvalidFileException("Invalid script.\nThe collection from the file wasn't uploaded as it has wrong arguments of the object.");
++        }
++    }
++}
+Index: ../.idea/labs.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../.idea/labs.iml b/../.idea/labs.iml
+new file mode 100644
+--- /dev/null	(date 1741541622969)
++++ b/../.idea/labs.iml	(date 1741541622969)
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="JAVA_MODULE" version="4">
++  <component name="NewModuleRootManager" inherit-compiler-output="true">
++    <exclude-output />
++    <content url="file://$MODULE_DIR$" />
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+Index: ../lab05 откат на англ версию/src/main/java/commands/Help.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/commands/Help.java b/../lab05 откат на англ версию/src/main/java/commands/Help.java
+new file mode 100644
+--- /dev/null	(date 1742001980915)
++++ b/../lab05 откат на англ версию/src/main/java/commands/Help.java	(date 1742001980915)
+@@ -0,0 +1,26 @@
++package commands;
++
++import transfer.Request;
++import transfer.Response;
++
++import java.util.StringJoiner;
++
++import static invoker.CommandsStorage.commands;
++/**
++ * The class implements the help command.
++ * The command outputs help for available commands.
++ */
++public class Help extends Command{
++    public Help(){
++        super("help", "displays all available commands.", 0, 0);
++    }
++    @Override
++    public Response execute(Request request) {
++        StringJoiner stringJoiner = new StringJoiner("\n");
++        stringJoiner.add("Available commands:");
++        for (Command command : commands.values()){
++            stringJoiner.add(" - " + command.getName() + ": " + command.getPurpose());
++        }
++        return new Response(stringJoiner.toString());
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/invoker/Handler.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/invoker/Handler.java b/../lab05 откат на англ версию/src/main/java/invoker/Handler.java
+new file mode 100644
+--- /dev/null	(date 1742035031933)
++++ b/../lab05 откат на англ версию/src/main/java/invoker/Handler.java	(date 1742035031933)
+@@ -0,0 +1,56 @@
++package invoker;
++
++import client.ReadData;
++import collection.Dragon;
++import commands.Command;
++import exceptions.InvalidCommandException;
++import exceptions.WrongNumberOfArguments;
++import transfer.Request;
++
++import java.util.ArrayList;
++
++import static invoker.CommandsStorage.commands;
++
++/**
++ * The class is the handler of a user request.
++ * <p>
++ * The class parses the command entered by the user, checks the number and correctness of arguments
++ * and creates a {@link Request} object containing the command, arguments and a list of {@link Dragon} objects, if required.
++ * </p>
++ */
++public class Handler {
++    private final String requestString;
++    private final ReadData readData;
++    public Handler(String string, ReadData readData){
++        requestString = string;
++        this.readData = readData;
++    }
++
++    public Request getRequest() throws WrongNumberOfArguments, InvalidCommandException, InterruptedException {
++        ArrayList<Dragon> dragons = new ArrayList<>();
++        String[] input = requestString.trim().split("\\s+", 2);
++        Command command = findCommand(input[0]);
++        String[] args = input.length > 1 ? input[1].trim().split("\\s+") : new String[0];
++        if (args.length != command.getRequiredArgs()){
++            throw new WrongNumberOfArguments();
++        }
++        if (command.getName().equals("update")){
++            return new Request(command, args, dragons, this.readData);
++        }
++        long dragonNeed = command.getRequiredDragon();
++        while (dragonNeed > 0){
++            dragons.add(readData.get());
++            dragonNeed--;
++        }
++        return new Request(command, args, dragons);
++    }
++
++    private Command findCommand(String commandString) {
++        Command command = commands.get(commandString);
++        if (command == null){
++            throw new InvalidCommandException();
++        }
++        return command;
++    }
++
++}
+Index: ../lab05 откат на англ версию/src/main/java/collectionManager/InMemoryCollection.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/collectionManager/InMemoryCollection.java b/../lab05 откат на англ версию/src/main/java/collectionManager/InMemoryCollection.java
+new file mode 100644
+--- /dev/null	(date 1742019798955)
++++ b/../lab05 откат на англ версию/src/main/java/collectionManager/InMemoryCollection.java	(date 1742019798955)
+@@ -0,0 +1,20 @@
++package collectionManager;
++
++import java.util.Date;
++
++/**
++ * The class binds and implements loading data from a file and saving it to a collection.
++ */
++
++public class InMemoryCollection extends CollectionManager{
++    public InMemoryCollection() {
++        try {
++            dragons = fileDao.get();
++        }
++        catch (Exception e){
++            System.out.println("Invalid file input.");
++        }
++        date = new Date();
++    }
++
++}
+Index: ../lab05 откат на англ версию/src/main/java/commands/Info.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/commands/Info.java b/../lab05 откат на англ версию/src/main/java/commands/Info.java
+new file mode 100644
+--- /dev/null	(date 1742001988387)
++++ b/../lab05 откат на англ версию/src/main/java/commands/Info.java	(date 1742001988387)
+@@ -0,0 +1,21 @@
++package commands;
++
++import transfer.Request;
++import transfer.Response;
++
++/**
++ * The class implements the info command.
++ * The command outputs information about the collection (type, initialization date and number of elements).
++ */
++public class Info extends Command{
++    public Info(){
++        super("info", "shows information about the collection.", 0, 0);
++    }
++    @Override
++    public Response execute(Request request) {
++        if (collectionManager.isCollectionEmpty()){
++            return new Response("The collection is empty, there's no point in running this command.");
++        }
++        return new Response(collectionManager.info().toString());
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/exceptions/InvalidFileException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/exceptions/InvalidFileException.java b/../lab05 откат на англ версию/src/main/java/exceptions/InvalidFileException.java
+new file mode 100644
+--- /dev/null	(date 1742002160413)
++++ b/../lab05 откат на англ версию/src/main/java/exceptions/InvalidFileException.java	(date 1742002160413)
+@@ -0,0 +1,10 @@
++package exceptions;
++
++/**
++ * Exception indicating an invalid file or errors in its processing.
++ */
++public class InvalidFileException extends RuntimeException {
++    public InvalidFileException(String message) {
++        super(message);
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/exceptions/InvalidCommandException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/exceptions/InvalidCommandException.java b/../lab05 откат на англ версию/src/main/java/exceptions/InvalidCommandException.java
+new file mode 100644
+--- /dev/null	(date 1742002154294)
++++ b/../lab05 откат на англ версию/src/main/java/exceptions/InvalidCommandException.java	(date 1742002154294)
+@@ -0,0 +1,10 @@
++package exceptions;
++
++/**
++ * Exception indicating entry of a non-existent command.
++ */
++public class InvalidCommandException extends RuntimeException {
++    public InvalidCommandException() {
++        super("Invalid command.");
++    }
++}
+Index: ../lab05/.idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05/.idea/gradle.xml b/../lab05/.idea/gradle.xml
+new file mode 100644
+--- /dev/null	(date 1741542479761)
++++ b/../lab05/.idea/gradle.xml	(date 1741542479761)
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="GradleMigrationSettings" migrationVersion="1" />
++  <component name="GradleSettings">
++    <option name="linkedExternalProjectsSettings">
++      <GradleProjectSettings>
++        <option name="externalProjectPath" value="$PROJECT_DIR$" />
++        <option name="gradleHome" value="" />
++        <option name="modules">
++          <set>
++            <option value="$PROJECT_DIR$" />
++          </set>
++        </option>
++      </GradleProjectSettings>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../lab05 откат на англ версию/src/main/java/invoker/Invoker.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/invoker/Invoker.java b/../lab05 откат на англ версию/src/main/java/invoker/Invoker.java
+new file mode 100644
+--- /dev/null	(date 1742002572695)
++++ b/../lab05 откат на англ версию/src/main/java/invoker/Invoker.java	(date 1742002572695)
+@@ -0,0 +1,18 @@
++package invoker;
++
++import transfer.Request;
++import transfer.Response;
++
++/**
++ * The class that starts the execution of the command.
++ * <p>
++ * The class accepts a {@link Request} object containing the command and its parameters,
++ * and executes the command, returning the result as {@link Response}.
++ * </p>
++ */
++public class Invoker {
++
++    public Response executeCommand(Request request){
++        return request.command().execute(request);
++    }
++}
+Index: ../lab05/.idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05/.idea/.gitignore b/../lab05/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1741097153787)
++++ b/../lab05/.idea/.gitignore	(date 1741097153787)
+@@ -0,0 +1,8 @@
++# Default ignored files
++/shelf/
++/workspace.xml
++# Editor-based HTTP Client requests
++/httpRequests/
++# Datasource local storage ignored files
++/dataSources/
++/dataSources.local.xml
+Index: ../lab05 откат на англ версию/.idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/.idea/misc.xml b/../lab05 откат на англ версию/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1742059148052)
++++ b/../lab05 откат на англ версию/.idea/misc.xml	(date 1742059148052)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="23" project-jdk-type="JavaSDK">
++    <output url="file://$PROJECT_DIR$/out" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ../lab05 откат на англ версию/src/main/java/main/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/main/Main.java b/../lab05 откат на англ версию/src/main/java/main/Main.java
+new file mode 100644
+--- /dev/null	(date 1742002239198)
++++ b/../lab05 откат на англ версию/src/main/java/main/Main.java	(date 1742002239198)
+@@ -0,0 +1,19 @@
++package main;
++
++import client.Console;
++import client.ReadData;
++import io.ConsoleReader;
++import io.MyReader;
++
++/**
++ * The class starts the execution of the program.
++ */
++public class Main {
++    public static void main(String[] args) {
++        MyReader myReader = new ConsoleReader();
++        ReadData readData = new ReadData();
++        while(myReader.hasNextLine()){
++            new Console(myReader.readLine(), readData);
++        }
++    }
++}
+\ No newline at end of file
+Index: ../lab05/.idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05/.idea/misc.xml b/../lab05/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1741134152058)
++++ b/../lab05/.idea/misc.xml	(date 1741134152058)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ExternalStorageConfigurationManager" enabled="true" />
++  <component name="FrameworkDetectionExcludesConfiguration">
++    <file type="web" url="file://$PROJECT_DIR$" />
++  </component>
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
++    <output url="file://$PROJECT_DIR$/out" />
++  </component>
++</project>
+\ No newline at end of file
+Index: ../lab05 откат на англ версию/src/main/java/commands/PrintFieldDescendingCharacter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/commands/PrintFieldDescendingCharacter.java b/../lab05 откат на англ версию/src/main/java/commands/PrintFieldDescendingCharacter.java
+new file mode 100644
+--- /dev/null	(date 1742002572681)
++++ b/../lab05 откат на англ версию/src/main/java/commands/PrintFieldDescendingCharacter.java	(date 1742002572681)
+@@ -0,0 +1,40 @@
++package commands;
++
++import collection.Dragon;
++import collection.DragonCharacter;
++import transfer.Request;
++import transfer.Response;
++
++import java.util.ArrayList;
++import java.util.List;
++import java.util.StringJoiner;
++
++import static collectionManager.CollectionManager.dragons;
++
++/**
++ * The class implements the print_field_descending_character command.
++ * The command prints the character field values of all elements in descending order.
++ */
++
++public class PrintFieldDescendingCharacter extends Command{
++    public PrintFieldDescendingCharacter(){
++        super("print_field_descending_character", "prints the character field values of all elements in descending order.", 0, 0);
++    }
++    @Override
++    public Response execute(Request request) {
++        if (collectionManager.isCollectionEmpty()){
++            return new Response("The collection is empty, there's no point in running this command.");
++        }
++        StringJoiner stringJoiner = new StringJoiner("\n");
++        List<Dragon> dragonsReversed = new ArrayList<>(dragons);
++        for (int i = dragonsReversed.size() - 1; i >= 0; i--){
++            DragonCharacter character = dragonsReversed.get(i).getCharacter();
++            if (character == null){
++                continue;
++            }
++            stringJoiner.add(character.toString());
++        }
++        String res = stringJoiner.toString();
++        return new Response(res.isEmpty() ? "The character field is empty for all elements in the collection." : res);
++    }
++}
+Index: ../lab05 откат на англ версию/src/main/java/io/MyReader.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../lab05 откат на англ версию/src/main/java/io/MyReader.java b/../lab05 откат на англ версию/src/main/java/io/MyReader.java
+new file mode 100644
+--- /dev/null	(date 1742021930288)
++++ b/../lab05 откат на англ версию/src/main/java/io/MyReader.java	(date 1742021930288)
+@@ -0,0 +1,13 @@
++package io;
++
++/**
++ * Interface for reading data strings.
++ * <p>
++ * Implemented for console input {@link ConsoleReader} and for reading from a file {@link FileReader}.
++ * </p>
++ */
++public interface MyReader {
++    boolean hasNextLine();
++    String readLine();
++    String readLine(String string);
++}

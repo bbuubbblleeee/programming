@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e281c259-6e13-4d6e-953e-e09aff07c984" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/labs.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/settings.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/client/Console.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/client/ReadData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collection/Color.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collection/Coordinates.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collection/Dragon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collection/DragonCave.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collection/DragonCharacter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collection/DragonType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collection/checkers/ArgumentChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collection/checkers/CollectionChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collectionManager/CollectionManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/collectionManager/InMemoryCollection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/Add.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/AddIfMax.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/Clear.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/CountByAge.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/ExecuteScript.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/Exit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/Help.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/Info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/PrintFieldDescendingCharacter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/RemoveAnyByAge.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/RemoveById.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/RemoveGreater.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/RemoveLower.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/Save.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/Show.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/commands/Update.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/dao/DAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/dao/FileDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/exceptions/EndOfInputException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/exceptions/FilePermissionException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/exceptions/InvalidCommandException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/exceptions/InvalidFileException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/exceptions/WrongArgumentException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/exceptions/WrongNumberOfArguments.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/invoker/CommandsStorage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/invoker/Handler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/invoker/Invoker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/io/ConsoleReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/io/FileReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/io/MyReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/main/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/transfer/GsonHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/transfer/Request.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/java/transfer/Response.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/test.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05 откат на англ версию/src/main/test.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab05/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab06.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab06/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lab06/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab06/server/src/main/java/serverCommands/Save.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab06/server/src/main/java/serverCommands/Save.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/client">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$/server">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="lab06" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="lab06" type="f1a62948:ProjectNode" />
+                <item name="client" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="lab06" type="f1a62948:ProjectNode" />
+                <item name="client" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="lab06" type="f1a62948:ProjectNode" />
+                <item name="client" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="shadow" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="lab06" type="f1a62948:ProjectNode" />
+                <item name="server" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="lab06" type="f1a62948:ProjectNode" />
+                <item name="server" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="lab06" type="f1a62948:ProjectNode" />
+                <item name="server" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="shadow" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Exception" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;bbuubbblleeee&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/bbuubbblleeee/programming.git&quot;,
+    &quot;accountId&quot;: &quot;b2b7e9b2-3b32-4630-9912-c4e06812aba3&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2xSUCZZCdDYZkU19dc1KJlvFG3R" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ClientMain.executor": "Run",
+    "Gradle.lab07:client [shadowJar].executor": "Run",
+    "Gradle.lab07:server [shadowJar].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Liza\Desktop\ITMO\programming java\labs\lab07\server\build\libs" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.lab07:server [shadowJar]">
+    <configuration name="lab07:client [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/client" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="shadowJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="lab07:server [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/server" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="shadowJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.lab07:server [shadowJar]" />
+        <item itemvalue="Gradle.lab07:client [shadowJar]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
+        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e281c259-6e13-4d6e-953e-e09aff07c984" name="Changes" comment="" />
+      <created>1747930845712</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1747930845712</updated>
+      <workItem from="1747930846737" duration="1241000" />
+      <workItem from="1747932114860" duration="32322000" />
+      <workItem from="1747991445220" duration="39340000" />
+      <workItem from="1748037132476" duration="9456000" />
+      <workItem from="1748054912254" duration="6825000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

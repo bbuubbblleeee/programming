@@ -1,0 +1,37 @@
+package invoker;
+
+import commands.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Class stores available commands.
+ * <p>
+ * This class contains a collection of commands available in the system.
+ * Commands are represented as Map, where the key is the command name,
+ * and the value is the corresponding object that implements the {@link Command} interface.
+ * </p>
+ */
+public class CommandsStorage {
+    public static final HashMap<String, Command> commands = new HashMap<>(Map.ofEntries(
+            Map.entry("add", new Add()),
+            Map.entry("add_if_max", new AddIfMax()),
+            Map.entry("clear", new Clear()),
+            Map.entry("count_by_age", new CountByAge()),
+            Map.entry("exit", new Exit()),
+            Map.entry("help", new Help()),
+            Map.entry("info", new Info()),
+            Map.entry("print_field_descending_character", new PrintFieldDescendingCharacter()),
+            Map.entry("remove_any_by_age", new RemoveAnyByAge()),
+            Map.entry("remove_by_id", new RemoveById()),
+            Map.entry("remove_greater", new RemoveGreater()),
+            Map.entry("remove_lower", new RemoveLower()),
+            Map.entry("show", new Show()),
+            Map.entry("update", new Update()),
+            Map.entry("execute_script", new ExecuteScript()),
+            Map.entry("enter", new Enter()),
+            Map.entry("sign_up", new SignUp())
+
+    ));
+}
