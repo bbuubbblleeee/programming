@@ -18,7 +18,7 @@ public class DbConnection {
     }
     public Connection connect() {
         try{
-            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5433/studs", user, password);
+            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/studs", user, password);
             return connection;
         }
         catch (SQLException sqlException){

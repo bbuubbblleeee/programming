@@ -82,7 +82,7 @@ public class ReadData implements Serializable, AutoCloseable {
                 }
                 System.out.println(ex.getMessage());
             } catch (Exception exx) {
-                System.out.println(exx.getMessage());
+                throw new InvalidFileException(exx.getMessage());
             }
 
         }

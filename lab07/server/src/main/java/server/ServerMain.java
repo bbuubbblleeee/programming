@@ -39,63 +39,53 @@ public class ServerMain {
 
 
     public static void main(String[] args) {
+        Console consoleServer = new Console();
+        consoleServer.start();
         try (DatagramChannel datagramChannel = DatagramChannel.open(); Selector selector = Selector.open()){
             datagramChannel.configureBlocking(false);
             datagramChannel.bind(new InetSocketAddress(port));
             System.out.println("Сервер запущен...");
             datagramChannel.register(selector, SelectionKey.OP_READ);
 
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
             while (true){
                 selector.select(100);
                 Set<SelectionKey> keys = selector.selectedKeys();
                 Iterator<SelectionKey> iterator = keys.iterator();
-                while (iterator.hasNext()){
+                while (iterator.hasNext()) {
                     SelectionKey key = iterator.next();
                     iterator.remove();
-                    if (key.isReadable()){
-                        Request request = null;
-                        try {
-                            RequestTask requestTask = recieveRequest(datagramChannel);
-                            if (requestTask == null){
-                                return;
-                            }
-                            inetSocketAddress = requestTask.clientAddress;
-                            request = requestTask.request;
-                            System.out.println(inetSocketAddress);
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-                        ForkJoinTask<Response> task = forkJoinPool.submit(new Handler(request));
-                        responsePool.execute(() -> {
+                    if (key.isReadable()) {
+                        recievePool.execute(() -> {
+                            Request request = null;
                             try {
-                                Response response = task.join();
-                                System.out.println(response);
-                                System.out.println(inetSocketAddress);
-                                sendResponse(response, datagramChannel);
-                            } catch (IOException e) {
-                                System.out.println(123);
+                                RequestTask requestTask = recieveRequest(datagramChannel);
+                                if (requestTask == null) {
+                                    return;
+                                }
+                                inetSocketAddress = requestTask.clientAddress;
+                                request = requestTask.request;
+                            } catch (Exception e) {
+                                System.out.println(e.getMessage());
                             }
+                            ForkJoinTask<Response> task = forkJoinPool.submit(new Handler(request));
+                            responsePool.execute(() -> {
+                                try {
+                                    Response response = task.join();
+                                    sendResponse(response, datagramChannel);
+                                } catch (IOException e) {
+                                    System.out.println(e.getMessage());
+                                }
+                            });
                         });
-                    }
-                }
-
-                while (bufferedReader.ready()){
-                    String commandStr = bufferedReader.readLine();
-
-                    if (commandStr == null){
-                        continue;
-                    }
-                    switch(commandStr.trim().toLowerCase()){
-                        case "exit" -> new ExitServer().execute();
-                        default -> System.out.println("Неверная команда введена.");
                     }
                 }
             }
 
         } catch (Exception e) {
         }
-        System.out.println(123);
+        finally {
+            consoleServer.shutdown();
+        }
 
     }
 
@@ -155,10 +145,39 @@ public class ServerMain {
             }
 
             Invoker invoker = new Invoker();
-            Response response = invoker.executeCommand(request);
-            return response;
+            return invoker.executeCommand(request);
         } catch (Exception e) {
             return new Response(e.getMessage());
+        }
+    }
+
+    private static class Console extends Thread {
+        private volatile boolean running = true;
+
+        @Override
+        public void run() {
+            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
+                while (running) {
+                    String commandStr = bufferedReader.readLine();
+                    if (commandStr == null) continue;
+
+                    switch (commandStr.trim().toLowerCase()) {
+                        case "exit" -> {
+                            new ExitServer().execute();
+                            shutdown();
+                            return;
+                        }
+                        default -> System.out.println("Введена неверная команда.");
+                    }
+                }
+            } catch (IOException e) {
+                System.err.println("Ошибка чтения консоли: " + e.getMessage());
+            }
+        }
+
+        public void shutdown() {
+            running = false;
+            this.interrupt();
         }
     }
 }

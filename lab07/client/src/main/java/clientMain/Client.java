@@ -38,7 +38,7 @@ public class Client {
             channel.write(byteBuffer);
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("Сервер временно недоступен.");
         }
     }
 

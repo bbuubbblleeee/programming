@@ -57,11 +57,6 @@ public class DbDao implements DAO{
 
     public long remove(String condition, String login){
         String[] condParts = condition.trim().split("\\s+");
-        System.out.println(condParts[0]);
-        System.out.println(condParts[1]);
-        System.out.println(condParts[2]);
-
-
         if (condParts[0].equals("id") && condParts[1].matches("[<>]")){
             removeFromDb("id = " + condParts[2], login);
         }
@@ -156,7 +151,6 @@ public class DbDao implements DAO{
                 cave.close();
 
                 Dragon dragon = new Dragon(id, name, dragonCoordinates, age, color, dragonType, dragonCave, dragonCharacter);
-                System.out.println(dragon);
                 dragon.setCreationDate(creationDate);
                 dragons.add(dragon);
             }
@@ -234,7 +228,6 @@ public class DbDao implements DAO{
             }
 
             dragonStatement.setLong(8, dragonCaveId);
-            System.out.println(login);
             dragonStatement.setString(9, login);
             dragonStatement.executeUpdate();
             return getFieldId(dragonStatement);
