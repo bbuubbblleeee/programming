@@ -13,7 +13,7 @@ import static server.ServerMain.getCollectionManager;
  */
 public class RemoveLower extends Command {
     public RemoveLower() {
-        super("remove_lower", "удаляет из коллекции все элементы, меньшие, чем заданный.", 0, 1);
+        super("remove_lower", "удаляет из коллекции все элементы, меньшие, чем заданный.", 0);
     }
 
     @Override

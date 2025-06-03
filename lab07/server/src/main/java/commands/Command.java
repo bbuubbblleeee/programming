@@ -11,14 +11,12 @@ import transfer.Response;
 public abstract class Command {
     private final String commandName;
     private final String purpose;
-    private final int requiredDragon;
     private final int requiredArgs;
 
-    public Command(String commandName, String purpose, int requiredArgs, int requiredDragon) {
+    public Command(String commandName, String purpose, int requiredArgs) {
         this.commandName = commandName;
         this.purpose = purpose;
         this.requiredArgs = requiredArgs;
-        this.requiredDragon = requiredDragon;
     }
 
 

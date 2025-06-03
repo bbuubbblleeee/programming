@@ -18,12 +18,10 @@ public class DbConnection {
     }
     public Connection connect() {
         try{
-            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/studs", user, password);
-            return connection;
+            return DriverManager.getConnection(URL, user, password);
         }
         catch (SQLException sqlException){
             throw new InvalidFileException("Не удалось подключиться к базе данных.");
-            //TODO поменять вид ошибки или че нибудь сделать с этим короче
         }
     }
 }

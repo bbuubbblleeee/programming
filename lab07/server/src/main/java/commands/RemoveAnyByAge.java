@@ -12,7 +12,7 @@ import static server.ServerMain.getCollectionManager;
 
 public class RemoveAnyByAge extends Command {
     public RemoveAnyByAge() {
-        super("remove_any_dy_age", "удаляет из коллекции один элемент, значение поля age которого эквивалентно заданному.", 1, 0);
+        super("remove_any_dy_age", "удаляет из коллекции один элемент, значение поля age которого эквивалентно заданному.", 1);
     }
 
     @Override

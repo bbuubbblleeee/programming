@@ -13,7 +13,7 @@ import static server.ServerMain.getCollectionManager;
 
 public class Clear extends Command {
     public Clear() {
-        super("clear", "очищает коллекцию", 0, 0);
+        super("clear", "очищает коллекцию", 0);
     }
 
     @Override

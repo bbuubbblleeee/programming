@@ -12,7 +12,7 @@ import static server.ServerMain.getCollectionManager;
  */
 public class Update extends Command {
     public Update() {
-        super("update", "обновляет значение элемента коллекции, идентификатор которого равен заданному.", 1, 1);
+        super("update", "обновляет значение элемента коллекции, идентификатор которого равен заданному.", 1);
     }
 
     @Override

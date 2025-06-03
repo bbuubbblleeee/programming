@@ -50,6 +50,8 @@ public class Dragon implements Comparable<Dragon>, Serializable {
     @SerializedName("Пещера")
     private DragonCave cave; //Поле не может быть null
 
+    private String owner;
+
     public Dragon(String name, Coordinates coordinates, int age, Color color, DragonType type, DragonCave cave, DragonCharacter character) {
         this.name = name;
         this.coordinates = coordinates;
@@ -138,6 +140,10 @@ public class Dragon implements Comparable<Dragon>, Serializable {
         this.name = name;
     }
 
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
     public Coordinates getCoordinates() {
         return this.coordinates;
     }
@@ -196,6 +202,7 @@ public class Dragon implements Comparable<Dragon>, Serializable {
                 "Цвет = " + color + "\n" +
                 "Тип = " + type + "\n" +
                 "Характер = " + character + "\n" +
-                "Пещера = " + cave.toString() + "\n";
+                "Пещера = " + cave.toString() + "\n" +
+                "Владелец = " + owner;
     }
 }

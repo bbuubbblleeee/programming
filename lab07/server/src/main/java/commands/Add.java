@@ -13,7 +13,7 @@ import static server.ServerMain.getCollectionManager;
 
 public class Add extends Command {
     public Add() {
-        super("add", "добавляет новый элемент в коллекцию.", 0, 1);
+        super("add", "добавляет новый элемент в коллекцию.", 0);
     }
 
     @Override

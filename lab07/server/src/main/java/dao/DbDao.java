@@ -15,7 +15,6 @@ import java.util.TreeSet;
 
 public class DbDao implements DAO{
     private Connection connection = new DbConnection("jdbc:postgresql://localhost:5433/studs", "s489568", "ucXGL33fhMIf4P30").connect();
-    private String table = "dragon";
 
     @Override
     public DateAndDragons get() {
@@ -88,13 +87,17 @@ public class DbDao implements DAO{
                 PreparedStatement statement = connection.prepareStatement("INSERT INTO users (login, passwordHashed, salt) VALUES (?, ?, ?)")){
             loginStatement.setString(1, login);
             ResultSet resultSet = loginStatement.executeQuery();
+
             if (resultSet.next()){
                 throw new LoginUserException("Такой логин уже существует, придумайте другой и повторите ввод.");
             }
+
             statement.setString(1, login);
+
             Password password = new Password();
             String passwordHashed = password.getPasswordHashed(passwordNew);
             byte[] salt = password.getSalt();
+
             statement.setString(2, passwordHashed);
             statement.setBytes(3, salt);
             statement.executeUpdate();
@@ -104,55 +107,57 @@ public class DbDao implements DAO{
     }
 
     private DateAndDragons readDb() {
-        //TODO подумать что делать с датой инициализации, пока что стоит текущая дата
         TreeSet<Dragon> dragons = new TreeSet<>();
-        try (Statement statement = connection.createStatement();
-             ResultSet dragonSet = statement.executeQuery("SELECT * FROM dragon")){
+        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM dragon");
+             ResultSet dragonSet = preparedStatement.executeQuery()){
             while (dragonSet.next()){
-                PreparedStatement coordinates = connection.prepareStatement("SELECT x, y FROM coordinates WHERE id = ?");
-                PreparedStatement cave = connection.prepareStatement("SELECT depth, numberOfTreasures FROM dragon_cave WHERE id = ?");
+                try(PreparedStatement coordinates = connection.prepareStatement("SELECT x, y FROM coordinates WHERE id = ?");
+                PreparedStatement cave = connection.prepareStatement("SELECT depth, numberOfTreasures FROM dragon_cave WHERE id = ?");) {
 
-                Long id = dragonSet.getLong("id");
-                String name = dragonSet.getString("name");
-                String creationDate = dragonSet.getString("creationDate");
-                int age = dragonSet.getInt("age");
+                    Long id = dragonSet.getLong("id");
+                    String name = dragonSet.getString("name");
+                    String creationDate = dragonSet.getString("creationDate");
+                    int age = dragonSet.getInt("age");
 
-                String colorString = dragonSet.getString("color");
-                Color color = colorString == null ? null : Color.valueOf(colorString);
+                    String colorString = dragonSet.getString("color");
+                    Color color = colorString == null ? null : Color.valueOf(colorString);
 
-                String dragonTypeString = dragonSet.getString("dragonType");
-                DragonType dragonType = DragonType.valueOf(dragonTypeString);
+                    String dragonTypeString = dragonSet.getString("dragonType");
+                    DragonType dragonType = DragonType.valueOf(dragonTypeString);
 
-                String dragonCharacterString = dragonSet.getString("dragonCharacter");
-                DragonCharacter dragonCharacter = dragonCharacterString == null ? null : DragonCharacter.valueOf(dragonCharacterString);
+                    String dragonCharacterString = dragonSet.getString("dragonCharacter");
+                    DragonCharacter dragonCharacter = dragonCharacterString == null ? null : DragonCharacter.valueOf(dragonCharacterString);
 
-                long coordinatesId = dragonSet.getLong("coordinatesId");
-                coordinates.setLong(1, coordinatesId);
-                ResultSet coordinateSet = coordinates.executeQuery();
-                Coordinates dragonCoordinates = null;
-                if (coordinateSet.next()) {
-                    long x = coordinateSet.getLong("x");
-                    long y = coordinateSet.getLong("y");
-                    dragonCoordinates = new Coordinates(x, y);
+                    String owner = dragonSet.getString("userLogin");
+                    long coordinatesId = dragonSet.getLong("coordinatesId");
+                    coordinates.setLong(1, coordinatesId);
+                    ResultSet coordinateSet = coordinates.executeQuery();
+                    Coordinates dragonCoordinates = null;
+                    if (coordinateSet.next()) {
+                        long x = coordinateSet.getLong("x");
+                        long y = coordinateSet.getLong("y");
+                        dragonCoordinates = new Coordinates(x, y);
+                    }
+                    coordinateSet.close();
+                    coordinates.close();
+
+                    long dragonCaveId = dragonSet.getLong("dragonCaveId");
+                    cave.setLong(1, dragonCaveId);
+                    ResultSet caveSet = cave.executeQuery();
+                    DragonCave dragonCave = null;
+                    if (caveSet.next()) {
+                        float depth = caveSet.getFloat("depth");
+                        int numberOfTreasures = caveSet.getInt("numberOfTreasures");
+                        dragonCave = new DragonCave(depth, numberOfTreasures);
+                    }
+                    caveSet.close();
+                    cave.close();
+
+                    Dragon dragon = new Dragon(id, name, dragonCoordinates, age, color, dragonType, dragonCave, dragonCharacter);
+                    dragon.setCreationDate(creationDate);
+                    dragon.setOwner(owner);
+                    dragons.add(dragon);
                 }
-                coordinateSet.close();
-                coordinates.close();
-
-                long dragonCaveId = dragonSet.getLong("dragonCaveId");
-                cave.setLong(1, dragonCaveId);
-                ResultSet caveSet = cave.executeQuery();
-                DragonCave dragonCave = null;
-                if (caveSet.next()) {
-                    float depth = caveSet.getFloat("depth");
-                    int numberOfTreasures = caveSet.getInt("numberOfTreasures");
-                    dragonCave = new DragonCave(depth, numberOfTreasures);
-                }
-                caveSet.close();
-                cave.close();
-
-                Dragon dragon = new Dragon(id, name, dragonCoordinates, age, color, dragonType, dragonCave, dragonCharacter);
-                dragon.setCreationDate(creationDate);
-                dragons.add(dragon);
             }
             return new DateAndDragons(DateFormat.getDateTimeInstance().format(new Date()), dragons);
         }
@@ -162,15 +167,12 @@ public class DbDao implements DAO{
     }
 
     private long removeFromDb(String condition, String login){
-        try(
-        Statement statement = connection.createStatement();
+        try( PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM dragon WHERE userLogin = ? AND " + condition)
         ){
-            String sql = "DELETE FROM dragon WHERE userLogin = '" + login + "' AND "  + condition;
-            long rows = statement.executeUpdate(sql);
-            return rows;
+            preparedStatement.setString(1, login);
+            return preparedStatement.executeUpdate();
         }
         catch (SQLException sqlException){
-            System.out.println(sqlException.getMessage());
             throw new DbErrorException("Ошибка удаления дракона из базы данных.");
         }
     }
@@ -192,8 +194,7 @@ public class DbDao implements DAO{
 
         try(PreparedStatement dragonStatement = connection.prepareStatement(
                 "INSERT INTO dragon (name, coordinatesId, creationDate, age, color, dragonType, dragonCharacter, dragonCaveId, userLogin) " +
-                        "VALUES (?, ?, ?, ?, ?::COLOR, ?::DRAGON_TYPE, ?::DRAGON_CHARACTER, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            Statement statement = connection.createStatement()){
+                        "VALUES (?, ?, ?, ?, ?::COLOR, ?::DRAGON_TYPE, ?::DRAGON_CHARACTER, ?, ?)", Statement.RETURN_GENERATED_KEYS)){
             PreparedStatement coordinates = connection.prepareStatement("INSERT INTO coordinates (x, y) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
             PreparedStatement cave = connection.prepareStatement("INSERT INTO dragon_cave (depth, numberOfTreasures) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
 
@@ -244,8 +245,7 @@ public class DbDao implements DAO{
         try(PreparedStatement dragonStatement = connection.prepareStatement(
                 "UPDATE dragon " +
                         "SET name = ?, coordinatesId = ?, age = ?, color = ?::COLOR, dragonType = ?::DRAGON_TYPE, dragonCharacter = ?::DRAGON_CHARACTER, dragonCaveId = ? " +
-                        "WHERE id = ? AND userLogin = ?");
-            Statement statement = connection.createStatement()){
+                        "WHERE id = ? AND userLogin = ?")){
             PreparedStatement coordinates = connection.prepareStatement("UPDATE coordinates SET x = ?, y = ? WHERE id = ?");
             PreparedStatement cave = connection.prepareStatement("UPDATE dragon_cave SET depth = ?, numberOfTreasures = ? WHERE id = ?");
             PreparedStatement findDragon = connection.prepareStatement("SELECT coordinatesId, dragonCaveId FROM dragon WHERE id = " + id);
@@ -300,7 +300,6 @@ public class DbDao implements DAO{
 
         }
         catch (SQLException sqlException){
-            System.out.println(sqlException.getMessage());
             throw new DbErrorException("Ошибка обновления данных в базе данных.");
         }
     }

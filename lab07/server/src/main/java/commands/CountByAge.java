@@ -11,7 +11,7 @@ import static server.ServerMain.getCollectionManager;
  */
 public class CountByAge extends Command {
     public CountByAge() {
-        super("count_by_age", "выводит количество элементов, значение поля age которых равно заданному", 1, 0);
+        super("count_by_age", "выводит количество элементов, значение поля age которых равно заданному", 1);
     }
 
     @Override

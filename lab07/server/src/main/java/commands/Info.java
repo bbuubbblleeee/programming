@@ -12,7 +12,7 @@ import static server.ServerMain.getCollectionManager;
  */
 public class Info extends Command {
     public Info() {
-        super("info", "выводит в стандартный поток вывода информацию о коллекции.", 0, 0);
+        super("info", "выводит в стандартный поток вывода информацию о коллекции.", 0);
     }
 
     @Override

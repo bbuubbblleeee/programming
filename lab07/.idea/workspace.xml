@@ -83,14 +83,36 @@
       <change beforePath="$PROJECT_DIR$/../lab06/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lab06/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lab06/server/src/main/java/serverCommands/Save.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab06/server/src/main/java/serverCommands/Save.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/ClientMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Execute_script.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Execute_script.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Handler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/src/main/java/client/ReadData.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/client/ReadData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/collection/Dragon.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/collection/Dragon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/collectionManager/CollectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/collectionManager/CollectionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/collectionManager/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/collectionManager/DatabaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/collectionManager/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/collectionManager/FileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Add.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/Add.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/AddIfMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/AddIfMax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Clear.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/Clear.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/Command.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/CountByAge.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/CountByAge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Enter.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/Enter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/ExecuteScript.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/ExecuteScript.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Exit.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/Exit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/Help.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Info.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/Info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/PrintFieldDescendingCharacter.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/PrintFieldDescendingCharacter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/RemoveAnyByAge.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/RemoveAnyByAge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/RemoveById.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/RemoveById.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/RemoveGreater.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/RemoveGreater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/RemoveLower.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/RemoveLower.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Show.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/Show.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/SignUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/Update.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/Update.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/dao/DbDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dao/DbDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/dbConnection/DbConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dbConnection/DbConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/ClientReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/SendResponse.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/server/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/ServerMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/users/Password.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/users/Password.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,7 +241,7 @@
       <recent name="C:\Users\Liza\Desktop\ITMO\programming java\labs\lab07\server\build\libs" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.lab07:server [shadowJar]">
+  <component name="RunManager" selected="Gradle.lab07:client [shadowJar]">
     <configuration name="lab07:client [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -266,8 +288,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.lab07:server [shadowJar]" />
         <item itemvalue="Gradle.lab07:client [shadowJar]" />
+        <item itemvalue="Gradle.lab07:server [shadowJar]" />
       </list>
     </recent_temporary>
   </component>
@@ -293,7 +315,17 @@
       <workItem from="1748037132476" duration="9456000" />
       <workItem from="1748054912254" duration="23784000" />
       <workItem from="1748079682183" duration="89000" />
-      <workItem from="1748081140321" duration="7466000" />
+      <workItem from="1748081140321" duration="9298000" />
+      <workItem from="1748542279386" duration="2000" />
+      <workItem from="1748686079358" duration="1788000" />
+      <workItem from="1748820475057" duration="1047000" />
+      <workItem from="1748822329957" duration="169000" />
+      <workItem from="1748822769142" duration="6000" />
+      <workItem from="1748824190120" duration="708000" />
+      <workItem from="1748873263418" duration="2849000" />
+      <workItem from="1748892017546" duration="2940000" />
+      <workItem from="1748943990876" duration="7000" />
+      <workItem from="1748944009071" duration="3917000" />
     </task>
     <task id="LOCAL-00001" summary="lab07 added.">
       <option name="closed" value="true" />
@@ -311,7 +343,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748072257097</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="lab07 added.">
+      <option name="closed" value="true" />
+      <created>1748093699985</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1748093699985</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

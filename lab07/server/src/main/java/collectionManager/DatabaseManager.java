@@ -27,6 +27,7 @@ public class DatabaseManager extends CollectionManager {
         try {
             long id = dao.add(dragon, User.getLogin());
             dragon.setId(id);
+            dragon.setOwner(User.getLogin());
             dragons.add(dragon);
             return new Response("Дракон был успешно добавлен.");
         }
@@ -36,7 +37,7 @@ public class DatabaseManager extends CollectionManager {
     }
 
     @Override
-    public Response add_if_max(Dragon dragon, long lastId) {
+    public Response addIfMax(Dragon dragon, long lastId) {
         try {
             long id = dao.add_if_max(dragon, lastId, User.getLogin());
             dragon.setId(id);

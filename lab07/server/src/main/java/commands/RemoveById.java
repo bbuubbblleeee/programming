@@ -12,7 +12,7 @@ import static server.ServerMain.getCollectionManager;
  */
 public class RemoveById extends Command {
     public RemoveById() {
-        super("remove_by_id", "удаляет элемент из коллекции по его идентификатору.", 1, 0);
+        super("remove_by_id", "удаляет элемент из коллекции по его идентификатору.", 1);
     }
 
     @Override

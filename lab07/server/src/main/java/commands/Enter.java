@@ -8,7 +8,7 @@ import static server.ServerMain.getCollectionManager;
 public class Enter extends Command{
 
     public Enter(){
-        super("enter", "осуществляет вход в уже существующий аккаунт", 2, 0);
+        super("enter", "осуществляет вход в уже существующий аккаунт", 2);
     }
 
     @Override

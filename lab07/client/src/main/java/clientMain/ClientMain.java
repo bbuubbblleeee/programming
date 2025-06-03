@@ -14,7 +14,7 @@ public class ClientMain {
     private static String password = null;
 
     public static void main(String[] args) {
-        System.out.println("Приложение запущено.\nВведите enter {login} {password} для авторизации существующего аккаунта.");
+        System.out.println("Приложение запущено.\nВведите enter {login} {password} для авторизации существующего аккаунта.\nИли зарегестрируйте аккаунт, введя sign_up {login} {password}.");
         try (MyReader myReader = new ConsoleReader(); ReadData readData = new ReadData()) {
             while (myReader.hasNextLine()) {
                 Handler handler = new Handler(myReader.readLine(), readData);
@@ -39,7 +39,7 @@ public class ClientMain {
         }
     }
 
-    public static String sendAndGetResponse(Request request) throws IOException, ClassNotFoundException {
+    public static String sendAndGetResponse(Request request) throws IOException {
         try {
             client.sendRequest(request);
             return client.recieveResponse().toString();
@@ -61,9 +61,6 @@ public class ClientMain {
 
 
     private static boolean successfulEntering(String response){
-        if (response.equals("Пользователь успешно подключен к базе данных.")){
-            return true;
-        }
-        return false;
+        return response.equals("Пользователь успешно подключен к базе данных.");
     }
 }

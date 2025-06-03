@@ -4,13 +4,9 @@ import collectionManager.CollectionManager;
 import collectionManager.DatabaseManager;
 import commands.Command;
 import exceptions.InvalidCommandException;
-import exceptions.LoginUserException;
-import exceptions.WrongNumberOfArguments;
-import invoker.Invoker;
 import serverCommands.ExitServer;
 import transfer.Request;
 import transfer.Response;
-import users.User;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -130,26 +126,26 @@ public class ServerMain {
     }
 
 
-    private static synchronized Response handler(Request request) throws IOException {
-        try {
-            Command command = findCommand(request.command());
-            String[] arguments = request.args();
-
-            if (request.login() == null && request.password() == null){
-                throw new LoginUserException("Выполнение команд недоступно без авторизации. Пожалуйста, авторизуйтесь или создайте новый аккаунт.");
-            }
-            User user = new User(request.login(), request.password());
-
-            if (arguments.length != command.getRequiredArgs()) {
-                throw new WrongNumberOfArguments();
-            }
-
-            Invoker invoker = new Invoker();
-            return invoker.executeCommand(request);
-        } catch (Exception e) {
-            return new Response(e.getMessage());
-        }
-    }
+//    private static synchronized Response handler(Request request) throws IOException {
+//        try {
+//            Command command = findCommand(request.command());
+//            String[] arguments = request.args();
+//
+//            if (request.login() == null && request.password() == null){
+//                throw new LoginUserException("Выполнение команд недоступно без авторизации. Пожалуйста, авторизуйтесь или создайте новый аккаунт.");
+//            }
+//            User user = new User(request.login(), request.password());
+//
+//            if (arguments.length != command.getRequiredArgs()) {
+//                throw new WrongNumberOfArguments();
+//            }
+//
+//            Invoker invoker = new Invoker();
+//            return invoker.executeCommand(request);
+//        } catch (Exception e) {
+//            return new Response(e.getMessage());
+//        }
+//    }
 
     private static class Console extends Thread {
         private volatile boolean running = true;

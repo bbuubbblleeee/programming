@@ -15,13 +15,12 @@ import static server.ServerMain.getCollectionManager;
 
 public class AddIfMax extends Command {
     public AddIfMax() {
-        super("add_if_max", "добавляет новый элемент в коллекцию, если его значение превышает значение наибольшего элемента этой коллекции", 0, 1);
+        super("add_if_max", "добавляет новый элемент в коллекцию, если его значение превышает значение наибольшего элемента этой коллекции", 0);
     }
 
     @Override
     public Response execute(Request request) {
-        Dragon dragon = request.dragons().get(0);
-        return getCollectionManager().add_if_max(request.dragons().get(0), getLastId());
+        return getCollectionManager().addIfMax(request.dragons().get(0), getLastId());
     }
 
     public Long getLastId() {

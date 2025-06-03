@@ -4,7 +4,6 @@ import client.ReadData;
 
 import collection.Dragon;
 import exceptions.InvalidFileException;
-import exceptions.WrongNumberOfArguments;
 import transfer.Request;
 
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class Handler {
         this.readData = readData;
     }
 
-    public Request getRequest() throws InterruptedException {
+    public Request getRequest() {
         ArrayList<Dragon> dragons = new ArrayList<>();
         String[] input = request.trim().split("\\s+", 2);
         String commandStr = input[0];

@@ -47,7 +47,7 @@ public class ReadData implements Serializable, AutoCloseable {
         long y = input("координата у", CollectionChecker::yChecker, Long::valueOf);
         Coordinates coordinates = new Coordinates(x, y);
 
-        Float depth = Float.parseFloat(input("глубина пещеры", CollectionChecker::depthChecker, Function.identity()));
+        float depth = Float.parseFloat(input("глубина пещеры", CollectionChecker::depthChecker, Function.identity()));
         int numberOfTreasures = input("количество сокровищ", CollectionChecker::numberOfTreasuresChecker, Integer::valueOf);
         DragonCave cave = new DragonCave(depth, numberOfTreasures);
         return new Dragon(name, coordinates, age, color, type, cave, character);

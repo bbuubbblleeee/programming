@@ -21,13 +21,13 @@ public class Password {
     }
 
     public String getPasswordHashed(String password) throws NoSuchAlgorithmException {
-        this.salt = generateSalt(16);
+        this.salt = generateSalt();
         return getPasswordHashed(password, salt);
     }
 
-    private byte[] generateSalt(int length) {
+    private byte[] generateSalt() {
         SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[length];
+        byte[] salt = new byte[16];
         random.nextBytes(salt);
         return salt;
     }

@@ -14,7 +14,7 @@ import static server.ServerMain.getCollectionManager;
  */
 public class RemoveGreater extends Command {
     public RemoveGreater() {
-        super("remove_greater", "удаляет из коллекции все элементы, превышающие заданный.", 0, 1);
+        super("remove_greater", "удаляет из коллекции все элементы, превышающие заданный.", 0);
     }
 
     @Override

@@ -7,7 +7,7 @@ import static server.ServerMain.getCollectionManager;
 
 public class SignUp extends Command{
     public SignUp() {
-        super("sign_up", "Регистрирует нового пользователя.", 2, 0);
+        super("sign_up", "Регистрирует нового пользователя.", 2);
     }
 
 

@@ -12,7 +12,7 @@ public class ExecuteScript extends Command {
     //реализовано на клиенте, здесь осталось только ради команды help
 
     public ExecuteScript() {
-        super("execute_script", "считывает и исполняет скрипт из указанного файла.", 1, 0);
+        super("execute_script", "считывает и исполняет скрипт из указанного файла.", 1);
     }
 
     @Override

@@ -15,8 +15,7 @@ public class Execute_script {
                 if (request == null){
                     throw new InvalidFileException("Ошибка скрипта.");
                 }
-                System.out.println(ClientMain.sendAndGetResponse(request));
-                System.out.println("\n");
+                System.out.println(ClientMain.sendAndGetResponse(request) + "\n");
             }
         } catch (Exception e) {
             throw new InvalidFileException(e.getMessage());

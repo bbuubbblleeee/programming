@@ -11,7 +11,7 @@ import transfer.Response;
 public class Exit extends Command {
     //закрытие клиента реализовано на клиенте, здесь осталось только ради команды help
     public Exit() {
-        super("exit", "завершает программу", 0, 0);
+        super("exit", "завершает программу", 0);
     }
 
     //закрывает сервер

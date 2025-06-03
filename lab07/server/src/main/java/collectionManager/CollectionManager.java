@@ -34,7 +34,7 @@ public abstract class CollectionManager {
 
     abstract public Response add(Dragon dragon);
 
-    abstract public Response add_if_max(Dragon dragon, long id);
+    abstract public Response addIfMax(Dragon dragon, long id);
 
 
     abstract public Response clear();

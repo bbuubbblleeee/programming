@@ -31,7 +31,7 @@ public class FileManager extends CollectionManager {
     }
 
     @Override
-    public Response add_if_max(Dragon dragon, long id) {
+    public Response addIfMax(Dragon dragon, long id) {
         if (dragon.getId() > id){
             return add(dragon);
         };

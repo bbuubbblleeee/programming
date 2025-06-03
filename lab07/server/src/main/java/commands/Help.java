@@ -14,17 +14,12 @@ import static invoker.CommandsStorage.commands;
  */
 public class Help extends Command {
     public Help() {
-        super("help", "выводит справку по доступным командам", 0, 0);
+        super("help", "выводит справку по доступным командам", 0);
     }
 
     @Override
     public Response execute(Request request) {
-        StringJoiner stringJoiner = new StringJoiner("\n");
-        stringJoiner.add("Доступные команды:");
-        String string = commands.values().stream().map(command -> "- " + command.getName() + ": " + command.getPurpose()).collect(Collectors.joining("\n"));
-//        for (Command command : commands.values()) {
-//            stringJoiner.add(" - " + command.getName() + ": " + command.getPurpose());
-//        }
+        String string = "Доступные команды:\n" + commands.values().stream().map(command -> "- " + command.getName() + ": " + command.getPurpose()).collect(Collectors.joining("\n"));
         return new Response(string);
     }
 }

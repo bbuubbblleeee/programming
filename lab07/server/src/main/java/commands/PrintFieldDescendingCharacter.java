@@ -20,7 +20,7 @@ import static server.ServerMain.getCollectionManager;
 
 public class PrintFieldDescendingCharacter extends Command {
     public PrintFieldDescendingCharacter() {
-        super("print_field_descending_character", "выводит значения поля character всех элементов в порядке убывания.", 0, 0);
+        super("print_field_descending_character", "выводит значения поля character всех элементов в порядке убывания.", 0);
     }
 
     @Override
@@ -28,7 +28,6 @@ public class PrintFieldDescendingCharacter extends Command {
         if (getCollectionManager().isCollectionEmpty()) {
             return new Response("Коллекция пуста, выполнение этой команды не имеет смысла.");
         }
-        StringJoiner stringJoiner = new StringJoiner("\n");
         List<Dragon> dragonsReversed = new ArrayList<>(dragons);
         String res = dragonsReversed.stream().sorted(Comparator.reverseOrder()).
                 map(dragon -> dragon.getCharacter() == null ? "-" : dragon.getCharacter().toString()).collect(Collectors.joining("\n"));
