@@ -1,7 +1,10 @@
 package controllers;
 
 import alertManager.DialogManager;
+import client.ReadData;
 import clientMain.ClientMain;
+import clientMain.Execute_script;
+import clientMain.Handler;
 import collection.Color;
 import collection.Dragon;
 import collection.DragonCharacter;
@@ -9,10 +12,12 @@ import collection.DragonType;
 import controllers.formatters.Formatters;
 import exceptions.CancelledAction;
 import exceptions.DbErrorException;
+import exceptions.InvalidFileException;
 import exceptions.WrongArgumentException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.DirectionalLight;
 import javafx.scene.control.Menu;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -296,6 +301,20 @@ public class MainController {
         }
         catch (IOException ioException){
             DialogManager.createErrorAlert(ioException.getMessage());
+        }
+    }
+
+    @FXML
+    void executeScript(){
+        Execute_script executeScript = new Execute_script();
+        try {
+            String path = DialogManager.createTextInputDialog("путь к скрипту", null);
+            Handler.setStack(path);
+            executeScript.execute(path);
+            DialogManager.createInfoScrolledAlert(executeScript.getResult());
+        }
+        catch (Exception exception){
+            DialogManager.createInfoScrolledAlert(executeScript.getResult() + "\n" + exception.getMessage());
         }
     }
 

@@ -111,7 +111,7 @@
             <Button fx:id="addIfMaxButton" alignment="CENTER" mnemonicParsing="false" onAction="#addIfMax" text="add_if_max" textAlignment="CENTER" />
             <Button fx:id="clearButton" alignment="CENTER" mnemonicParsing="false" onAction="#clear" text="clear" textAlignment="CENTER" />
             <Button alignment="CENTER" mnemonicParsing="false" onAction="#countByAge" text="count_by_age" textAlignment="CENTER" />
-            <Button alignment="CENTER" mnemonicParsing="false" text="execute_script" textAlignment="CENTER" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#executeScript" text="execute_script" textAlignment="CENTER" />
             <Button fx:id="exit" alignment="CENTER" mnemonicParsing="false" onAction="#exit" text="exit" textAlignment="CENTER" />
             <Button fx:id="help" alignment="CENTER" mnemonicParsing="false" onAction="#help" text="help" textAlignment="CENTER" />
             <Button fx:id="info" alignment="CENTER" mnemonicParsing="false" onAction="#info" text="info" textAlignment="CENTER" />

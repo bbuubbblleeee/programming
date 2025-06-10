@@ -85,22 +85,13 @@
       <change beforePath="$PROJECT_DIR$/../lab06/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lab06/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lab06/server/src/main/java/serverCommands/Save.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab06/server/src/main/java/serverCommands/Save.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lab07/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lab07/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/client/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/ClientMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/fxml/edit.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/resources/clientMain/edit.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/fxml/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/resources/clientMain/main.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/fxml/registration.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/resources/clientMain/registration.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/resources/clientMain/auth.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/resources/clientMain/auth.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/common/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/collection/Dragon.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/collection/Dragon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/transfer/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/transfer/Response.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/collectionManager/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/collectionManager/DatabaseManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dao/DbDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dao/DbDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/alertManager/DialogManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/alertManager/DialogManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Execute_script.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Execute_script.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Handler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/controllers/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/controllers/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/resources/clientMain/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/resources/clientMain/main.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,8 +147,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Exception" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -217,7 +208,7 @@
       <recent name="C:\Users\Liza\Desktop\ITMO\programming java\labs\lab07\server\build\libs" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Gradle.lab07:client [shadowJar]">
     <configuration name="lab07:client [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -313,7 +304,9 @@
       <workItem from="1749386685104" duration="1989000" />
       <workItem from="1749400287702" duration="12635000" />
       <workItem from="1749466139853" duration="21509000" />
-      <workItem from="1749508755572" duration="7833000" />
+      <workItem from="1749508755572" duration="8016000" />
+      <workItem from="1749581019445" duration="7171000" />
+      <workItem from="1749592661401" duration="2445000" />
     </task>
     <task id="LOCAL-00001" summary="lab07 added.">
       <option name="closed" value="true" />
@@ -347,7 +340,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749169546268</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="lab08 added.">
+      <option name="closed" value="true" />
+      <created>1749516784071</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1749516784071</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

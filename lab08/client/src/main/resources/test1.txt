@@ -1,0 +1,1 @@
+execute_script C:\Users\Liza\Desktop\ITMO\programming java\labs\lab08\client\src\main\resources\test.txt

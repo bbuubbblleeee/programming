@@ -5,22 +5,30 @@ import exceptions.InvalidFileException;
 import transfer.Request;
 
 public class Execute_script {
+    private StringBuilder result = new StringBuilder();
 
-    public Execute_script(String filePath) throws InvalidFileException {
+
+    public void execute(String filePath) throws InvalidFileException{
         try (ReadData readData = new ReadData(filePath)) {
             while (readData.myReader.hasNextLine()) {
                 String command = readData.myReader.readLine();
                 Handler handler = new Handler(command, readData);
                 Request request = handler.getRequest();
+
                 if (request == null){
-                    throw new InvalidFileException("Ошибка скрипта.");
+                    throw new InvalidFileException("Ошибка скрипта");
                 }
-                System.out.println(ClientMain.sendAndGetResponse(request) + "\n");
+
+                result.append("Текущая команда: ").append(command).append("\n");
+                result.append(ClientMain.sendAndGetResponse(request)).append("\n\n");
             }
         } catch (Exception e) {
             throw new InvalidFileException(e.getMessage());
         }
-        System.out.println("Скрипт был исполнен.");
-
     }
+
+    public String getResult() {
+        return result.toString();
+    }
+
 }

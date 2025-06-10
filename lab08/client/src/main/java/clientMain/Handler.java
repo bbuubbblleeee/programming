@@ -6,7 +6,9 @@ import collection.Dragon;
 import exceptions.InvalidFileException;
 import transfer.Request;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Stack;
 
 
@@ -27,7 +29,7 @@ public class Handler {
         this.readData = readData;
     }
 
-    public Request getRequest() {
+    public Request getRequest() throws InvalidFileException {
         ArrayList<Dragon> dragons = new ArrayList<>();
         String[] input = request.trim().split("\\s+", 2);
         String commandStr = input[0];
@@ -38,15 +40,14 @@ public class Handler {
                     if (args.length == 0){
                         throw new InvalidFileException("Не указан путь к скрипту.");
                     }
-
-                    if (!pathStack.contains(args[0])) {
-                        pathStack.push(args[0]);
+                    if (!pathStack.contains(input[1])) {
+                        pathStack.push(input[1]);
                     } else {
-                        pathStack.pop();
                         throw new InvalidFileException("Обнаружена рекурсия в скрипте.");
                     }
 
-                    Execute_script executeScript = new Execute_script(args[0]);
+                    Execute_script executeScript = new Execute_script();
+                    executeScript.execute(input[1]);
                     pathStack.pop();
                     return null;
                 }
@@ -62,10 +63,13 @@ public class Handler {
                     return new Request(commandStr, args, dragons, "login", "password");
                 }
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
+        } catch (IOException | InterruptedException | InvalidFileException e) {
+            throw new InvalidFileException(e.getMessage());
         }
         return new Request(commandStr, args, dragons, ClientMain.getLogin(), ClientMain.getPassword());
+    }
+
+    public static void setStack(String path){
+        pathStack.push(path);
     }
 }

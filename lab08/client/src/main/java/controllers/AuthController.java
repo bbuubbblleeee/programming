@@ -21,12 +21,6 @@ public class AuthController {
     private TextField passwordField;
 
     @FXML
-    private Button authButton;
-
-    @FXML
-    private Button registerButton;
-
-    @FXML
     private ComboBox<String> languageBox;
 
     private Runnable callMain;

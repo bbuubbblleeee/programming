@@ -27,8 +27,9 @@ public class DialogManager {
         textInputDialog.setContentText(field);
 
         TextField textField = textInputDialog.getEditor();
-        textField.setTextFormatter(textFormatter);
-
+        if (textFormatter != null) {
+            textField.setTextFormatter(textFormatter);
+        }
         Button okButton = (Button) textInputDialog.getDialogPane().lookupButton(ButtonType.OK);
         Button cancelButton = (Button) textInputDialog.getDialogPane().lookupButton(ButtonType.CANCEL);
 
