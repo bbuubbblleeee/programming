@@ -7,6 +7,7 @@ import exceptions.DbErrorException;
 import transfer.Response;
 import users.User;
 
+import java.util.Iterator;
 import java.util.function.Predicate;
 
 public class DatabaseManager extends CollectionManager {
@@ -41,6 +42,7 @@ public class DatabaseManager extends CollectionManager {
         try {
             long id = dao.add_if_max(dragon, lastId, User.getLogin());
             dragon.setId(id);
+            dragon.setOwner(User.getLogin());
             dragons.add(dragon);
             return new Response("Дракон был успешно добавлен.");
         }
@@ -74,7 +76,7 @@ public class DatabaseManager extends CollectionManager {
     public Response clear() {
         try {
             dao.clear(User.getLogin());
-            dragons.clear();
+            dragons.removeIf(dragon -> dragon.getOwner().equals(User.getLogin()));
             return new Response("Коллекция очищена.");
         }
         catch (Exception e){

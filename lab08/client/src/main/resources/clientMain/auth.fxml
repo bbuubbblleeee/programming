@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AuthController">
    <children>
       <Label alignment="CENTER" layoutY="55.0" prefHeight="54.0" prefWidth="800.0" text="Dragon World" textAlignment="CENTER">
          <font>
@@ -22,20 +22,20 @@
       </Label>
       <Label alignment="CENTER" layoutY="187.0" prefHeight="18.0" prefWidth="800.0" text="Введите логин и пароль для входа в аккаунт" textAlignment="CENTER">
          <font>
-            <Font size="16.0" />
+            <Font name="Segoe UI" size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="251.0" layoutY="220.0" prefHeight="26.0" prefWidth="300.0" promptText="Логин">
+      <TextField fx:id="loginField" layoutX="251.0" layoutY="220.0" prefHeight="26.0" prefWidth="300.0" promptText="Логин" style="-fx-font-family: Segoe UI;">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <TextField layoutX="251.0" layoutY="263.0" prefHeight="28.0" prefWidth="300.0" promptText="Пароль">
+      <TextField fx:id="passwordField" layoutX="251.0" layoutY="263.0" prefHeight="28.0" prefWidth="300.0" promptText="Пароль">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="251.0" layoutY="310.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="300.0" style="-fx-background-color: #000000;" text="Войти" textFill="WHITE">
+      <Button fx:id="authButton" alignment="CENTER" contentDisplay="CENTER" layoutX="251.0" layoutY="310.0" mnemonicParsing="false" onMouseClicked="#auth" prefHeight="26.0" prefWidth="300.0" style="-fx-background-color: #000000;" text="Войти" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
@@ -52,11 +52,11 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="251.0" layoutY="395.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="300.0" style="-fx-background-color: #E8E8E8;" text="Регистрация">
+      <Button fx:id="registerButton" alignment="CENTER" contentDisplay="CENTER" layoutX="251.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#register" prefHeight="26.0" prefWidth="300.0" style="-fx-background-color: #E8E8E8;" text="Регистрация">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <ComboBox layoutX="629.0" layoutY="21.0" prefWidth="150.0" promptText="Язык" style="-fx-background-color: #E8E8E8;" />
+      <ComboBox fx:id="languageBox" layoutX="629.0" layoutY="21.0" prefWidth="150.0" promptText="Язык" style="-fx-background-color: #E8E8E8;" />
    </children>
 </AnchorPane>

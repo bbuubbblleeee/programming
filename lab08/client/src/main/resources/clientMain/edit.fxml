@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EditController">
    <children>
       <Label alignment="CENTER" layoutX="4.0" layoutY="31.0" prefHeight="30.0" prefWidth="450.0" text="Ввод данных об объекте" textAlignment="CENTER">
          <font>
@@ -70,43 +69,48 @@
             <Font name="Segoe UI" size="20.0" />
          </font>
       </Label>
-      <TextField layoutX="150.0" layoutY="87.0" prefHeight="37.0" prefWidth="260.0">
+      <TextField fx:id="nameField" layoutX="150.0" layoutY="87.0" prefHeight="37.0" prefWidth="260.0">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField layoutX="150.0" layoutY="136.0" prefHeight="37.0" prefWidth="260.0">
+      <TextField fx:id="ageField" layoutX="150.0" layoutY="136.0" prefHeight="37.0" prefWidth="260.0">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField layoutX="193.0" layoutY="336.0" prefHeight="38.0" prefWidth="86.0">
+      <TextField layoutX="193.0" layoutY="336.0" prefHeight="38.0" prefWidth="86.0" fx:id="xField">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField layoutX="323.0" layoutY="336.0" prefHeight="38.0" prefWidth="86.0">
+      <TextField fx:id="yField" layoutX="323.0" layoutY="336.0" prefHeight="38.0" prefWidth="86.0">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField layoutX="150.0" layoutY="431.0" prefHeight="37.0" prefWidth="260.0">
+      <TextField fx:id="depthField" layoutX="150.0" layoutY="431.0" prefHeight="37.0" prefWidth="260.0">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField layoutX="279.0" layoutY="476.0" prefHeight="38.0" prefWidth="130.0">
+      <TextField fx:id="treasureField" layoutX="279.0" layoutY="476.0" prefHeight="38.0" prefWidth="130.0">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <Button layoutX="161.0" layoutY="537.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #000000;" text="Отправить" textFill="WHITE">
+      <Button layoutX="161.0" layoutY="547.0" mnemonicParsing="false" onAction="#send" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #000000;" text="Отправить" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <ComboBox layoutX="149.0" layoutY="190.0" prefHeight="30.0" prefWidth="260.0" style="-fx-background-color: #E8E8E8;" />
-      <ComboBox layoutX="150.0" layoutY="240.0" prefHeight="30.0" prefWidth="260.0" style="-fx-background-color: #E8E8E8;" />
-      <ComboBox layoutX="150.0" layoutY="290.0" prefHeight="30.0" prefWidth="260.0" style="-fx-background-color: #E8E8E8;" />
+      <ComboBox fx:id="colorBox" layoutX="149.0" layoutY="190.0" prefHeight="30.0" prefWidth="260.0" style="-fx-background-color: #E8E8E8;" />
+      <ComboBox fx:id="typeBox" layoutX="150.0" layoutY="240.0" prefHeight="30.0" prefWidth="260.0" style="-fx-background-color: #E8E8E8;" />
+      <ComboBox fx:id="characterBox" layoutX="150.0" layoutY="290.0" prefHeight="30.0" prefWidth="260.0" style="-fx-background-color: #E8E8E8;" />
+      <Button layoutX="161.0" layoutY="596.0" mnemonicParsing="false" onAction="#cancel" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #E8E8E8;" text="Отменить">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

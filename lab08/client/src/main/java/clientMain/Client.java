@@ -68,4 +68,14 @@ public class Client {
         channel.close();
     }
 
+//    public String sendAndGetResponse(Request request) throws IOException {
+//        try {
+//            sendRequest(request);
+//            return recieveResponse().toString();
+//        }
+//        catch (Exception e){
+//            throw new IOException("Сервер временно недоступен");
+//        }
+//    }
+
 }

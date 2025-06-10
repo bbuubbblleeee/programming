@@ -76,7 +76,7 @@ public class DbDao implements DAO{
                 }
                 throw new DbErrorException("Неверный пароль, попробуйте выполнить вход повторно.");
             }
-            throw new DbErrorException("Пользователя с таким логином не существует. Зарегистрируйтесь, прописав sign_up {логин} {пароль}");
+            throw new DbErrorException("Пользователя с таким логином не существует.\nЗарегистрируйтесь");
         } catch (SQLException | NoSuchAlgorithmException e) {
             throw new DbErrorException("Неуспешная проверка данных пользователя.");
         }
@@ -89,7 +89,7 @@ public class DbDao implements DAO{
             ResultSet resultSet = loginStatement.executeQuery();
 
             if (resultSet.next()){
-                throw new LoginUserException("Такой логин уже существует, придумайте другой и повторите ввод.");
+                throw new LoginUserException("Пользователь с таким логином уже существует.");
             }
 
             statement.setString(1, login);

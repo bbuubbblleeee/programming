@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
@@ -107,16 +108,13 @@ public class Dragon implements Comparable<Dragon>, Serializable {
         this.coordinates.setY(y);
     }
 
+
     public void setDepthCave(float depth) {
         this.cave.setDepth(depth);
     }
 
     public void setNumberOfTreasures(int numberOfTreasures) {
         this.cave.setNumberOfTreasures(numberOfTreasures);
-    }
-
-    public Long getId() {
-        return this.id;
     }
 
     public void setFreeId(Long id) {
@@ -131,33 +129,10 @@ public class Dragon implements Comparable<Dragon>, Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return this.name;
-    }
 
     public void setName(String name) {
         nameChecker(name);
         this.name = name;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
-    public Coordinates getCoordinates() {
-        return this.coordinates;
-    }
-
-    public String getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public int getAge() {
-        return this.age;
     }
 
     public void setAge(int age) {
@@ -165,36 +140,92 @@ public class Dragon implements Comparable<Dragon>, Serializable {
         this.age = age;
     }
 
-    public Color getColor() {
-        return this.color;
+    public void setCharacter(DragonCharacter character) {
+        this.character = character;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 
     public void setColor(Color color) {
         this.color = color;
     }
 
+    public void setType(DragonType type) {
+        this.type = type;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Coordinates getCoordinates() {
+        return this.coordinates;
+    }
+
+    public Long getCoordinateX() {
+        return this.coordinates.getX();
+    }
+
+    public Long getCoordinateY() {
+        return this.coordinates.getY();
+    }
+
+
+    public String getCreationDate() {
+        return this.creationDate;
+    }
+
+
+    public int getAge() {
+        return this.age;
+    }
+
+
+
+    public Color getColor() {
+        return this.color;
+    }
+
+
     public DragonType getType() {
         return this.type;
     }
 
-    public void setType(DragonType type) {
-        this.type = type;
-    }
 
     public DragonCharacter getCharacter() {
         return this.character;
     }
 
-    public void setCharacter(DragonCharacter character) {
-        this.character = character;
-    }
 
     public DragonCave getCave() {
         return this.cave;
     }
 
+    public Float getDepthCave() {
+        return this.cave.getDepth();
+    }
+
+    public int getNumberOfTreasures() {
+        return this.cave.getNumberOfTreasures();
+    }
+
+    public String getOwner(){
+        return this.owner;
+    }
+
     public String toString() {
-        return "Идентификатор = " + id + "\n" +
+        return "{\n" +
+                "Идентификатор = " + id + "\n" +
                 "Имя = " + name + "\n" +
                 "Координаты = " + coordinates.toString() + "\n" +
                 "Дата инициализации = " + creationDate + "\n" +
@@ -203,6 +234,63 @@ public class Dragon implements Comparable<Dragon>, Serializable {
                 "Тип = " + type + "\n" +
                 "Характер = " + character + "\n" +
                 "Пещера = " + cave.toString() + "\n" +
-                "Владелец = " + owner;
+                "Владелец = " + owner + "\n" +
+                "}";
+    }
+
+    public static Dragon fromString(String string){
+        long id = 0;
+        String name = null; //Поле не может быть null, Строка не может быть пустой
+        Coordinates coordinates = null; //Поле не может быть null
+        String creationDate = null; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+        int age = 0; //Значение поля должно быть больше 0
+        Color color = null; //Поле может быть null
+        DragonType type = null; //Поле не может быть null
+        DragonCharacter character = null; //Поле может быть null
+        DragonCave cave = null;
+        String owner = null;
+        for (String dragon : string.split("\\R")){
+            String field = dragon.split("=", 2)[0].trim();
+            String value = dragon.split("=", 2)[1].trim();
+            switch (field){
+                case "Идентификатор" ->{
+                    id = Long.parseLong(value);
+                }
+                case "Имя" -> {
+                    name = value;
+                }
+                case "Координаты" -> {
+                    String[] fields = value.trim().split(",");
+                    coordinates = new Coordinates(Long.parseLong(fields[0].trim().split("= ")[1]), Long.parseLong(fields[1].trim().split("= ")[1].split("\\)")[0]));
+                }
+                case "Дата инициализации" -> {
+                    creationDate = value;
+                }
+                case "Возраст" -> {
+                    age = Integer.parseInt(value);
+                }
+                case "Цвет" -> {
+                    color = value.equals("null") ? null : Color.valueOf(value);
+                }
+                case "Тип" -> {
+                    System.out.println(type);
+                    type = DragonType.valueOf(value);
+                }
+                case "Характер" -> {
+                    character = value.equals("null") ? null : DragonCharacter.valueOf(value);
+                }
+                case "Пещера" -> {
+                    String[] fields = value.trim().split(",");
+                    cave = new DragonCave(Float.parseFloat(fields[0].trim().split("= ")[1]), Integer.parseInt(fields[1].trim().split("= ")[1].split("\\)")[0]));
+                }
+                case "Владелец" ->  {
+                    owner = value;
+                }
+            }
+        }
+        Dragon dragon = new Dragon(id, name, coordinates, age, color, type, cave, character);
+        dragon.setOwner(owner);
+        dragon.setCreationDate(creationDate);
+        return dragon;
     }
 }
