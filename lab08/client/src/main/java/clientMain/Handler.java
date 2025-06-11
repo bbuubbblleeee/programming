@@ -4,6 +4,8 @@ import client.ReadData;
 
 import collection.Dragon;
 import exceptions.InvalidFileException;
+import languages.ErrorLocalizator;
+import languages.Localizator;
 import transfer.Request;
 
 import java.io.IOException;
@@ -23,6 +25,8 @@ public class Handler {
     private static final Stack<String> pathStack = new Stack<>();
     private final String request;
     private final ReadData readData;
+    private static Localizator errorLocalizator = ErrorLocalizator.getInstance();
+
 
     public Handler(String string, ReadData readData) {
         this.request = string;
@@ -38,12 +42,12 @@ public class Handler {
             switch (commandStr) {
                 case "execute_script" -> {
                     if (args.length == 0){
-                        throw new InvalidFileException("Не указан путь к скрипту.");
+                        throw new InvalidFileException(errorLocalizator.getString("ScriptPath"));
                     }
                     if (!pathStack.contains(input[1])) {
                         pathStack.push(input[1]);
                     } else {
-                        throw new InvalidFileException("Обнаружена рекурсия в скрипте.");
+                        throw new InvalidFileException(errorLocalizator.getString("ScriptRecursion"));
                     }
 
                     Execute_script executeScript = new Execute_script();

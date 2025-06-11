@@ -18,18 +18,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.DirectionalLight;
-import javafx.scene.control.Menu;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import languages.ErrorLocalizator;
+import languages.InfoLocalizator;
+import languages.Localizator;
+import languages.UILocalizator;
 import transfer.Request;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,6 +37,27 @@ import java.util.regex.Pattern;
 public class MainController {
     @FXML
     private Menu userLogin;
+
+    @FXML
+    private Menu languageMenu;
+
+    @FXML
+    private Tab collectionTab;
+
+    @FXML
+    private Tab visualisationTab;
+
+    @FXML
+    private MenuItem russianMenuItem;
+
+    @FXML
+    private MenuItem icelandicMenuItem;
+
+    @FXML
+    private MenuItem greekMenuItem;
+
+    @FXML
+    private MenuItem spanishMenuItem;
 
     @FXML
     private TableView<Dragon> collectionTable;
@@ -78,14 +98,42 @@ public class MainController {
     @FXML
     private TableColumn<Dragon, String> ownerColumn;
 
+    @FXML
+    private Label commandsAvailable;
+
     private ObservableList<Dragon> dragons = FXCollections.observableArrayList();
     private Runnable callEdit;
     private Dragon dragon;
     private final Consumer<Dragon> getDragon = dragon -> this.dragon = dragon;
+    private Localizator errorLocalizator = ErrorLocalizator.getInstance();
+    private Localizator infoLocalizator = InfoLocalizator.getInstance();
+    private Localizator uiLocalizator = UILocalizator.getInstance();
 
 
     @FXML
     void initialize(){
+        setLanguage();
+
+        russianMenuItem.setOnAction(event ->
+                Localizator.setLocale(Locale.forLanguageTag("ru"))
+        );
+
+        icelandicMenuItem.setOnAction(event ->
+                Localizator.setLocale(Locale.forLanguageTag("is"))
+        );
+
+        greekMenuItem.setOnAction(event ->
+                Localizator.setLocale(Locale.forLanguageTag("el"))
+        );
+
+        spanishMenuItem.setOnAction(event ->
+                Localizator.setLocale(Locale.forLanguageTag("es-PR"))
+        );
+
+        Localizator.localeProperty.addListener((observable, oldValue, newValue) -> {
+            setLanguage();
+        });
+
         userLogin.setText(ClientMain.getLogin());
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -162,7 +210,7 @@ public class MainController {
     void countByAge(){
         String response = null;
         try {
-            String age = DialogManager.createTextInputDialog("age", new Formatters().getIntTextFormatter());
+            String age = DialogManager.createTextInputDialog(infoLocalizator.getString("TypeAge"), infoLocalizator.getString("Age"), new Formatters().getIntTextFormatter());
 
             String[] args = new String[1];
             args[0] = age;
@@ -207,18 +255,18 @@ public class MainController {
 
     @FXML
     void show(){
-        DialogManager.createInfoAlert("Коллекция представлена в таблице.");
+        DialogManager.createInfoAlert(infoLocalizator.getString("TableShow"));
     }
 
     @FXML
     void update(){
         try {
-            String id = DialogManager.createTextInputDialog("id", new Formatters().getIdTextFormatter());
+            String id = DialogManager.createTextInputDialog(infoLocalizator.getString("TypeId"), infoLocalizator.getString("Id"), new Formatters().getIdTextFormatter());
             if (id.isBlank()){
-                throw new CancelledAction("Действие было отменено.");
+                throw new CancelledAction(errorLocalizator.getString("CancelledAction"));
             }
             if (dragons.stream().filter(dragon -> dragon.getId().toString().equals(id)).findAny().isEmpty()){
-                throw new WrongArgumentException("Объект с таким id не был найден.");
+                throw new WrongArgumentException(errorLocalizator.getString("IdNotFound"));
             }
             String[] args = new String[1];
             args[0] = id;
@@ -247,7 +295,7 @@ public class MainController {
     @FXML
     void removeAnyByAge(){
         try{
-            String age = DialogManager.createTextInputDialog("age", new Formatters().getIntTextFormatter());
+            String age = DialogManager.createTextInputDialog(infoLocalizator.getString("TypeAge"), infoLocalizator.getString("Age"), new Formatters().getIntTextFormatter());
             String[] args = new String[1];
             args[0] = age;
             String response = ClientMain.sendAndGetResponse(new Request("remove_any_by_age", args, new ArrayList<>(), ClientMain.getLogin(), ClientMain.getPassword()));
@@ -264,7 +312,7 @@ public class MainController {
     @FXML
     void removeById(){
         try{
-            String id = DialogManager.createTextInputDialog("id", new Formatters().getIntTextFormatter());
+            String id = DialogManager.createTextInputDialog(infoLocalizator.getString("TypeId"), infoLocalizator.getString("Id"), new Formatters().getIntTextFormatter());
             String[] args = new String[1];
             args[0] = id;
             String response = ClientMain.sendAndGetResponse(new Request("remove_by_id", args, new ArrayList<>(), ClientMain.getLogin(), ClientMain.getPassword()));
@@ -308,7 +356,7 @@ public class MainController {
     void executeScript(){
         Execute_script executeScript = new Execute_script();
         try {
-            String path = DialogManager.createTextInputDialog("путь к скрипту", null);
+            String path = DialogManager.createTextInputDialog(infoLocalizator.getString("TypePath"), infoLocalizator.getString("ScriptPath"), null);
             Handler.setStack(path);
             executeScript.execute(path);
             DialogManager.createInfoScrolledAlert(executeScript.getResult());
@@ -336,8 +384,8 @@ public class MainController {
             }
         }
         catch (Exception exception){
-            DialogManager.createErrorAlert("Ошибка: нет ответа от сервера.");
-            throw new DbErrorException("Ошибка получения данных из базы данных.");
+            DialogManager.createErrorAlert(errorLocalizator.getString("NoAnswer"));
+            throw new DbErrorException(errorLocalizator.getString("DbDataGet"));
         }
     }
 
@@ -352,4 +400,31 @@ public class MainController {
     public Consumer<Dragon> getGetDragon() {
         return getDragon;
     }
+
+    private void setLanguage(){
+        languageMenu.setText(uiLocalizator.getString("LanguageComboBox"));
+        collectionTab.setText(uiLocalizator.getString("CollectionTab"));
+        visualisationTab.setText(uiLocalizator.getString("VisualisationTab"));
+        idColumn.setText(uiLocalizator.getString("IdLabel"));
+        nameColumn.setText(uiLocalizator.getString("NameLabel"));
+        ageColumn.setText(uiLocalizator.getString("AgeLabel"));
+        xColumn.setText(uiLocalizator.getString("XColumn"));
+        yColumn.setText(uiLocalizator.getString("YColumn"));
+        dateColumn.setText(uiLocalizator.getString("CreationDateLabel"));
+        colorColumn.setText(uiLocalizator.getString("ColorLabel"));
+        typeColumn.setText(uiLocalizator.getString("TypeLabel"));
+        characterColumn.setText(uiLocalizator.getString("CharacterLabel"));
+        depthColumn.setText(uiLocalizator.getString("DepthLabel"));
+        treasureColumn.setText(uiLocalizator.getString("TreasureLabel"));
+        ownerColumn.setText(uiLocalizator.getString("Owner"));
+        commandsAvailable.textProperty().setValue(uiLocalizator.getString("CommandsAvailable"));
+
+
+
+
+
+
+
+    }
 }
+

@@ -162,7 +162,7 @@ public class DbDao implements DAO{
             return new DateAndDragons(DateFormat.getDateTimeInstance().format(new Date()), dragons);
         }
         catch (SQLException sqlException){
-            throw new DbErrorException("Ошибка считывания данных из базы данных.");
+            throw new DbErrorException("Ошибка получения данных из базы данных.");
         }
     }
 
@@ -252,7 +252,7 @@ public class DbDao implements DAO{
 
             ResultSet foundDragon = findDragon.executeQuery();
             if (!foundDragon.next()){
-                throw new DbErrorException("Дракон с таким id не был найден.");
+                throw new DbErrorException("Объект с таким id не был найден.");
             }
 
             long coordinatesId = foundDragon.getLong("coordinatesId");
@@ -300,7 +300,7 @@ public class DbDao implements DAO{
 
         }
         catch (SQLException sqlException){
-            throw new DbErrorException("Ошибка обновления данных в базе данных.");
+            throw new DbErrorException("Ошибка записи в базу данных.");
         }
     }
 

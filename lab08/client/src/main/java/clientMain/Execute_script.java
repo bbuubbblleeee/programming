@@ -2,10 +2,13 @@ package clientMain;
 
 import client.ReadData;
 import exceptions.InvalidFileException;
+import languages.ErrorLocalizator;
+import languages.Localizator;
 import transfer.Request;
 
 public class Execute_script {
     private StringBuilder result = new StringBuilder();
+    private static Localizator errorLocalizator = ErrorLocalizator.getInstance();
 
 
     public void execute(String filePath) throws InvalidFileException{
@@ -16,10 +19,10 @@ public class Execute_script {
                 Request request = handler.getRequest();
 
                 if (request == null){
-                    throw new InvalidFileException("Ошибка скрипта");
+                    throw new InvalidFileException(errorLocalizator.getString("Script"));
                 }
 
-                result.append("Текущая команда: ").append(command).append("\n");
+//                result.append("Текущая команда: ").append(command).append("\n");
                 result.append(ClientMain.sendAndGetResponse(request)).append("\n\n");
             }
         } catch (Exception e) {

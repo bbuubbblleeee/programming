@@ -87,11 +87,27 @@
       <change beforePath="$PROJECT_DIR$/../lab07/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lab07/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/alertManager/DialogManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/alertManager/DialogManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/ClientMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Execute_script.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Execute_script.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Handler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/controllers/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/controllers/EditController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/controllers/EditController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/controllers/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/controllers/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/controllers/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/controllers/formatters/Formatters.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/controllers/formatters/Formatters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/languages/ErrorLocalizator.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/languages/ErrorLocalizator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/languages/Localizator.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/languages/Localizator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/resources/clientMain/auth.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/resources/clientMain/auth.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/resources/clientMain/edit.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/resources/clientMain/edit.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/resources/clientMain/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/resources/clientMain/main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/resources/clientMain/registration.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/resources/clientMain/registration.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/client/ReadData.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/client/ReadData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/exceptions/EndOfInputException.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/exceptions/EndOfInputException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/io/ConsoleReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/io/ConsoleReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/io/FileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/io/FileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dao/DbDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dao/DbDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dao/FileDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dao/FileDao.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,7 +224,7 @@
       <recent name="C:\Users\Liza\Desktop\ITMO\programming java\labs\lab07\server\build\libs" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.lab07:client [shadowJar]">
+  <component name="RunManager">
     <configuration name="lab07:client [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -306,7 +322,8 @@
       <workItem from="1749466139853" duration="21509000" />
       <workItem from="1749508755572" duration="8016000" />
       <workItem from="1749581019445" duration="7171000" />
-      <workItem from="1749592661401" duration="2445000" />
+      <workItem from="1749592661401" duration="11365000" />
+      <workItem from="1749638627975" duration="25788000" />
     </task>
     <task id="LOCAL-00001" summary="lab07 added.">
       <option name="closed" value="true" />
@@ -348,7 +365,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749516784071</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="lab08 added.">
+      <option name="closed" value="true" />
+      <created>1749598971472</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1749598971472</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

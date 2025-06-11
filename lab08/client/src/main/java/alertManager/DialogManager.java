@@ -5,12 +5,16 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
+import languages.ErrorLocalizator;
+import languages.Localizator;
 
 
+import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DialogManager {
+    private static Localizator errorLocalizator = ErrorLocalizator.getInstance();
     public static void createErrorAlert(String error){
         DialogManager.createAlert(Alert.AlertType.ERROR, error);
     }
@@ -21,9 +25,9 @@ public class DialogManager {
         DialogManager.createScrolledAlert(Alert.AlertType.INFORMATION, info);
     }
 
-    public static String createTextInputDialog(String field, TextFormatter<String> textFormatter){
+    public static String createTextInputDialog(String string, String field, TextFormatter<String> textFormatter){
         TextInputDialog textInputDialog = new TextInputDialog();
-        textInputDialog.setHeaderText("Введите " + field);
+        textInputDialog.setHeaderText(string);
         textInputDialog.setContentText(field);
 
         TextField textField = textInputDialog.getEditor();
@@ -35,7 +39,7 @@ public class DialogManager {
 
         okButton.addEventFilter(ActionEvent.ACTION, event -> {
             if (textField.getText() == null || textField.getText().isBlank()){
-                createErrorAlert("Аргумент не может быть нулевым.");
+                createErrorAlert(errorLocalizator.getStringFormatted("ArgumentNull", ""));
                 event.consume();
             }
         });
@@ -49,7 +53,7 @@ public class DialogManager {
 
         Optional<String> result = textInputDialog.showAndWait();
         if (cancelled.get()){
-            throw new CancelledAction("Действие было отменено.");
+            throw new CancelledAction(errorLocalizator.getString("CancelledAction"));
         }
         return result.orElse(null);
     }

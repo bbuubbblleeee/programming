@@ -11,6 +11,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import languages.ErrorLocalizator;
+import languages.Localizator;
 import transfer.Request;
 
 import java.io.IOException;
@@ -22,6 +24,8 @@ public class ClientMain extends Application {
     private static String password = null;
     private Stage mainStage;
     private final Stage editStage = new Stage();
+    private static Localizator errorLocalizator = ErrorLocalizator.getInstance();
+
 
     public static void main(String[] args) {
 //        MainController mainController = new MainController();
@@ -60,7 +64,7 @@ public class ClientMain extends Application {
             return client.recieveResponse().toString();
         }
         catch (Exception e){
-            throw new IOException("Сервер временно недоступен");
+            throw new IOException(errorLocalizator.getString("ServerUnavailable"));
         }
     }
 
@@ -85,6 +89,9 @@ public class ClientMain extends Application {
 
     private static boolean successfulEntering(String response){
         return response.equals("Пользователь успешно подключен к базе данных.");
+//        return response.equals("AuthSuccess");
+        //TODO на стороне сервера сделать так, чтобы выдавал AuthSuccess и раскомментировать строку выше
+        //TODO а лол этот метод нигде не юзается, тогда можно и кикнуть :)
     }
 
 
@@ -149,7 +156,7 @@ public class ClientMain extends Application {
         catch (IOException e){
             //TODO ну че нибудь с этим сделать, не красиво
             DialogManager.createErrorAlert("");
-            throw new InvalidFileException("Не найден fxml файл.");
+            throw new InvalidFileException(errorLocalizator.getString("FileNotFound"));
         }
     }
 

@@ -15,12 +15,12 @@
             <Font name="Yu Gothic UI Semibold" size="40.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutY="151.0" prefHeight="18.0" prefWidth="800.0" text="Вход в аккаунт" textAlignment="CENTER">
+      <Label fx:id="authLabel" alignment="CENTER" layoutY="151.0" prefHeight="18.0" prefWidth="800.0" text="Вход в аккаунт" textAlignment="CENTER">
          <font>
             <Font name="Segoe UI" size="24.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutY="187.0" prefHeight="18.0" prefWidth="800.0" text="Введите логин и пароль для входа в аккаунт" textAlignment="CENTER">
+      <Label fx:id="loginPasswordLabel" alignment="CENTER" layoutX="3.0" layoutY="189.0" prefHeight="19.0" prefWidth="800.0" text="Введите логин и пароль" textAlignment="CENTER">
          <font>
             <Font name="Segoe UI" size="16.0" />
          </font>
@@ -41,13 +41,13 @@
          </font>
       </Button>
       <Separator layoutX="251.0" layoutY="355.0" prefHeight="15.0" prefWidth="129.0" />
-      <Label layoutX="389.0" layoutY="351.0" text="или" textFill="#0000006e">
+      <Label fx:id="orLabel" alignment="CENTER" layoutY="351.0" prefHeight="20.0" prefWidth="800.0" text="или" textFill="#0000006e">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
       <Separator layoutX="421.0" layoutY="355.0" prefHeight="15.0" prefWidth="129.0" />
-      <Label layoutX="321.0" layoutY="371.0" prefHeight="20.0" prefWidth="160.0" text="создайте новый аккаунт" textFill="#0000006e">
+      <Label fx:id="createNewLabel" layoutX="321.0" layoutY="371.0" prefHeight="20.0" prefWidth="160.0" text="создайте новый аккаунт" textFill="#0000006e">
          <font>
             <Font size="14.0" />
          </font>

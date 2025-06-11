@@ -14,12 +14,12 @@
                 <Font name="Yu Gothic UI Semibold" size="40.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" layoutY="151.0" prefHeight="18.0" prefWidth="800.0" text="Регистрация" textAlignment="CENTER">
+        <Label fx:id="registerLabel" alignment="CENTER" layoutY="151.0" prefHeight="18.0" prefWidth="800.0" text="Регистрация" textAlignment="CENTER">
             <font>
                 <Font name="Segoe UI" size="24.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" layoutY="187.0" prefHeight="18.0" prefWidth="800.0" text="Введите логин и пароль для создания аккаунта" textAlignment="CENTER">
+        <Label fx:id="loginPasswordLabel" alignment="CENTER" layoutY="187.0" prefHeight="18.0" prefWidth="800.0" text="Введите логин и пароль" textAlignment="CENTER">
             <font>
                 <Font size="16.0" />
             </font>

@@ -7,15 +7,47 @@ import collection.Color;
 import controllers.formatters.Formatters;
 import exceptions.WrongArgumentException;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import languages.ErrorLocalizator;
+import languages.InfoLocalizator;
+import languages.Localizator;
+import languages.UILocalizator;
 
 import java.util.function.Consumer;
 
 
 public class EditController {
+    @FXML
+    private Label titleLabel;
+
+    @FXML
+    private Label nameLabel;
+
+    @FXML
+    private Label ageLabel;
+
+    @FXML
+    private Label colorLabel;
+
+    @FXML
+    private Label typeLabel;
+
+    @FXML
+    private Label characterLabel;
+
+    @FXML
+    private Label coordinatesLabel;
+
+    @FXML
+    private Label caveLabel;
+
+    @FXML
+    private Label depthLabel;
+
+    @FXML
+    private Label treasureLabel;
+
     @FXML
     private TextField nameField;
 
@@ -43,12 +75,41 @@ public class EditController {
     @FXML
     private TextField treasureField;
 
+    @FXML
+    private Button sendButton;
+
+    @FXML
+    private Button cancelButton;
+
     private Consumer<Dragon> getDragon;
+    private Localizator errorLocalizator = ErrorLocalizator.getInstance();
+    private Localizator infoLocalizator = InfoLocalizator.getInstance();
+    private Localizator uiLocalizator = UILocalizator.getInstance();
+
+
+
 
     @FXML
     void initialize(){
+         titleLabel.textProperty().setValue(uiLocalizator.getString("TitleLabel"));
+         nameLabel.textProperty().setValue(uiLocalizator.getString("NameLabel"));
+         ageLabel.textProperty().setValue(uiLocalizator.getString("AgeLabel"));
+         colorLabel.textProperty().setValue(uiLocalizator.getString("ColorLabel"));
+         typeLabel.textProperty().setValue(uiLocalizator.getString("TypeLabel"));
+         characterLabel.textProperty().setValue(uiLocalizator.getString("CharacterLabel"));
+         coordinatesLabel.textProperty().setValue(uiLocalizator.getString("CoordinatesLabel"));
+         caveLabel.textProperty().setValue(uiLocalizator.getString("CaveLabel"));
+         depthLabel.textProperty().setValue(uiLocalizator.getString("DepthLabel"));
+         treasureLabel.textProperty().setValue(uiLocalizator.getString("TreasureLabel"));
+         sendButton.textProperty().setValue(uiLocalizator.getString("SendButton"));
+         cancelButton.textProperty().setValue(uiLocalizator.getString("CancelButton"));
+
+
+
+
         colorBox.getItems().addAll(Color.values());
         colorBox.getItems().add(null);
+
         typeBox.getItems().addAll(DragonType.values());
         characterBox.getItems().addAll(DragonCharacter.values());
         characterBox.getItems().add(null);
@@ -168,12 +229,13 @@ public class EditController {
     void send(){
         try{
             Stage stage = (Stage) nameField.getScene().getWindow();
-            nullChecker(nameField.getText().trim(), "\"имя\"");
-            nullChecker(ageField.getText().trim(), "\"возраст\"");
-            nullChecker(xField.getText().trim(), "\"Х\"");
-            nullChecker(yField.getText().trim(), "\"У\"");
-            nullChecker(depthField.getText().trim(), "\"глубина\"");
-            nullChecker(treasureField.getText().trim(), "\"количество сокровищ\"");
+            nullChecker(nameField.getText().trim(), infoLocalizator.getString("Name"));
+            nullChecker(ageField.getText().trim(), infoLocalizator.getString("Age"));
+            nullChecker(typeBox.getSelectionModel().getSelectedItem(), infoLocalizator.getString("Type"));
+            nullChecker(xField.getText().trim(), "X");
+            nullChecker(yField.getText().trim(), "Y");
+            nullChecker(depthField.getText().trim(), infoLocalizator.getString("Depth"));
+            nullChecker(treasureField.getText().trim(), infoLocalizator.getString("Treasure"));
 
             Dragon dragon = getDragon();
             if (getDragon != null){
@@ -210,7 +272,9 @@ public class EditController {
 
     private void nullChecker(Object object, String field) throws WrongArgumentException {
         if (object == null || object.equals("")) {
-            throw new WrongArgumentException("Аргумент " + field + " не может быть нулевым.");
+            throw new WrongArgumentException(errorLocalizator.getStringFormatted("ArgumentNull", field));
+            //todo мб поменять язык и у field тоже
+            //done у field поменяла тоже
         }
     }
 
@@ -218,17 +282,17 @@ public class EditController {
         this.getDragon = getDragon;
     }
 
-    private void clearFields(){
-        ageField.clear();
-        nameField.clear();
-        colorBox.getSelectionModel().clearSelection();
-        typeBox.getSelectionModel().clearSelection();
-        characterBox.getSelectionModel().clearSelection();
-        xField.clear();
-        yField.clear();
-        depthField.clear();
-        treasureField.clear();
-    }
+//    private void clearFields(){
+//        ageField.clear();
+//        nameField.clear();
+//        colorBox.getSelectionModel().clearSelection();
+//        typeBox.getSelectionModel().clearSelection();
+//        characterBox.getSelectionModel().clearSelection();
+//        xField.clear();
+//        yField.clear();
+//        depthField.clear();
+//        treasureField.clear();
+//    }
 
     public void setOnClose(){
         Stage stage = (Stage) nameField.getScene().getWindow();

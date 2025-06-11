@@ -3,10 +3,13 @@ package controllers.formatters;
 import alertManager.DialogManager;
 import exceptions.WrongArgumentException;
 import javafx.scene.control.TextFormatter;
+import languages.ErrorLocalizator;
+import languages.Localizator;
 
 import java.util.function.UnaryOperator;
 
 public class Formatters {
+    private Localizator errorLocalizator = ErrorLocalizator.getInstance();
     public TextFormatter<String> getIntTextFormatter() {
         UnaryOperator<TextFormatter.Change> filter = change -> {
             String newValue = change.getControlNewText().trim();
@@ -15,7 +18,7 @@ public class Formatters {
                     return change;
                 }
                 if (newValue.equals("-") || newValue.equals("0")){
-                    throw new WrongArgumentException("Недопустимое значение.\nОжидалось значение > 0.");
+                    throw new WrongArgumentException(errorLocalizator.getStringFormatted("ArgumentValidation", " > 0."));
 
                 }
                 Integer.parseInt(newValue);
@@ -26,7 +29,7 @@ public class Formatters {
                 return null;
             }
             catch (NumberFormatException numberFormatException) {
-                DialogManager.createErrorAlert("Недопустимое значение.\nОжидался аргумент типа int.");
+                DialogManager.createErrorAlert(errorLocalizator.getStringFormatted("ArgumentType", " int."));
                 return null;
             }
         };
@@ -43,7 +46,7 @@ public class Formatters {
                 }
                 long x = Long.parseLong(newX);
                 if (x <= -28){
-                    throw new WrongArgumentException("Недопустимое значение.\nОжидалось значение > -28.");
+                    throw new WrongArgumentException(errorLocalizator.getStringFormatted("ArgumentValidation", " > -28."));
                 }
                 return change;
             }
@@ -52,7 +55,7 @@ public class Formatters {
                 return null;
             }
             catch (NumberFormatException numberFormatException) {
-                DialogManager.createErrorAlert("Недопустимое значение.\nОжидался аргумент типа long.");
+                DialogManager.createErrorAlert(errorLocalizator.getStringFormatted("ArgumentType", " long."));
                 return null;
             }
         };
@@ -70,7 +73,7 @@ public class Formatters {
                 return change;
             }
             catch (NumberFormatException numberFormatException) {
-                DialogManager.createErrorAlert("Недопустимое значение.\nОжидался аргумент типа long.");
+                DialogManager.createErrorAlert(errorLocalizator.getStringFormatted("ArgumentType", " long."));
                 return null;
             }
         };
@@ -88,7 +91,7 @@ public class Formatters {
                 return change;
             }
             catch (NumberFormatException numberFormatException) {
-                DialogManager.createErrorAlert("Недопустимое значение.\nОжидался аргумент типа float.");
+                DialogManager.createErrorAlert(errorLocalizator.getStringFormatted("ArgumentType", " float."));
                 return null;
             }
         };
@@ -103,7 +106,7 @@ public class Formatters {
                     return change;
                 }
                 if (newValue.equals("-") || newValue.equals("0")){
-                    throw new WrongArgumentException("Недопустимое значение.\nОжидалось значение > 0.");
+                    throw new WrongArgumentException(errorLocalizator.getStringFormatted("ArgumentValidation", " > 0."));
 
                 }
                 Long.parseLong(newValue);
@@ -114,7 +117,7 @@ public class Formatters {
                 return null;
             }
             catch (NumberFormatException numberFormatException) {
-                DialogManager.createErrorAlert("Недопустимое значение.\nОжидался аргумент типа long.");
+                DialogManager.createErrorAlert(errorLocalizator.getStringFormatted("ArgumentType", " long."));
                 return null;
             }
         };

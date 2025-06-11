@@ -31,18 +31,18 @@
                      </graphic>
                  </Menu>
                  <Menu style="-fx-padding: 0 40 0 0;" visible="false" />
-                 <Menu fx:id="language" mnemonicParsing="false" style="-fx-font-size: 1.5em;" text="Язык">
+                 <Menu fx:id="languageMenu" mnemonicParsing="false" style="-fx-font-size: 1.5em;" text="Язык">
                      <items>
-                         <MenuItem mnemonicParsing="false" text="Русский" />
+                         <MenuItem fx:id="russianMenuItem" mnemonicParsing="false" text="Русский" />
                      </items>
                      <items>
-                         <MenuItem mnemonicParsing="false" text="Исландский" />
+                         <MenuItem fx:id="icelandicMenuItem" mnemonicParsing="false" text="Íslenska english" />
                      </items>
                      <items>
-                         <MenuItem mnemonicParsing="false" text="Греческий" />
+                         <MenuItem fx:id="greekMenuItem" mnemonicParsing="false" text="Ελληνική" />
                      </items>
                      <items>
-                         <MenuItem mnemonicParsing="false" text="Испанский (Пуэрто-Рико)" />
+                         <MenuItem fx:id="spanishMenuItem" mnemonicParsing="false" text="Español (Puerto Rico)" />
                      </items>
                      <graphic>
                          <ImageView fitHeight="29.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
@@ -52,14 +52,13 @@
                          </ImageView>
                      </graphic>
                  </Menu>
-                 <Menu style="-fx-padding: 0 40 0 0;" visible="false" />
              </menus>
          </MenuBar>
     </top>
     <center>
         <TabPane prefHeight="200.0" prefWidth="200.0" style="-fx-font-size: 1.5em;" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="40.0" tabMinHeight="30.0">
             <tabs>
-                <Tab text="Коллекция">
+                <Tab fx:id="collectionTab" text="Коллекция">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <!-- Добавляем TableView с привязками ко всем сторонам -->
@@ -87,7 +86,7 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="Визуализация">
+                <Tab fx:id="visualisationTab" text="Визуализация">
                     <content>
                   <ScrollPane>
                      <content>
@@ -102,7 +101,7 @@
    <bottom>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="174.0" text="Доступные команды:">
+            <Label fx:id="commandsAvailable" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="174.0" text="Доступные команды:">
                <font>
                   <Font name="Segoe UI" size="14.0" />
                </font>

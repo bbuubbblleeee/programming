@@ -134,7 +134,7 @@ public class FileDao implements DAO {
         }
         File file = new File(filePath);
         if (!file.exists())
-            throw new FileNotFoundException("Файл " + filePath + " не найден.");
+            throw new FileNotFoundException("Файл не найден.");
         if (!file.canWrite())
             throw new FilePermissionException("Недостаточно прав для чтение файла: " + filePath);
     }

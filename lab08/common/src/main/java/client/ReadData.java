@@ -78,7 +78,7 @@ public class ReadData implements Serializable, AutoCloseable {
                 throw e;
             } catch (WrongArgumentException | IllegalArgumentException | NullPointerException ex) {
                 if (inScript) {
-                    throw new InvalidFileException("Недопустимый файл скрипта.");
+                    throw new InvalidFileException("Неверный скрипт.");
                 }
                 System.out.println(ex.getMessage());
             } catch (Exception exx) {

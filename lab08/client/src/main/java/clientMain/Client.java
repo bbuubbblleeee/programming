@@ -1,5 +1,7 @@
 package clientMain;
 
+import languages.ErrorLocalizator;
+import languages.Localizator;
 import transfer.Request;
 import transfer.Response;
 
@@ -17,6 +19,8 @@ public class Client {
     private int port = 1234;
     private SocketAddress serverAddress;
     private DatagramChannel channel;
+    private Localizator errorLocalizator = ErrorLocalizator.getInstance();
+
 
     public Client() {
         try {
@@ -24,7 +28,6 @@ public class Client {
             channel = DatagramChannel.open();
             channel.configureBlocking(false);
             channel.connect(serverAddress);
-            System.out.println("Клиент создан.");
         } catch (IOException e) {
             System.out.println("Ошибка в создании клиента.");
         }
@@ -38,7 +41,7 @@ public class Client {
             channel.write(byteBuffer);
         }
         catch (Exception e){
-            System.out.println("Сервер временно недоступен.");
+            System.out.println(errorLocalizator.getString("ServerUnavailable"));
         }
     }
 
@@ -59,9 +62,9 @@ public class Client {
             if (object instanceof Response response) {
                 return response;
             }
-            return new Response("Ошибка: получен неожиданный тип объекта.");
+            return new Response(errorLocalizator.getString("ArgumentBad"));
         }
-        return new Response("Ошибка: нет ответа от сервера.");
+        return new Response(errorLocalizator.getString("NoAnswer"));
     }
 
     public void close() throws IOException {
