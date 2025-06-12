@@ -21,7 +21,7 @@ public class DbConnection {
             return DriverManager.getConnection(URL, user, password);
         }
         catch (SQLException sqlException){
-            throw new InvalidFileException("Не удалось подключиться к базе данных.");
+            throw new InvalidFileException("DbConnection");
         }
     }
 }

@@ -14,7 +14,7 @@ abstract public class Localizator {
     };
 
     abstract public String getString(String key);
-    abstract public String getStringFormatted(String key, String field);
+    abstract public String getStringFormatted(String key, Object[] field);
 
     public Locale getLocale() {
         return locale;

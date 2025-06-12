@@ -19,15 +19,15 @@ public class RemoveLower extends Command {
     @Override
     public Response execute(Request request) {
         if (getCollectionManager().isCollectionEmpty()) {
-            return new Response("Коллекция пуста, выполнение этой команды не имеет смысла.");
+            return new Response("CollectionEmpty");
         }
         Dragon dragonInput = request.dragons().get(0);
         try{
             getCollectionManager().add(dragonInput);
             long id = dragonInput.getId();
             dragons.remove(dragonInput);
-            getCollectionManager().remove(dragon -> dragon.getId() < id, false, "Элементы, меньшие заданного, не найдены.", "id < " + id);
-            return new Response("Все элементы, меньшие заданного, были удалены из коллекции.");
+            getCollectionManager().remove(dragon -> dragon.getId() < id, false, "RowsNotFound", "id < " + id);
+            return new Response("RemoveLowerSuccess");
         }
         catch (Exception e){
             return new Response(e.getMessage());

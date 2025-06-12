@@ -15,13 +15,13 @@ import static server.ServerMain.getCollectionManager;
  */
 public class Show extends Command {
     public Show() {
-        super("show", "выводит в стандартный поток вывода все элементы коллекции в строковом представлении.", 0);
+        super("show", "показывает элементы коллекции.", 0);
     }
 
     @Override
     public Response execute(Request request) {
         if (getCollectionManager().isCollectionEmpty()) {
-            return new Response("Коллекция пуста, выполнение этой команды не имеет смысла.");
+            return new Response("CollectionEmpty");
         }
         return new Response(dragons.stream().map(Dragon::toString).collect(Collectors.joining("\n\n")));
     }

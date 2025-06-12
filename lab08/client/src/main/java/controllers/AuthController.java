@@ -123,9 +123,9 @@ public class AuthController {
 
 
     private boolean successfulEntering(String response){
-        return response.equals("Пользователь успешно подключен к базе данных.");
+//        return response.equals("Пользователь успешно подключен к базе данных.");
 
-//        return response.equals("AuthSuccess");
+        return response.equals("AuthSuccess");
             //TODO на стороне сервера сделать так, чтобы выдавал AuthSuccess и раскомментировать строку выше
     }
 

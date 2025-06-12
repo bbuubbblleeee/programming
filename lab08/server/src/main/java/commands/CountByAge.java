@@ -17,13 +17,13 @@ public class CountByAge extends Command {
     @Override
     public Response execute(Request request) {
         if (getCollectionManager().isCollectionEmpty()) {
-            return new Response("Коллекция пуста, выполнение этой команды не имеет смысла.");
+            return new Response("CollectionEmpty");
         }
         int age;
         try {
             age = Integer.parseInt(request.args()[0]);
         } catch (Exception e) {
-            return new Response("Недопустимое значение.\nОжидался аргумент типа int.");
+            return new Response("ArgumentType|int");
         }
         return getCollectionManager().count_by_age(age);
     }

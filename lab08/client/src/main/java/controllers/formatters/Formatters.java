@@ -18,7 +18,7 @@ public class Formatters {
                     return change;
                 }
                 if (newValue.equals("-") || newValue.equals("0")){
-                    throw new WrongArgumentException(errorLocalizator.getStringFormatted("ArgumentValidation", " > 0."));
+                    throw new WrongArgumentException(errorLocalizator.getStringFormatted("ArgumentValidation", new Object[]{" > 0."}));
 
                 }
                 Integer.parseInt(newValue);
@@ -29,7 +29,7 @@ public class Formatters {
                 return null;
             }
             catch (NumberFormatException numberFormatException) {
-                DialogManager.createErrorAlert(errorLocalizator.getStringFormatted("ArgumentType", " int."));
+                DialogManager.createErrorAlert(errorLocalizator.getStringFormatted("ArgumentType", new Object[]{" int."}));
                 return null;
             }
         };
@@ -46,7 +46,7 @@ public class Formatters {
                 }
                 long x = Long.parseLong(newX);
                 if (x <= -28){
-                    throw new WrongArgumentException(errorLocalizator.getStringFormatted("ArgumentValidation", " > -28."));
+                    throw new WrongArgumentException(errorLocalizator.getStringFormatted("ArgumentValidation", new Object[]{" > -28."}));
                 }
                 return change;
             }
@@ -55,7 +55,7 @@ public class Formatters {
                 return null;
             }
             catch (NumberFormatException numberFormatException) {
-                DialogManager.createErrorAlert(errorLocalizator.getStringFormatted("ArgumentType", " long."));
+                DialogManager.createErrorAlert(errorLocalizator.getStringFormatted("ArgumentType", new Object[]{" long."}));
                 return null;
             }
         };
@@ -73,7 +73,7 @@ public class Formatters {
                 return change;
             }
             catch (NumberFormatException numberFormatException) {
-                DialogManager.createErrorAlert(errorLocalizator.getStringFormatted("ArgumentType", " long."));
+                DialogManager.createErrorAlert(errorLocalizator.getStringFormatted("ArgumentType", new Object[]{" long."}));
                 return null;
             }
         };
@@ -91,7 +91,7 @@ public class Formatters {
                 return change;
             }
             catch (NumberFormatException numberFormatException) {
-                DialogManager.createErrorAlert(errorLocalizator.getStringFormatted("ArgumentType", " float."));
+                DialogManager.createErrorAlert(errorLocalizator.getStringFormatted("ArgumentType", new Object[]{" float."}));
                 return null;
             }
         };
@@ -106,7 +106,7 @@ public class Formatters {
                     return change;
                 }
                 if (newValue.equals("-") || newValue.equals("0")){
-                    throw new WrongArgumentException(errorLocalizator.getStringFormatted("ArgumentValidation", " > 0."));
+                    throw new WrongArgumentException(errorLocalizator.getStringFormatted("ArgumentValidation", new Object[]{" > 0."}));
 
                 }
                 Long.parseLong(newValue);
@@ -117,7 +117,7 @@ public class Formatters {
                 return null;
             }
             catch (NumberFormatException numberFormatException) {
-                DialogManager.createErrorAlert(errorLocalizator.getStringFormatted("ArgumentType", " long."));
+                DialogManager.createErrorAlert(errorLocalizator.getStringFormatted("ArgumentType", new Object[]{" long."}));
                 return null;
             }
         };

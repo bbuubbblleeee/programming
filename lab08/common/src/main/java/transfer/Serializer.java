@@ -11,7 +11,7 @@ public class Serializer {
             objectOutputStream.writeObject(request);
             return byteArrayOutputStream.toByteArray();
         } catch (IOException e) {
-            throw new SerializeException("Ошибка сериализации.");
+            throw new SerializeException("Serialize");
         }
     }
 

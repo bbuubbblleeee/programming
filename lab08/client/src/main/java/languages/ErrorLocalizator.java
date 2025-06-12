@@ -35,7 +35,7 @@ public class ErrorLocalizator extends Localizator{
             put("ScriptBad", "Неверный скрипт.");
             put("EndOfInput", "Конец ввода.");
             put("EndOfFile", "Конец файла.");
-            put("RowsNotFound","Отсутствуют строки, подходящие под условие.");
+            put("RowsNotFound","Отсутствуют элементы, подходящие под условие.");
             put("AddFailed","Дракон не был добавлен в коллекцию, так как его значение меньше значения наибольшего элемента коллекции.");
             put("PasswordFailed","Неверный пароль, попробуйте выполнить вход повторно.");
             put("LoginFailed","Пользователя с таким логином не существует.\nЗарегистрируйтесь.");
@@ -50,6 +50,9 @@ public class ErrorLocalizator extends Localizator{
             put("NotEnoughRights","Недостаточно прав к файлу.");
             put("DbConnection","Не удалось подключиться к базе данных.");
             put("AuthNeeded","Выполнение команд недоступно без авторизации. Пожалуйста, авторизуйтесь или создайте новый аккаунт.");
+
+            put("UnknownCommand", "Введена недоступная команда.");
+            put("WrongNumberOfArguments", "Введено неверное количество аргументов.");
         }
     };
     private final Map<String, String> is = new HashMap<>() {{
@@ -87,6 +90,10 @@ public class ErrorLocalizator extends Localizator{
         put("NotEnoughRights", "Ófullnægjandi heimildir fyrir skrána.");
         put("DbConnection", "Tókst ekki að tengjast gagnagrunninum.");
         put("AuthNeeded", "Framkvæmd skipana er ekki í boði án leyfis. Vinsamlegast skráðu þig inn eða búðu til nýjan reikning.");
+
+        put("UnknownCommand", "Ótiltæk skipun var slegin inn.");
+        put("WrongNumberOfArguments", "Rangur fjöldi frumbreytna sleginn inn.");
+
     }};
     private final Map<String, String> el = new HashMap<>(){{
         put("CancelledAction", "Η δράση ακυρώθηκε.");
@@ -123,6 +130,10 @@ public class ErrorLocalizator extends Localizator{
         put("NotEnoughRights","Ανεπαρκή δικαιώματα στο αρχείο.");
         put("DbConnection","Απέτυχε να συνδεθεί στη βάση δεδομένων.");
         put("AuthNeeded","Οι εντολές δεν είναι διαθέσιμες χωρίς εξουσιοδότηση. Παρακαλούμε συνδεθείτε ή δημιουργήστε έναν νέο λογαριασμό.");
+
+        put("UnknownCommand", "Εισήχθη μια μη διαθέσιμη εντολή.");
+        put("WrongNumberOfArguments", "Εισαγάγετε λανθασμένο αριθμό ορισμάτων.");
+
     }};
     private final Map<String, String> es_PR = new HashMap<>() {{
         put("CancelledAction", "La acción fue cancelada.");
@@ -159,6 +170,10 @@ public class ErrorLocalizator extends Localizator{
         put("NotEnoughRights", "Permisos insuficientes para el archivo.");
         put("DbConnection", "No se ha podido conectar a la base de datos.");
         put("AuthNeeded", "Los comandos no están disponibles sin autorización. Inicia sesión o crea una cuenta nueva.");
+
+        put("UnknownCommand", "Se introdujo un comando no disponible.");
+        put("WrongNumberOfArguments", "Número incorrecto de argumentos ingresados.");
+
     }};
 
     @Override
@@ -183,22 +198,34 @@ public class ErrorLocalizator extends Localizator{
     }
 
     @Override
-    public String getStringFormatted(String key, String field){
+    public String getStringFormatted(String key, Object[] field){
         switch (locale.getLanguage()) {
             case "ru" -> {
                 String pattern = ru.get(key);
+                if (pattern == null){
+                    return "error";
+                }
                 return MessageFormat.format(pattern, field);
             }
             case "is" -> {
                 String pattern = is.get(key);
+                if (pattern == null){
+                    return "error";
+                }
                 return MessageFormat.format(pattern, field);
             }
             case "el" -> {
                 String pattern = el.get(key);
+                if (pattern == null){
+                    return "error";
+                }
                 return MessageFormat.format(pattern, field);
             }
             case "es" -> {
                 String pattern = es_PR.get(key);
+                if (pattern == null){
+                    return "error";
+                }
                 return MessageFormat.format(pattern, field);
             }
             default -> {
@@ -206,4 +233,6 @@ public class ErrorLocalizator extends Localizator{
             }
         }
     }
+
+
 }

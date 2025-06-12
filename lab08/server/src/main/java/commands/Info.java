@@ -18,7 +18,7 @@ public class Info extends Command {
     @Override
     public Response execute(Request request) {
         if (getCollectionManager().isCollectionEmpty()) {
-            return new Response("Коллекция пуста, выполнение этой команды не имеет смысла.");
+            return new Response("CollectionEmpty");
         }
         return getCollectionManager().info();
     }

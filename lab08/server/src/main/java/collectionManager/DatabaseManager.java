@@ -17,6 +17,7 @@ public class DatabaseManager extends CollectionManager {
             DateAndDragons dateAndDragons = dao.get();
             date = dateAndDragons.date();
             dragons = dateAndDragons.dragons();
+            System.out.println(dragons);
             System.out.println("Коллекция успешно считана из базы данных.");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -30,7 +31,7 @@ public class DatabaseManager extends CollectionManager {
             dragon.setId(id);
             dragon.setOwner(User.getLogin());
             dragons.add(dragon);
-            return new Response("Дракон был успешно добавлен.");
+            return new Response("AddSuccess");
         }
         catch (Exception e){
             return new Response(e.getMessage());
@@ -44,7 +45,7 @@ public class DatabaseManager extends CollectionManager {
             dragon.setId(id);
             dragon.setOwner(User.getLogin());
             dragons.add(dragon);
-            return new Response("Дракон был успешно добавлен.");
+            return new Response("AddSuccess");
         }
         catch (Exception e){
             return new Response(e.getMessage());
@@ -56,7 +57,7 @@ public class DatabaseManager extends CollectionManager {
     public void remove(Predicate<Dragon> condition, boolean one, String errorMessage, String... conditionString) {
         try {
             if (dao.remove(conditionString[0], User.getLogin()) == 0) {
-                throw new DbErrorException("Отсутствуют строки, подходящие под условие.");
+                throw new DbErrorException("RowsNotFound");
             }
             removeFromCollection(condition, one, errorMessage);
         }
@@ -77,7 +78,7 @@ public class DatabaseManager extends CollectionManager {
         try {
             dao.clear(User.getLogin());
             dragons.removeIf(dragon -> dragon.getOwner().equals(User.getLogin()));
-            return new Response("Коллекция очищена.");
+            return new Response("ClearSuccess");
         }
         catch (Exception e){
             return new Response(e.getMessage());

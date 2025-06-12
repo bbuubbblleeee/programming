@@ -39,7 +39,7 @@ public class DialogManager {
 
         okButton.addEventFilter(ActionEvent.ACTION, event -> {
             if (textField.getText() == null || textField.getText().isBlank()){
-                createErrorAlert(errorLocalizator.getStringFormatted("ArgumentNull", ""));
+                createErrorAlert(errorLocalizator.getStringFormatted("ArgumentNull", new Object[]{""}));
                 event.consume();
             }
         });

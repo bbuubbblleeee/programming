@@ -18,14 +18,14 @@ public class Update extends Command {
     @Override
     public Response execute(Request request) {
         if (getCollectionManager().isCollectionEmpty()) {
-            return new Response("Коллекция пуста, выполнение этой команды не имеет смысла.");
+            return new Response("CollectionEmpty");
         }
         long id;
         try {
             id = Long.parseLong(request.args()[0]);
             return getCollectionManager().update(id, request.dragons().get(0));
         } catch (NumberFormatException e) {
-            return new Response("Недопустимое значение.\nОжидался аргумент типа long.");
+            return new Response("ArgumentType|long");
         }
         catch (Exception e){
             return new Response(e.getMessage());

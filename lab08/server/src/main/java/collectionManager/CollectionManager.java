@@ -44,18 +44,18 @@ public abstract class CollectionManager {
     abstract public void remove(Predicate<Dragon> condition, boolean one, String errorMessage, String... conditionString);
 
     public Response info() {
-        StringJoiner stringJoiner = new StringJoiner("\n");
-        stringJoiner.add("Информация о коллекции.");
-        stringJoiner.add("Тип: Dragon");
-        stringJoiner.add("Дата инициализации: " + date);
-        stringJoiner.add("Количество элементов: " + dragons.size());
-        return new Response(stringJoiner.toString());
+//        StringJoiner stringJoiner = new StringJoiner("\n");
+//        stringJoiner.add("Информация о коллекции.");
+//        stringJoiner.add("Тип: Dragon");
+//        stringJoiner.add("Дата инициализации: " + date);
+//        stringJoiner.add("Количество элементов: " + dragons.size());
+        return new Response(("InfoCommand|" + date + "|" + dragons.size()));
 
     }
 
     public Response count_by_age(int age) {
         long count = dragons.stream().filter(dragon -> dragon.getAge() == age).toList().size();
-        return new Response("Количество элементов, значение поля age которых равно " + age + ": " + count);
+        return new Response("CountByAgeCommand|" + age + "|" + count);
     }
 
 
@@ -93,9 +93,9 @@ public abstract class CollectionManager {
                     dragonUpdate.setDepthCave(dragonNew.getCave().getDepth());
                     dragonUpdate.setType(dragonNew.getType());
                     dragonUpdate.setNumberOfTreasures(dragonNew.getCave().getNumberOfTreasures());
-                    return new Response("Элемент успешно обновлен.");
+                    return new Response("UpdateSuccess");
                 })
-                .orElse(new Response("Элемент с ID " + id + " не найден."));
+                .orElse(new Response("IdNotFound"));
     }
 
 

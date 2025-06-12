@@ -22,9 +22,9 @@ public class FileReader implements MyReader {
         try {
             scanner = new Scanner(new File(filePath));
         } catch (FileNotFoundException e) {
-            throw new InvalidFileException("Файл не найден.");
+            throw new InvalidFileException("FileNotFound");
         } catch (Exception b) {
-            throw new InvalidFileException("Неверный скрипт.");
+            throw new InvalidFileException("ScriptBad");
         }
     }
 
@@ -38,7 +38,7 @@ public class FileReader implements MyReader {
         try {
             return scanner.nextLine();
         } catch (NoSuchElementException e) {
-            throw new EndOfInputException("Конец файла.");
+            throw new EndOfInputException("EndOfFile");
         }
     }
 
@@ -47,7 +47,7 @@ public class FileReader implements MyReader {
         try {
             return scanner.nextLine();
         } catch (NoSuchElementException e) {
-            throw new EndOfInputException("Конец файла");
+            throw new EndOfInputException("EndOfFile");
         }
     }
 

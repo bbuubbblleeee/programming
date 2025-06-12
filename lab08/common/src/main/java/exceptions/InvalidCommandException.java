@@ -5,6 +5,6 @@ package exceptions;
  */
 public class InvalidCommandException extends RuntimeException {
     public InvalidCommandException() {
-        super("Введена недоступная команда.");
+        super("UnknownCommand");
     }
 }

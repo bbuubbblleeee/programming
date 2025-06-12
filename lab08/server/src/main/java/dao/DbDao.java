@@ -10,6 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -41,7 +42,7 @@ public class DbDao implements DAO{
         long id = writeInDb(dragon, login);
         if (id <= lastId){
             remove("id = " + dragon.getId(), login);
-            throw new DbErrorException("Дракон не был добавлен в коллекцию, так как его значение меньше значения наибольшего элемента коллекции.");
+            throw new DbErrorException("AddIfMaxNotFound");
         }
         return id;
     }
@@ -56,6 +57,8 @@ public class DbDao implements DAO{
 
     public long remove(String condition, String login){
         String[] condParts = condition.trim().split("\\s+");
+        System.out.println(login);
+
         if (condParts[0].equals("id") && condParts[1].matches("[<>]")){
             removeFromDb("id = " + condParts[2], login);
         }
@@ -74,11 +77,11 @@ public class DbDao implements DAO{
                 if (passwordHashed.equals(passwordHashedUser)){
                     return;
                 }
-                throw new DbErrorException("Неверный пароль, попробуйте выполнить вход повторно.");
+                throw new DbErrorException("PasswordFailed");
             }
-            throw new DbErrorException("Пользователя с таким логином не существует.\nЗарегистрируйтесь");
+            throw new DbErrorException("LoginFailed");
         } catch (SQLException | NoSuchAlgorithmException e) {
-            throw new DbErrorException("Неуспешная проверка данных пользователя.");
+            throw new DbErrorException("AuthFailed");
         }
     }
 
@@ -89,7 +92,7 @@ public class DbDao implements DAO{
             ResultSet resultSet = loginStatement.executeQuery();
 
             if (resultSet.next()){
-                throw new LoginUserException("Пользователь с таким логином уже существует.");
+                throw new LoginUserException("LoginAlreadyExists");
             }
 
             statement.setString(1, login);
@@ -102,7 +105,7 @@ public class DbDao implements DAO{
             statement.setBytes(3, salt);
             statement.executeUpdate();
         } catch (SQLException | NoSuchAlgorithmException e) {
-            throw new DbErrorException("Неуспешная регистрация пользователя.");
+            throw new DbErrorException("RegistrationFailed");
         }
     }
 
@@ -159,10 +162,16 @@ public class DbDao implements DAO{
                     dragons.add(dragon);
                 }
             }
-            return new DateAndDragons(DateFormat.getDateTimeInstance().format(new Date()), dragons);
+            Date date = new Date();
+            DateFormat formatter = DateFormat.getDateTimeInstance(
+                    DateFormat.DEFAULT,
+                    DateFormat.DEFAULT,
+                    Locale.forLanguageTag("ru")
+            );
+            return new DateAndDragons(formatter.format(date), dragons);
         }
         catch (SQLException sqlException){
-            throw new DbErrorException("Ошибка получения данных из базы данных.");
+            throw new DbErrorException("DbDataGet");
         }
     }
 
@@ -173,7 +182,7 @@ public class DbDao implements DAO{
             return preparedStatement.executeUpdate();
         }
         catch (SQLException sqlException){
-            throw new DbErrorException("Ошибка удаления дракона из базы данных.");
+            throw new DbErrorException("DbDataRemove");
         }
     }
 
@@ -182,11 +191,11 @@ public class DbDao implements DAO{
             statement.setString(1, login);
             int rows = statement.executeUpdate();
             if (rows == 0){
-                throw new DbErrorException("В коллекции отсутствуют объекты, принадлежащие данному пользователю. Коллекция не была очищена");
+                throw new DbErrorException("UserHaveNoObjects");
             }
         }
         catch (SQLException sqlException){
-            throw new DbErrorException("Ошибка очистки базы данных.");
+            throw new DbErrorException("DbClear");
         }
     }
 
@@ -235,7 +244,7 @@ public class DbDao implements DAO{
         }
         catch (SQLException sqlException){
             System.out.println(sqlException.getMessage());
-            throw new DbErrorException("Ошибка записи данных в базу данных.");
+            throw new DbErrorException("DbWrite");
         }
 
 
@@ -252,7 +261,7 @@ public class DbDao implements DAO{
 
             ResultSet foundDragon = findDragon.executeQuery();
             if (!foundDragon.next()){
-                throw new DbErrorException("Объект с таким id не был найден.");
+                throw new DbErrorException("IdNotFound");
             }
 
             long coordinatesId = foundDragon.getLong("coordinatesId");
@@ -294,13 +303,13 @@ public class DbDao implements DAO{
             dragonStatement.setLong(8, id);
             dragonStatement.setString(9, login);
             if (dragonStatement.executeUpdate() == 0){
-                throw new DbErrorException("Объект не принадлежит данному пользователю, его модификация запрещена.");
+                throw new DbErrorException("RejectModificate");
             };
 
 
         }
         catch (SQLException sqlException){
-            throw new DbErrorException("Ошибка записи в базу данных.");
+            throw new DbErrorException("DbDataGet");
         }
     }
 

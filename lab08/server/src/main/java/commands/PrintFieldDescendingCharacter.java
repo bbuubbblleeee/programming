@@ -26,11 +26,11 @@ public class PrintFieldDescendingCharacter extends Command {
     @Override
     public Response execute(Request request) {
         if (getCollectionManager().isCollectionEmpty()) {
-            return new Response("Коллекция пуста, выполнение этой команды не имеет смысла.");
+            return new Response("CollectionEmpty");
         }
         List<Dragon> dragonsReversed = new ArrayList<>(dragons);
         String res = dragonsReversed.stream().sorted(Comparator.reverseOrder()).
                 map(dragon -> dragon.getCharacter() == null ? "-" : dragon.getCharacter().toString()).collect(Collectors.joining("\n"));
-        return new Response(res.isEmpty() ? "Поле character пусто у всех элементов коллекции." : res);
+        return new Response(res.isEmpty() ? "CharacterFieldEmpty" : res);
     }
 }

@@ -1,3 +1,11 @@
-show
 info
-execute_script C:\Users\Liza\Desktop\ITMO\programming java\labs\lab08\client\src\main\resources\test1.txt
+add
+Ulya
+9
+White
+air
+wise
+1
+1
+1
+1

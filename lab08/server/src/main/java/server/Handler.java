@@ -34,7 +34,7 @@ public class Handler extends RecursiveTask<Response> {
             String[] arguments = request.args();
 
             if (request.login() == null && request.password() == null){
-                throw new LoginUserException("Выполнение команд недоступно без авторизации. Пожалуйста, авторизуйтесь или создайте новый аккаунт.");
+                throw new LoginUserException("AuthNeeded");
             }
             User user = new User(request.login(), request.password());
 

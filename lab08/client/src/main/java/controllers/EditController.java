@@ -272,7 +272,7 @@ public class EditController {
 
     private void nullChecker(Object object, String field) throws WrongArgumentException {
         if (object == null || object.equals("")) {
-            throw new WrongArgumentException(errorLocalizator.getStringFormatted("ArgumentNull", field));
+            throw new WrongArgumentException(errorLocalizator.getStringFormatted("ArgumentNull", new Object[]{field}));
             //todo мб поменять язык и у field тоже
             //done у field поменяла тоже
         }

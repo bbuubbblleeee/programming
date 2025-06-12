@@ -18,15 +18,15 @@ public class RemoveAnyByAge extends Command {
     @Override
     public Response execute(Request request) {
         if (getCollectionManager().isCollectionEmpty()) {
-            return new Response("Коллекция пуста, выполнение этой команды не имеет смысла.");
+            return new Response("CollectionEmpty");
         }
         int age;
         try {
             age = Integer.parseInt(request.args()[0]);
-            getCollectionManager().remove(dragon -> dragon.getAge() == age, true, "Элемент с возрастом = " + age + " не был найден.", "age = " + age);
-            return new Response("Элемент, чей возраст = " + age + ", был успешно удалён из коллекции.");
+            getCollectionManager().remove(dragon -> dragon.getAge() == age, true, "AgeNotFound", "age = " + age);
+            return new Response("RemoveSuccess");
         } catch (NumberFormatException numberFormatException) {
-            return new Response("Недопустимое значение.\nОжидался аргумент типа int.");
+            return new Response("ArgumentType|int");
         }
         catch (Exception e){
             return new Response(e.getMessage());

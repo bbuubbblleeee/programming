@@ -190,7 +190,7 @@ public class UILocalizator extends Localizator{
     }
 
     @Override
-    public String getStringFormatted(String key, String field) {
+    public String getStringFormatted(String key, Object[] field) {
         switch (locale.getLanguage()) {
             case "ru" -> {
                 String pattern = ru.get(key);

@@ -5,6 +5,6 @@ package exceptions;
  */
 public class WrongNumberOfArguments extends RuntimeException {
     public WrongNumberOfArguments() {
-        super("Введено неверное количество аргументов.");
+        super("WrongNumberOfArguments");
     }
 }

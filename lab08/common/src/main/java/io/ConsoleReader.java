@@ -29,7 +29,7 @@ public class ConsoleReader implements MyReader {
         try {
             return scanner.nextLine();
         } catch (NoSuchElementException e) {
-            throw new EndOfInputException("Конец ввода.");
+            throw new EndOfInputException("EndOfInput");
         }
     }
 
@@ -39,7 +39,7 @@ public class ConsoleReader implements MyReader {
             System.out.print("Введите " + string + ": ");
             return scanner.nextLine();
         } catch (NoSuchElementException e) {
-            throw new EndOfInputException("Конец ввода");
+            throw new EndOfInputException("EndOfInput");
         }
     }
 

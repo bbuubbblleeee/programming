@@ -28,6 +28,10 @@ import languages.UILocalizator;
 import transfer.Request;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
@@ -172,12 +176,14 @@ public class MainController {
     void add(){
         try {
             callEdit.run();
+            if (dragon == null){
+                throw new CancelledAction(errorLocalizator.getString("CancelledAction"));
+            }
             String response = ClientMain.sendAndGetResponse(new Request("add", new String[0], new ArrayList<>(List.of(dragon)), ClientMain.getLogin(), ClientMain.getPassword()));
-            DialogManager.createInfoAlert(response);
+            DialogManager.createInfoAlert(getStringResponse(response));
             getDragons();
         }
-        catch (IOException ioException){
-
+        catch (Exception exception){
         }
     }
 
@@ -185,11 +191,14 @@ public class MainController {
     void addIfMax(){
         try {
             callEdit.run();
+            if (dragon == null){
+                throw new CancelledAction(errorLocalizator.getString("CancelledAction"));
+            }
             String response = ClientMain.sendAndGetResponse(new Request("add_if_max", new String[0], new ArrayList<>(List.of(dragon)), ClientMain.getLogin(), ClientMain.getPassword()));
-            DialogManager.createInfoAlert(response);
+            DialogManager.createInfoAlert(getStringResponse(response));
             getDragons();
         }
-        catch (IOException ioException){
+        catch (Exception exception){
 
         }
     }
@@ -198,7 +207,7 @@ public class MainController {
     void clear(){
         try {
             String response = ClientMain.sendAndGetResponse(new Request("clear", new String[0], new ArrayList<>(), ClientMain.getLogin(), ClientMain.getPassword()));
-            DialogManager.createInfoAlert(response);
+            DialogManager.createInfoAlert(getStringResponse(response));
             getDragons();
         }
         catch (IOException ioException){
@@ -215,7 +224,8 @@ public class MainController {
             String[] args = new String[1];
             args[0] = age;
             response = ClientMain.sendAndGetResponse(new Request("count_by_age", args, new ArrayList<>(), ClientMain.getLogin(), ClientMain.getPassword()));
-            DialogManager.createInfoAlert(response);
+            System.out.println(response);
+            DialogManager.createInfoAlert(getStringResponse(response));
         }
         catch (CancelledAction ignored){
         }
@@ -227,7 +237,6 @@ public class MainController {
     @FXML
     void exit(){
         Stage stage = (Stage) collectionTable.getScene().getWindow();
-        System.out.println(stage);
         stage.close();
     }
 
@@ -235,7 +244,7 @@ public class MainController {
     void help(){
         try {
             String response = ClientMain.sendAndGetResponse(new Request("help", new String[0], new ArrayList<>(), ClientMain.getLogin(), ClientMain.getPassword()));
-            DialogManager.createInfoScrolledAlert(response);
+            DialogManager.createInfoScrolledAlert(infoLocalizator.getString("HelpCommand"));
         }
         catch (Exception exception){
 
@@ -246,7 +255,7 @@ public class MainController {
     void info(){
         try {
             String response = ClientMain.sendAndGetResponse(new Request("info", new String[0], new ArrayList<>(), ClientMain.getLogin(), ClientMain.getPassword()));
-            DialogManager.createInfoAlert(response);
+            DialogManager.createInfoAlert(getStringResponse(response));
         }
         catch (Exception exception){
 
@@ -271,8 +280,11 @@ public class MainController {
             String[] args = new String[1];
             args[0] = id;
             callEdit.run();
+            if (dragon == null){
+                throw new CancelledAction(errorLocalizator.getString("CancelledAction"));
+            }
             String response = ClientMain.sendAndGetResponse(new Request("update", args, new ArrayList<>(List.of(dragon)), ClientMain.getLogin(), ClientMain.getPassword()));
-            DialogManager.createInfoAlert(response);
+            DialogManager.createInfoAlert(getStringResponse(response));
             getDragons();
         }
         catch (WrongArgumentException wrongArgumentException){
@@ -285,6 +297,10 @@ public class MainController {
     void printFieldDescendingCharacter(){
         try{
             String response = ClientMain.sendAndGetResponse(new Request("print_field_descending_character", new String[0], new ArrayList<>(), ClientMain.getLogin(), ClientMain.getPassword()));
+            if (!(response.contains("WISE") || response.contains("CUNNING") || response.contains("CHAOTIC"))){
+                response = getStringResponse(response);
+            }
+            System.out.println(response);
             DialogManager.createInfoScrolledAlert(response);
         }
         catch (IOException ioException){
@@ -299,7 +315,7 @@ public class MainController {
             String[] args = new String[1];
             args[0] = age;
             String response = ClientMain.sendAndGetResponse(new Request("remove_any_by_age", args, new ArrayList<>(), ClientMain.getLogin(), ClientMain.getPassword()));
-            DialogManager.createInfoAlert(response);
+            DialogManager.createInfoAlert(getStringResponse(response));
             getDragons();
         }
         catch (CancelledAction ignored){
@@ -316,7 +332,7 @@ public class MainController {
             String[] args = new String[1];
             args[0] = id;
             String response = ClientMain.sendAndGetResponse(new Request("remove_by_id", args, new ArrayList<>(), ClientMain.getLogin(), ClientMain.getPassword()));
-            DialogManager.createInfoAlert(response);
+            DialogManager.createInfoAlert(getStringResponse(response));
             getDragons();
         }
         catch (CancelledAction ignored){
@@ -331,7 +347,7 @@ public class MainController {
         try{
             callEdit.run();
             String response = ClientMain.sendAndGetResponse(new Request("remove_greater", new String[0], new ArrayList<>(List.of(dragon)), ClientMain.getLogin(), ClientMain.getPassword()));
-            DialogManager.createInfoAlert(response);
+            DialogManager.createInfoAlert(getStringResponse(response));
             getDragons();
         }
         catch (IOException ioException){
@@ -344,7 +360,7 @@ public class MainController {
         try{
             callEdit.run();
             String response = ClientMain.sendAndGetResponse(new Request("remove_lower", new String[0], new ArrayList<>(List.of(dragon)), ClientMain.getLogin(), ClientMain.getPassword()));
-            DialogManager.createInfoAlert(response);
+            DialogManager.createInfoAlert(getStringResponse(response));
             getDragons();
         }
         catch (IOException ioException){
@@ -380,10 +396,15 @@ public class MainController {
             Matcher matcher = Pattern.compile("\\{(.*?)\\}", Pattern.DOTALL).matcher(response);
             dragons.clear();
             while (matcher.find()) {
-                dragons.add(Dragon.fromString(matcher.group(1).trim()));
+                Dragon newDragon = Dragon.fromString(matcher.group(1).trim());
+                String date = newDragon.getCreationDate();
+                newDragon.setCreationDate(changeDateLanguage(date));
+
+                dragons.add(newDragon);
             }
         }
         catch (Exception exception){
+            System.out.println(exception.getMessage());
             DialogManager.createErrorAlert(errorLocalizator.getString("NoAnswer"));
             throw new DbErrorException(errorLocalizator.getString("DbDataGet"));
         }
@@ -418,13 +439,42 @@ public class MainController {
         treasureColumn.setText(uiLocalizator.getString("TreasureLabel"));
         ownerColumn.setText(uiLocalizator.getString("Owner"));
         commandsAvailable.textProperty().setValue(uiLocalizator.getString("CommandsAvailable"));
+        getDragons();
 
+    }
 
+    private String getStringResponse(String response){
+        String[] args = response.split("\\|");
+        if (args.length > 1){
+            if (args[0].equals("InfoCommand")){
+                args[1] = changeDateLanguage(args[1]);
+            }
+            Object[] arguments = Arrays.copyOfRange(args, 1, args.length);
+            String error = errorLocalizator.getStringFormatted(args[0], arguments);
+            if (!error.equals("error")){
+                return error;
+            }
+            String info = infoLocalizator.getStringFormatted(args[0], arguments);
+            if (!info.equals("info")){
+                return info;
+            }
+        }
 
+        String error = errorLocalizator.getString(args[0]);
+        if (!error.equals("error")){
+            return error;
+        }
+        return infoLocalizator.getString(args[0]);
+    }
 
+    private String changeDateLanguage(String date){
+        date = date.replaceAll("[\\u202F\\u00A0\\u200E]", " ");
 
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d MMM yyyy 'г.,' HH:mm:ss", Locale.forLanguageTag("ru"));
+        LocalDateTime localDateTime = LocalDateTime.parse(date, dateTimeFormatter);
 
-
+        DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm:ss", Locale.forLanguageTag(Localizator.localeProperty.getValue().getLanguage()));
+        return localDateTime.format(dateTimeFormatter1);
     }
 }
 

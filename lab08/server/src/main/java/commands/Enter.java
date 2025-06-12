@@ -17,7 +17,7 @@ public class Enter extends Command{
         String password = request.args()[1];
         try {
             getCollectionManager().checkUser(login, password);
-            return new Response("Пользователь успешно подключен к базе данных.");
+            return new Response("AuthSuccess");
         }
         catch (Exception e){
             return new Response(e.getMessage());

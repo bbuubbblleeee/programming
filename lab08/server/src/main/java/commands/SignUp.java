@@ -17,7 +17,7 @@ public class SignUp extends Command{
         String password = request.args()[1];
         try {
             getCollectionManager().signUp(login, password);
-            return new Response("Пользователь успешно зарегистрирован.");
+            return new Response("RegistrationSuccess");
         }
         catch (Exception e){
             return new Response(e.getMessage());
