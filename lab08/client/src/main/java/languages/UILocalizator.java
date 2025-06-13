@@ -48,6 +48,10 @@ public class UILocalizator extends Localizator{
         put("CommandsAvailable", "Доступные команды:");
 
 
+        put("Edit", "Редактировать");
+        put("Delete", "Удалить");
+
+
 
 
     }};

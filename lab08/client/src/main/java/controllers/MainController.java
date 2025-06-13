@@ -15,6 +15,8 @@ import exceptions.DbErrorException;
 import exceptions.InvalidFileException;
 import exceptions.WrongArgumentException;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,6 +30,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -122,7 +125,7 @@ public class MainController {
     private Label commandsAvailable;
 
     private ObservableList<Dragon> dragons = FXCollections.observableArrayList();
-    private Runnable callEdit;
+    private Consumer<Dragon> callEdit;
     private Dragon dragon;
     private final Consumer<Dragon> getDragon = dragon -> this.dragon = dragon;
     private Localizator errorLocalizator = ErrorLocalizator.getInstance();
@@ -193,12 +196,36 @@ public class MainController {
         treasureColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfTreasures"));
         ownerColumn.setCellValueFactory(new PropertyValueFactory<>("owner"));
         collectionTable.setItems(dragons);
+
+        collectionTable.setRowFactory(table -> {
+            TableRow<Dragon> row = new TableRow<>();
+
+            ContextMenu contextMenu = new ContextMenu();
+            MenuItem editItem = new MenuItem(uiLocalizator.getString("Edit"));
+            editItem.setOnAction(event -> editContextMenu(row.getItem()));
+
+            MenuItem deleteItem = new MenuItem(uiLocalizator.getString("Delete"));
+            deleteItem.setOnAction(event -> deleteContextMenu(row.getItem()));
+
+            contextMenu.getItems().addAll(editItem, deleteItem);
+
+
+
+
+            row.contextMenuProperty().bind(
+                    Bindings.when(row.emptyProperty())
+                            .then((ContextMenu) null)
+                            .otherwise(contextMenu));
+
+
+            return row;
+        });
     }
 
     @FXML
     void add(){
         try {
-            callEdit.run();
+            callEdit.accept(null);
             if (dragon == null){
                 throw new CancelledAction(errorLocalizator.getString("CancelledAction"));
             }
@@ -217,7 +244,7 @@ public class MainController {
     @FXML
     void addIfMax(){
         try {
-            callEdit.run();
+            callEdit.accept(null);
             if (dragon == null){
                 throw new CancelledAction(errorLocalizator.getString("CancelledAction"));
             }
@@ -304,12 +331,16 @@ public class MainController {
             if (id.isBlank()){
                 throw new CancelledAction(errorLocalizator.getString("CancelledAction"));
             }
-            if (dragons.stream().filter(dragon -> dragon.getId().toString().equals(id)).findAny().isEmpty()){
-                throw new WrongArgumentException(errorLocalizator.getString("IdNotFound"));
+            Dragon dragonToUpdate = dragons.stream().filter(dragon ->
+                    dragon.getId().toString().equals(id))
+                    .findFirst().orElseThrow(() -> new WrongArgumentException(errorLocalizator.getString("IdNotFound")));
+            if (!dragonToUpdate.getOwner().equals(ClientMain.getLogin())){
+                throw new WrongArgumentException(errorLocalizator.getString("RejectModificate"));
             }
+
             String[] args = new String[1];
             args[0] = id;
-            callEdit.run();
+            callEdit.accept(dragonToUpdate);
             if (dragon == null){
                 throw new CancelledAction(errorLocalizator.getString("CancelledAction"));
             }
@@ -378,7 +409,7 @@ public class MainController {
     @FXML
     void removeGreater(){
         try{
-            callEdit.run();
+            callEdit.accept(null);
             String response = ClientMain.sendAndGetResponse(new Request("remove_greater", new String[0], new ArrayList<>(List.of(dragon)), ClientMain.getLogin(), ClientMain.getPassword()));
             DialogManager.createInfoAlert(getStringResponse(response));
             getDragons();
@@ -391,7 +422,7 @@ public class MainController {
     @FXML
     void removeLower(){
         try{
-            callEdit.run();
+            callEdit.accept(null);
             String response = ClientMain.sendAndGetResponse(new Request("remove_lower", new String[0], new ArrayList<>(List.of(dragon)), ClientMain.getLogin(), ClientMain.getPassword()));
             DialogManager.createInfoAlert(getStringResponse(response));
             getDragons();
@@ -409,12 +440,28 @@ public class MainController {
             Handler.setStack(path);
             executeScript.execute(path);
             DialogManager.createInfoScrolledAlert(executeScript.getResult());
+            getDragons();
         }
         catch (Exception exception){
             DialogManager.createInfoScrolledAlert(executeScript.getResult() + "\n" + exception.getMessage());
         }
     }
 
+
+    public void refresh(){
+        Thread thread = new Thread(() -> {
+            while (true){
+                Platform.runLater(this::getDragons);
+                try{
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
+    }
 
 
 
@@ -446,7 +493,7 @@ public class MainController {
 
 
 
-    public void setCallEdit(Runnable callEdit) {
+    public void setCallEdit(Consumer<Dragon> callEdit) {
         this.callEdit = callEdit;
     }
 
@@ -473,10 +520,26 @@ public class MainController {
                 circle = createCircle(dragon);
                 pane.getChildren().add(circle);
             }
+            ContextMenu contextMenu = new ContextMenu();
+
+            MenuItem editItem = new MenuItem(uiLocalizator.getString("Edit"));
+            editItem.setOnAction(event -> editContextMenu(dragon));
+            MenuItem deleteItem = new MenuItem(uiLocalizator.getString("Delete"));
+            deleteItem.setOnAction(event -> deleteContextMenu(dragon));
+
+
+            contextMenu.getItems().addAll(editItem, deleteItem);
+
+
             circle.setOnMouseClicked(event -> {
-                DialogManager.createInfoAlert(infoLocalizator.getStringFormatted("DragonToString", new Object[]{dragon.getId(), dragon.getName(),
-                        dragon.getCoordinateX(), dragon.getCoordinateY(), dragon.getCreationDate(), dragon.getAge(), dragon.getColor(), dragon.getType(),
-                        dragon.getCharacter(), dragon.getDepthCave(), dragon.getNumberOfTreasures(), dragon.getOwner()}));
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    DialogManager.createInfoAlert(infoLocalizator.getStringFormatted("DragonToString", new Object[]{dragon.getId(), dragon.getName(),
+                            dragon.getCoordinateX(), dragon.getCoordinateY(), dragon.getCreationDate(), dragon.getAge(), dragon.getColor(), dragon.getType(),
+                            dragon.getCharacter(), dragon.getDepthCave(), dragon.getNumberOfTreasures(), dragon.getOwner()}));
+                }
+                else if (event.getButton() == MouseButton.SECONDARY){
+                    contextMenu.show(circle, event.getScreenX(), event.getScreenY());
+                }
             });
         }
         visualisationDragons.clear();
@@ -569,5 +632,53 @@ public class MainController {
         circle.setStrokeWidth(2);
         return circle;
     }
+
+    private void editContextMenu(Dragon dragon){
+        try {
+            if (!dragon.getOwner().equals(ClientMain.getLogin())) {
+                throw new WrongArgumentException(errorLocalizator.getString("RejectModificate"));
+            }
+            String[] args = new String[1];
+            args[0] = String.valueOf(dragon.getId());
+            callEdit.accept(dragon);
+            if (this.dragon == null) {
+                throw new CancelledAction(errorLocalizator.getString("CancelledAction"));
+            }
+            String response = ClientMain.sendAndGetResponse(new Request("update", args, new ArrayList<>(List.of(this.dragon)), ClientMain.getLogin(), ClientMain.getPassword()));
+            DialogManager.createInfoAlert(getStringResponse(response));
+            getDragons();
+        }
+        catch (WrongArgumentException wrongArgumentException){
+            DialogManager.createErrorAlert(wrongArgumentException.getMessage());
+        }
+        catch (CancelledAction ignored){}
+        catch(Exception exception){
+            DialogManager.createErrorAlert(errorLocalizator.getString("ServerUnavailable"));
+        }
+
+    }
+
+    private void deleteContextMenu(Dragon dragon){
+        try{
+            if (!dragon.getOwner().equals(ClientMain.getLogin())) {
+                throw new WrongArgumentException(errorLocalizator.getString("RejectModificate"));
+            }
+            String[] args = new String[1];
+            args[0] = String.valueOf(dragon.getId());
+            String response = ClientMain.sendAndGetResponse(new Request("remove_by_id", args, new ArrayList<>(), ClientMain.getLogin(), ClientMain.getPassword()));
+            DialogManager.createInfoAlert(getStringResponse(response));
+            getDragons();
+        }
+        catch (WrongArgumentException wrongArgumentException){
+            DialogManager.createErrorAlert(wrongArgumentException.getMessage());
+        }
+        catch (CancelledAction ignored){
+        }
+        catch (IOException ioException){
+            DialogManager.createErrorAlert(errorLocalizator.getString("ServerUnavailable"));
+        }
+    }
+
+
 }
 

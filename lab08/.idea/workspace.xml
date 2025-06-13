@@ -86,21 +86,11 @@
       <change beforePath="$PROJECT_DIR$/../lab06/server/src/main/java/serverCommands/Save.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab06/server/src/main/java/serverCommands/Save.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lab07/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lab07/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/alertManager/DialogManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/alertManager/DialogManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Execute_script.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Execute_script.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/controllers/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/ClientMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/controllers/EditController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/controllers/EditController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/controllers/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/controllers/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/controllers/RegisterController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/controllers/formatters/Formatters.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/controllers/formatters/Formatters.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/languages/InfoLocalizator.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/languages/InfoLocalizator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/resources/clientMain/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/resources/clientMain/main.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/collection/Dragon.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/collection/Dragon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/collectionManager/CollectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/collectionManager/CollectionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/collectionManager/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/collectionManager/DatabaseManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/RemoveAnyByAge.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/RemoveAnyByAge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/RemoveGreater.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/RemoveGreater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/commands/RemoveLower.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/commands/RemoveLower.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dao/DbDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dao/DbDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/languages/UILocalizator.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/languages/UILocalizator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -320,6 +310,7 @@
       <workItem from="1749686495314" duration="9410000" />
       <workItem from="1749729766549" duration="10378000" />
       <workItem from="1749747530101" duration="29506000" />
+      <workItem from="1749811277802" duration="9472000" />
     </task>
     <task id="LOCAL-00001" summary="lab07 added.">
       <option name="closed" value="true" />
@@ -385,7 +376,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749743030577</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="lab08 added.">
+      <option name="closed" value="true" />
+      <created>1749811501489</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1749811501489</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

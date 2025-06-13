@@ -299,4 +299,19 @@ public class EditController {
         stage.setOnCloseRequest(event -> getDragon.accept(null));
     }
 
+    public void fillFields(Dragon dragon){
+        if (dragon == null){
+            return;
+        }
+        nameField.textProperty().setValue(dragon.getName());
+        ageField.textProperty().setValue(String.valueOf(dragon.getAge()));
+        colorBox.setValue(dragon.getColor());
+        typeBox.setValue(dragon.getType());
+        characterBox.setValue(dragon.getCharacter());
+        xField.textProperty().setValue(String.valueOf(dragon.getCoordinateX()));
+        yField.textProperty().setValue(String.valueOf(dragon.getCoordinateY()));
+        depthField.textProperty().setValue(String.valueOf(dragon.getDepthCave()));
+        treasureField.textProperty().setValue(String.valueOf(dragon.getNumberOfTreasures()));
+    }
+
 }

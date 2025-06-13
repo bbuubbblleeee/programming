@@ -108,7 +108,8 @@ public class ClientMain extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(ClientMain.class.getResource("main.fxml"));
             mainStage.setScene(new Scene(fxmlLoader.load()));
             MainController mainController = fxmlLoader.getController();
-            mainController.setCallEdit(() -> startEdit(mainController.getGetDragon()));
+            mainController.setCallEdit((dragon) -> startEdit(dragon, mainController.getGetDragon()));
+            mainController.refresh();
             mainStage.show();
         }
         catch (IOException e){
@@ -144,13 +145,14 @@ public class ClientMain extends Application {
         }
     }
 
-    public void startEdit(Consumer<Dragon> getDragon) {
+    public void startEdit(Dragon dragon, Consumer<Dragon> getDragon) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(ClientMain.class.getResource("edit.fxml"));
             editStage.setScene(new Scene(fxmlLoader.load()));
             EditController editController = fxmlLoader.getController();
             editController.setGetDragon(getDragon);
             editController.setOnClose();
+            editController.fillFields(dragon);
             editStage.showAndWait();
         }
         catch (IOException e){
