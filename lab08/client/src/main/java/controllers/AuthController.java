@@ -49,8 +49,8 @@ public class AuthController {
 
     private Runnable callMain;
     private Runnable callRegister;
-    private Localizator errorLocalizator = ErrorLocalizator.getInstance();
-    private Localizator uiLocalizator = UILocalizator.getInstance();
+    private final Localizator errorLocalizator = ErrorLocalizator.getInstance();
+    private final Localizator uiLocalizator = UILocalizator.getInstance();
 
 
 
@@ -86,7 +86,6 @@ public class AuthController {
             DialogManager.createErrorAlert(errorLocalizator.getString("LoginPasswordNull"));
         }
         else {
-            //отправка логина и пароля на сервер и проверка
             try {
                 String[] args = new String[2];
                 args[0] = loginField.getText();
@@ -124,10 +123,7 @@ public class AuthController {
 
 
     private boolean successfulEntering(String response){
-//        return response.equals("Пользователь успешно подключен к базе данных.");
-
         return response.equals("AuthSuccess");
-            //TODO на стороне сервера сделать так, чтобы выдавал AuthSuccess и раскомментировать строку выше
     }
 
 

@@ -178,11 +178,9 @@ public class DbDao implements DAO{
         try( PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM dragon WHERE id IN (SELECT id FROM dragon where userLogin = ? AND " + condition + (one ? " ORDER BY id LIMIT 1)" : ")"))
         ){
             preparedStatement.setString(1, login);
-            System.out.println(preparedStatement);
             return preparedStatement.executeUpdate();
         }
         catch (SQLException sqlException){
-            System.out.println(sqlException.getMessage());
             throw new DbErrorException("DbDataRemove");
         }
     }
@@ -244,7 +242,6 @@ public class DbDao implements DAO{
             return getFieldId(dragonStatement);
         }
         catch (SQLException sqlException){
-            System.out.println(sqlException.getMessage());
             throw new DbErrorException("DbWrite");
         }
 

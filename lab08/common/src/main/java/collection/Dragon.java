@@ -274,7 +274,6 @@ public class Dragon implements Comparable<Dragon>, Serializable {
                     color = value.equals("null") ? null : Color.valueOf(value);
                 }
                 case "Тип" -> {
-                    System.out.println(type);
                     type = DragonType.valueOf(value);
                 }
                 case "Характер" -> {

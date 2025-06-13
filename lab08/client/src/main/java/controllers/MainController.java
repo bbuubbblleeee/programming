@@ -1,7 +1,6 @@
 package controllers;
 
 import alertManager.DialogManager;
-import client.ReadData;
 import clientMain.ClientMain;
 import clientMain.Execute_script;
 import clientMain.Handler;
@@ -12,7 +11,6 @@ import collection.DragonType;
 import controllers.formatters.Formatters;
 import exceptions.CancelledAction;
 import exceptions.DbErrorException;
-import exceptions.InvalidFileException;
 import exceptions.WrongArgumentException;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
@@ -20,10 +18,7 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.DirectionalLight;
-import javafx.scene.canvas.Canvas;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -41,10 +36,7 @@ import languages.Localizator;
 import languages.UILocalizator;
 import transfer.Request;
 
-import java.awt.*;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -128,13 +120,12 @@ public class MainController {
     private Consumer<Dragon> callEdit;
     private Dragon dragon;
     private final Consumer<Dragon> getDragon = dragon -> this.dragon = dragon;
-    private Localizator errorLocalizator = ErrorLocalizator.getInstance();
-    private Localizator infoLocalizator = InfoLocalizator.getInstance();
-    private Localizator uiLocalizator = UILocalizator.getInstance();
+    private final Localizator errorLocalizator = ErrorLocalizator.getInstance();
+    private final Localizator infoLocalizator = InfoLocalizator.getInstance();
+    private final Localizator uiLocalizator = UILocalizator.getInstance();
     private Map<String, javafx.scene.paint.Color> colorMap = new HashMap<>();
     private Pane pane = new Pane();
     private ArrayList<Dragon> visualisationDragons = new ArrayList<>();
-    private String currentOrder = new String();
 
 
     @FXML
@@ -209,9 +200,6 @@ public class MainController {
             deleteItem.setOnAction(event -> deleteContextMenu(row.getItem()));
 
             contextMenu.getItems().addAll(editItem, deleteItem);
-
-
-
 
             row.contextMenuProperty().bind(
                     Bindings.when(row.emptyProperty())
@@ -676,8 +664,7 @@ public class MainController {
     public void getDragons(){
         try {
             String response = ClientMain.sendAndGetResponse(new Request("show", new String[0], new ArrayList<>(), ClientMain.getLogin(), ClientMain.getPassword()));
-            System.out.println(response);
-            Matcher matcher = Pattern.compile("\\{(.*?)\\}", Pattern.DOTALL).matcher(response);
+            Matcher matcher = Pattern.compile("\\{(.*?)}", Pattern.DOTALL).matcher(response);
             dragons.clear();
             while (matcher.find()) {
                 Dragon newDragon = Dragon.fromString(matcher.group(1).trim());
@@ -809,7 +796,7 @@ public class MainController {
             javafx.scene.paint.Color color = javafx.scene.paint.Color.hsb((owner.hashCode() + 360) % 360, 0.7F, 0.9F);
             colorMap.put(owner, color);
         }
-        double size = Math.min(200, Math.max(50, dragon.getAge() * 2));
+        double size = Math.min(200, Math.max(20, dragon.getAge() * 2));
 
         double x, y;
         x = (dragon.getCoordinateX() + Math.random()) % 8192;

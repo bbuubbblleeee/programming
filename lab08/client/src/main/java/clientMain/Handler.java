@@ -10,7 +10,6 @@ import transfer.Request;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Stack;
 
 
@@ -25,7 +24,7 @@ public class Handler {
     private static final Stack<String> pathStack = new Stack<>();
     private final String request;
     private final ReadData readData;
-    private static Localizator errorLocalizator = ErrorLocalizator.getInstance();
+    private static final Localizator errorLocalizator = ErrorLocalizator.getInstance();
 
 
     public Handler(String string, ReadData readData) {

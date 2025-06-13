@@ -2,11 +2,8 @@ package languages;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 import java.util.Locale;
-import java.util.Map;
 
 abstract public class Localizator {
     protected static Locale locale = new Locale("ru");

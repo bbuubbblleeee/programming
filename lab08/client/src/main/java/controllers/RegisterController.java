@@ -41,9 +41,9 @@ public class RegisterController {
 
 
     private Runnable callAuth;
-    private Localizator errorLocalizator = ErrorLocalizator.getInstance();
-    private Localizator infoLocalizator = InfoLocalizator.getInstance();
-    private Localizator uiLocalizator = UILocalizator.getInstance();
+    private final Localizator errorLocalizator = ErrorLocalizator.getInstance();
+    private final Localizator infoLocalizator = InfoLocalizator.getInstance();
+    private final Localizator uiLocalizator = UILocalizator.getInstance();
 
 
     @FXML
@@ -71,9 +71,7 @@ public class RegisterController {
             DialogManager.createErrorAlert(errorLocalizator.getString("LoginPasswordNull"));
         }
         else {
-            //отправка логина и пароля на сервер и проверка
             try {
-                //TODO привязать логин к полю текущего пользователя в main (? copy paste)
                 String[] args = new String[2];
                 args[0] = loginField.getText();
                 args[1] = passwordField.getText();

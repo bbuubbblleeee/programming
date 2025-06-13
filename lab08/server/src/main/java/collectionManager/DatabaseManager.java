@@ -17,7 +17,6 @@ public class DatabaseManager extends CollectionManager {
             DateAndDragons dateAndDragons = dao.get();
             date = dateAndDragons.date();
             dragons = dateAndDragons.dragons();
-            System.out.println(dragons);
             System.out.println("Коллекция успешно считана из базы данных.");
         } catch (Exception e) {
             System.out.println(e.getMessage());

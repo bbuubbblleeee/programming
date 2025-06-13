@@ -4,19 +4,13 @@ import client.ReadData;
 import controllers.MainController;
 import exceptions.InvalidFileException;
 import languages.ErrorLocalizator;
-import languages.InfoLocalizator;
 import languages.Localizator;
 import transfer.Request;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Locale;
 
 public class Execute_script {
     private StringBuilder result = new StringBuilder();
-    private static Localizator errorLocalizator = ErrorLocalizator.getInstance();
-    private static Localizator infoLocalizator = InfoLocalizator.getInstance();
+    private static final Localizator errorLocalizator = ErrorLocalizator.getInstance();
 
 
 
@@ -31,7 +25,6 @@ public class Execute_script {
                     throw new InvalidFileException(errorLocalizator.getString("Script"));
                 }
 
-//                result.append("Текущая команда: ").append(command).append("\n");
                 result.append(new MainController().getStringResponse(ClientMain.sendAndGetResponse(request))).append("\n\n");
             }
         } catch (Exception e) {

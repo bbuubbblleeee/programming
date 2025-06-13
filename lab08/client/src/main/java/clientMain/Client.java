@@ -41,7 +41,6 @@ public class Client {
             channel.write(byteBuffer);
         }
         catch (Exception e){
-            System.out.println(errorLocalizator.getString("ServerUnavailable"));
         }
     }
 
@@ -71,14 +70,5 @@ public class Client {
         channel.close();
     }
 
-//    public String sendAndGetResponse(Request request) throws IOException {
-//        try {
-//            sendRequest(request);
-//            return recieveResponse().toString();
-//        }
-//        catch (Exception e){
-//            throw new IOException("Сервер временно недоступен");
-//        }
-//    }
 
 }

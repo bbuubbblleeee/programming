@@ -9,7 +9,7 @@ import languages.Localizator;
 import java.util.function.UnaryOperator;
 
 public class Formatters {
-    private Localizator errorLocalizator = ErrorLocalizator.getInstance();
+    private final Localizator errorLocalizator = ErrorLocalizator.getInstance();
     public TextFormatter<String> getIntTextFormatter() {
         UnaryOperator<TextFormatter.Change> filter = change -> {
             String newValue = change.getControlNewText().trim();

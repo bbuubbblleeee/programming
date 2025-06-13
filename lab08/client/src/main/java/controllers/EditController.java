@@ -82,9 +82,9 @@ public class EditController {
     private Button cancelButton;
 
     private Consumer<Dragon> getDragon;
-    private Localizator errorLocalizator = ErrorLocalizator.getInstance();
-    private Localizator infoLocalizator = InfoLocalizator.getInstance();
-    private Localizator uiLocalizator = UILocalizator.getInstance();
+    private final Localizator errorLocalizator = ErrorLocalizator.getInstance();
+    private final Localizator infoLocalizator = InfoLocalizator.getInstance();
+    private final Localizator uiLocalizator = UILocalizator.getInstance();
 
 
 
@@ -273,26 +273,13 @@ public class EditController {
     private void nullChecker(Object object, String field) throws WrongArgumentException {
         if (object == null || object.equals("")) {
             throw new WrongArgumentException(errorLocalizator.getStringFormatted("ArgumentNull", new Object[]{field}));
-            //todo мб поменять язык и у field тоже
-            //done у field поменяла тоже
+
         }
     }
 
     public void setGetDragon(Consumer<Dragon> getDragon) {
         this.getDragon = getDragon;
     }
-
-//    private void clearFields(){
-//        ageField.clear();
-//        nameField.clear();
-//        colorBox.getSelectionModel().clearSelection();
-//        typeBox.getSelectionModel().clearSelection();
-//        characterBox.getSelectionModel().clearSelection();
-//        xField.clear();
-//        yField.clear();
-//        depthField.clear();
-//        treasureField.clear();
-//    }
 
     public void setOnClose(){
         Stage stage = (Stage) nameField.getScene().getWindow();

@@ -6,7 +6,6 @@ import controllers.AuthController;
 import controllers.EditController;
 import controllers.MainController;
 import controllers.RegisterController;
-import exceptions.InvalidFileException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,38 +23,11 @@ public class ClientMain extends Application {
     private static String password = null;
     private Stage mainStage;
     private final Stage editStage = new Stage();
-    private static Localizator errorLocalizator = ErrorLocalizator.getInstance();
+    private static final Localizator errorLocalizator = ErrorLocalizator.getInstance();
 
 
     public static void main(String[] args) {
-//        MainController mainController = new MainController();
-//        mainController.setClient(client);
-//        System.out.println(mainController.getDragons());
-
         launch(args);
-//        System.out.println("Приложение запущено.\nВведите enter {login} {password} для авторизации существующего аккаунта.\nИли зарегестрируйте аккаунт, введя sign_up {login} {password}.");
-//        try (MyReader myReader = new ConsoleReader(); ReadData readData = new ReadData()) {
-//            while (myReader.hasNextLine()) {
-//                Handler handler = new Handler(myReader.readLine(), readData);
-//                Request request = handler.getRequest();
-//                if (request != null) {
-//                    String response;
-//                    try {
-//                        response = client.sendAndGetResponse(request);
-//                        if (request.command().equals("enter") && successfulEntering(response)){
-//                            login = request.args()[0];
-//                            password = request.args()[1];
-//                        }
-//                        System.out.println(response);
-//                    }
-//                    catch (Exception e) {
-//                        System.out.println(e.getMessage());
-//                    }
-//                }
-//            }
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
     }
 
     public static String sendAndGetResponse(Request request) throws IOException {
@@ -87,12 +59,6 @@ public class ClientMain extends Application {
 
 
 
-    private static boolean successfulEntering(String response){
-        return response.equals("Пользователь успешно подключен к базе данных.");
-//        return response.equals("AuthSuccess");
-        //TODO на стороне сервера сделать так, чтобы выдавал AuthSuccess и раскомментировать строку выше
-        //TODO а лол этот метод нигде не юзается, тогда можно и кикнуть :)
-    }
 
 
 
@@ -113,7 +79,7 @@ public class ClientMain extends Application {
             mainStage.show();
         }
         catch (IOException e){
-
+            DialogManager.createErrorAlert(errorLocalizator.getString("FileNotFound"));
         }
     }
 
@@ -127,7 +93,7 @@ public class ClientMain extends Application {
             authController.setCallRegister(this::startRegister);
         }
         catch (IOException ioException){
-            //TODO alert
+            DialogManager.createErrorAlert(errorLocalizator.getString("FileNotFound"));
         }
     }
 
@@ -141,7 +107,7 @@ public class ClientMain extends Application {
 
         }
         catch (IOException e){
-
+            DialogManager.createErrorAlert(errorLocalizator.getString("FileNotFound"));
         }
     }
 
@@ -156,9 +122,7 @@ public class ClientMain extends Application {
             editStage.showAndWait();
         }
         catch (IOException e){
-            //TODO ну че нибудь с этим сделать, не красиво
-            DialogManager.createErrorAlert("");
-            throw new InvalidFileException(errorLocalizator.getString("FileNotFound"));
+            DialogManager.createErrorAlert(errorLocalizator.getString("FileNotFound"));
         }
     }
 
