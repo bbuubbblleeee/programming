@@ -98,12 +98,13 @@ public class AuthController {
                     callMain.run();
                 }
                 else{
-                    DialogManager.createErrorAlert(response);
+                    DialogManager.createErrorAlert(errorLocalizator.getString(response));
                 }
             }
             catch (IOException ioException){
-                DialogManager.createInfoAlert(ioException.getMessage());
-                //TODO добавить alert (?)
+                System.out.println(ioException.getMessage());
+
+                DialogManager.createInfoAlert(errorLocalizator.getString("ServerUnavailable"));
             }
         }
     }

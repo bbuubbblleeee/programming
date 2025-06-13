@@ -3,6 +3,7 @@ package commands;
 import collection.Dragon;
 import transfer.Request;
 import transfer.Response;
+import users.User;
 
 import static collectionManager.CollectionManager.dragons;
 import static server.ServerMain.getCollectionManager;
@@ -28,7 +29,7 @@ public class RemoveGreater extends Command {
             getCollectionManager().add(dragonInput);
             long id = dragonInput.getId();
             dragons.remove(dragonInput);
-            getCollectionManager().remove(dragon -> dragon.getId() > id, false, "RowsNotFound", "id > " + id);
+            getCollectionManager().remove(dragon -> dragon.getId() > id && dragon.getOwner().equals(User.getLogin()), false, "RowsNotFound", "id > " + id);
             return new Response("RemoveGreaterSuccess");
         }
         catch (Exception e){

@@ -56,7 +56,7 @@ public class DatabaseManager extends CollectionManager {
     @Override
     public void remove(Predicate<Dragon> condition, boolean one, String errorMessage, String... conditionString) {
         try {
-            if (dao.remove(conditionString[0], User.getLogin()) == 0) {
+            if (dao.remove(conditionString[0], User.getLogin(), one) == 0) {
                 throw new DbErrorException("RowsNotFound");
             }
             removeFromCollection(condition, one, errorMessage);

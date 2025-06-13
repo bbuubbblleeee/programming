@@ -14,25 +14,38 @@ import exceptions.CancelledAction;
 import exceptions.DbErrorException;
 import exceptions.InvalidFileException;
 import exceptions.WrongArgumentException;
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.DirectionalLight;
+import javafx.scene.canvas.Canvas;
+
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import languages.ErrorLocalizator;
 import languages.InfoLocalizator;
 import languages.Localizator;
 import languages.UILocalizator;
 import transfer.Request;
 
+import java.awt.*;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -50,6 +63,9 @@ public class MainController {
 
     @FXML
     private Tab visualisationTab;
+
+    @FXML
+    private ScrollPane visualisationPane;
 
     @FXML
     private MenuItem russianMenuItem;
@@ -112,11 +128,17 @@ public class MainController {
     private Localizator errorLocalizator = ErrorLocalizator.getInstance();
     private Localizator infoLocalizator = InfoLocalizator.getInstance();
     private Localizator uiLocalizator = UILocalizator.getInstance();
+    private Map<String, javafx.scene.paint.Color> colorMap = new HashMap<>();
+    private Pane pane = new Pane();
+    private ArrayList<Dragon> visualisationDragons = new ArrayList<>();
 
 
     @FXML
     void initialize(){
         setLanguage();
+        pane.setPrefWidth(8192);
+        pane.setPrefHeight(8192);
+        visualisationPane.setContent(pane);
 
         russianMenuItem.setOnAction(event ->
                 Localizator.setLocale(Locale.forLanguageTag("ru"))
@@ -142,6 +164,7 @@ public class MainController {
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
         ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
         xColumn.setCellValueFactory(new PropertyValueFactory<>("coordinateX"));
         yColumn.setCellValueFactory(new PropertyValueFactory<>("coordinateY"));
@@ -166,10 +189,10 @@ public class MainController {
         typeColumn.setComparator(Comparator.comparing(sortedType::indexOf));
 
         depthColumn.setCellValueFactory(new PropertyValueFactory<>("depthCave"));
+        depthColumn.setComparator(Float::compare);
         treasureColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfTreasures"));
         ownerColumn.setCellValueFactory(new PropertyValueFactory<>("owner"));
         collectionTable.setItems(dragons);
-        getDragons();
     }
 
     @FXML
@@ -183,7 +206,11 @@ public class MainController {
             DialogManager.createInfoAlert(getStringResponse(response));
             getDragons();
         }
+        catch (CancelledAction ignored){
+
+        }
         catch (Exception exception){
+            DialogManager.createErrorAlert(errorLocalizator.getString("ServerUnavailable"));
         }
     }
 
@@ -198,8 +225,11 @@ public class MainController {
             DialogManager.createInfoAlert(getStringResponse(response));
             getDragons();
         }
-        catch (Exception exception){
+        catch (CancelledAction ignored){
 
+        }
+        catch (Exception exception){
+            DialogManager.createErrorAlert(errorLocalizator.getString("ServerUnavailable"));
         }
     }
 
@@ -210,8 +240,8 @@ public class MainController {
             DialogManager.createInfoAlert(getStringResponse(response));
             getDragons();
         }
-        catch (IOException ioException){
-
+        catch (Exception exception){
+            DialogManager.createErrorAlert(errorLocalizator.getString("ServerUnavailable"));
         }
     }
 
@@ -224,13 +254,12 @@ public class MainController {
             String[] args = new String[1];
             args[0] = age;
             response = ClientMain.sendAndGetResponse(new Request("count_by_age", args, new ArrayList<>(), ClientMain.getLogin(), ClientMain.getPassword()));
-            System.out.println(response);
             DialogManager.createInfoAlert(getStringResponse(response));
         }
         catch (CancelledAction ignored){
         }
         catch (IOException ioException){
-            DialogManager.createErrorAlert(response);
+            DialogManager.createErrorAlert(errorLocalizator.getString("ServerUnavailable"));
         }
     }
 
@@ -247,7 +276,7 @@ public class MainController {
             DialogManager.createInfoScrolledAlert(infoLocalizator.getString("HelpCommand"));
         }
         catch (Exception exception){
-
+            DialogManager.createErrorAlert(errorLocalizator.getString("ServerUnavailable"));
         }
     }
 
@@ -258,6 +287,7 @@ public class MainController {
             DialogManager.createInfoAlert(getStringResponse(response));
         }
         catch (Exception exception){
+            DialogManager.createErrorAlert(errorLocalizator.getString("ServerUnavailable"));
 
         }
     }
@@ -290,7 +320,11 @@ public class MainController {
         catch (WrongArgumentException wrongArgumentException){
             DialogManager.createErrorAlert(wrongArgumentException.getMessage());
         }
-        catch(Exception ignored){}
+        catch (CancelledAction ignored){
+        }
+        catch(Exception exception){
+            DialogManager.createErrorAlert(errorLocalizator.getString("ServerUnavailable"));
+        }
     }
 
     @FXML
@@ -300,11 +334,10 @@ public class MainController {
             if (!(response.contains("WISE") || response.contains("CUNNING") || response.contains("CHAOTIC"))){
                 response = getStringResponse(response);
             }
-            System.out.println(response);
             DialogManager.createInfoScrolledAlert(response);
         }
         catch (IOException ioException){
-            DialogManager.createErrorAlert(ioException.getMessage());
+            DialogManager.createErrorAlert(errorLocalizator.getString("ServerUnavailable"));
         }
     }
 
@@ -321,7 +354,7 @@ public class MainController {
         catch (CancelledAction ignored){
         }
         catch (IOException ioException){
-            DialogManager.createErrorAlert(ioException.getMessage());
+            DialogManager.createErrorAlert(errorLocalizator.getString("ServerUnavailable"));
         }
     }
 
@@ -338,7 +371,7 @@ public class MainController {
         catch (CancelledAction ignored){
         }
         catch (IOException ioException){
-            DialogManager.createErrorAlert(ioException.getMessage());
+            DialogManager.createErrorAlert(errorLocalizator.getString("ServerUnavailable"));
         }
     }
 
@@ -351,7 +384,7 @@ public class MainController {
             getDragons();
         }
         catch (IOException ioException){
-            DialogManager.createErrorAlert(ioException.getMessage());
+            DialogManager.createErrorAlert(errorLocalizator.getString("ServerUnavailable"));
         }
     }
 
@@ -364,7 +397,7 @@ public class MainController {
             getDragons();
         }
         catch (IOException ioException){
-            DialogManager.createErrorAlert(ioException.getMessage());
+            DialogManager.createErrorAlert(errorLocalizator.getString("ServerUnavailable"));
         }
     }
 
@@ -393,6 +426,7 @@ public class MainController {
     public void getDragons(){
         try {
             String response = ClientMain.sendAndGetResponse(new Request("show", new String[0], new ArrayList<>(), ClientMain.getLogin(), ClientMain.getPassword()));
+            System.out.println(response);
             Matcher matcher = Pattern.compile("\\{(.*?)\\}", Pattern.DOTALL).matcher(response);
             dragons.clear();
             while (matcher.find()) {
@@ -402,9 +436,9 @@ public class MainController {
 
                 dragons.add(newDragon);
             }
+            visualise();
         }
         catch (Exception exception){
-            System.out.println(exception.getMessage());
             DialogManager.createErrorAlert(errorLocalizator.getString("NoAnswer"));
             throw new DbErrorException(errorLocalizator.getString("DbDataGet"));
         }
@@ -420,6 +454,34 @@ public class MainController {
 
     public Consumer<Dragon> getGetDragon() {
         return getDragon;
+    }
+
+
+    private void visualise(){
+        pane.getChildren().clear();
+        for (Dragon dragon : dragons){
+            Circle circle;
+            if (!visualisationDragons.contains(dragon)){
+                circle = createCircle(dragon);
+                FadeTransition fadeTransition = new FadeTransition(new Duration(1000), circle);
+                fadeTransition.setFromValue(0);
+                fadeTransition.setToValue(1);
+                fadeTransition.play();
+                pane.getChildren().add(circle);
+            }
+            else{
+                circle = createCircle(dragon);
+                pane.getChildren().add(circle);
+            }
+            circle.setOnMouseClicked(event -> {
+                DialogManager.createInfoAlert(infoLocalizator.getStringFormatted("DragonToString", new Object[]{dragon.getId(), dragon.getName(),
+                        dragon.getCoordinateX(), dragon.getCoordinateY(), dragon.getCreationDate(), dragon.getAge(), dragon.getColor(), dragon.getType(),
+                        dragon.getCharacter(), dragon.getDepthCave(), dragon.getNumberOfTreasures(), dragon.getOwner()}));
+            });
+        }
+        visualisationDragons.clear();
+        visualisationDragons.addAll(dragons);
+
     }
 
     private void setLanguage(){
@@ -443,7 +505,7 @@ public class MainController {
 
     }
 
-    private String getStringResponse(String response){
+    public String getStringResponse(String response){
         String[] args = response.split("\\|");
         if (args.length > 1){
             if (args[0].equals("InfoCommand")){
@@ -475,6 +537,37 @@ public class MainController {
 
         DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm:ss", Locale.forLanguageTag(Localizator.localeProperty.getValue().getLanguage()));
         return localDateTime.format(dateTimeFormatter1);
+    }
+
+    private Circle createCircle(Dragon dragon) {
+        String owner = dragon.getOwner();
+        if (!colorMap.containsKey(owner)) {
+            javafx.scene.paint.Color color = javafx.scene.paint.Color.hsb((owner.hashCode() + 360) % 360, 0.7F, 0.9F);
+            colorMap.put(owner, color);
+        }
+        double size = Math.min(200, Math.max(50, dragon.getAge() * 2));
+
+        double x, y;
+        x = (dragon.getCoordinateX() + Math.random()) % 8192;
+        y = (dragon.getCoordinateY() + Math.random()) % 8192;
+        if (dragon.getCoordinateX() + size > 8192) {
+            x = 8192 - size;
+        }
+        if (dragon.getCoordinateX() - size < 0) {
+            x = size;
+        }
+        if (dragon.getCoordinateY() + size > 8192) {
+            y = 8192 - size;
+        }
+        if (dragon.getCoordinateY() - size < 0) {
+            y = size;
+        }
+
+
+        Circle circle = new Circle(x, y, size, colorMap.get(owner));
+        circle.setStroke(javafx.scene.paint.Color.BLACK);
+        circle.setStrokeWidth(2);
+        return circle;
     }
 }
 

@@ -1,13 +1,17 @@
 package clientMain;
 
 import client.ReadData;
+import controllers.MainController;
 import exceptions.InvalidFileException;
 import languages.ErrorLocalizator;
 import languages.InfoLocalizator;
 import languages.Localizator;
 import transfer.Request;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class Execute_script {
     private StringBuilder result = new StringBuilder();
@@ -28,34 +32,15 @@ public class Execute_script {
                 }
 
 //                result.append("Текущая команда: ").append(command).append("\n");
-                result.append(getStringResponse(ClientMain.sendAndGetResponse(request))).append("\n\n");
+                result.append(new MainController().getStringResponse(ClientMain.sendAndGetResponse(request))).append("\n\n");
             }
         } catch (Exception e) {
-            throw new InvalidFileException(e.getMessage());
+            throw new InvalidFileException(errorLocalizator.getString(e.getMessage()));
         }
     }
 
     public String getResult() {
         return result.toString();
     }
-    private String getStringResponse(String response){
-        String[] args = response.split("\\|");
-        if (args.length > 1){
-            Object[] arguments = Arrays.copyOfRange(args, 1, args.length);
-            String error = errorLocalizator.getStringFormatted(args[0], arguments);
-            if (!error.equals("error")){
-                return error;
-            }
-            String info = infoLocalizator.getStringFormatted(args[0], arguments);
-            if (!info.equals("info")){
-                return info;
-            }
-        }
 
-        String error = errorLocalizator.getString(args[0]);
-        if (!error.equals("error")){
-            return error;
-        }
-        return infoLocalizator.getString(args[0]);
-    }
 }

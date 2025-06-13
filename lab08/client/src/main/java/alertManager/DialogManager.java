@@ -69,7 +69,9 @@ public class DialogManager {
     private static void createScrolledAlert(Alert.AlertType type, String title){
         Alert alert = new Alert(type);
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setContent(new TextArea(title));
+        TextArea textArea = new TextArea(title);
+        textArea.setEditable(false);
+        scrollPane.setContent(textArea);
         alert.getDialogPane().setContent(scrollPane);
         alert.setTitle(null);
         alert.showAndWait();

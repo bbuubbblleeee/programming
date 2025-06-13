@@ -83,7 +83,7 @@ public class RegisterController {
                     callAuth.run();
                 }
                 else{
-                    DialogManager.createErrorAlert(response);
+                    DialogManager.createErrorAlert(errorLocalizator.getString(response));
                 }
             }
             catch (IOException ioException){
@@ -95,9 +95,7 @@ public class RegisterController {
 
 
     private boolean successfulRegistration(String response){
-        //        return response.equals("RegistrationSuccess");
-        //TODO на стороне сервера сделать так, чтобы выдавал RegistrationSuccess и раскомментировать строку выше
-        return response.equals("Пользователь успешно зарегистрирован.");
+        return response.equals("RegistrationSuccess");
     }
 
     public void setCallAuth(Runnable callAuth) {

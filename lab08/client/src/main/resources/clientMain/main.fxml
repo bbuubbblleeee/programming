@@ -88,7 +88,7 @@
                 </Tab>
                 <Tab fx:id="visualisationTab" text="Визуализация">
                     <content>
-                  <ScrollPane>
+                  <ScrollPane fx:id="visualisationPane">
                      <content>
                               <AnchorPane fx:id="vizualization" minHeight="0.0" minWidth="0.0" style="-fx-background-color: white;" />
                      </content>

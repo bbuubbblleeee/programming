@@ -48,6 +48,17 @@ public class InfoLocalizator extends Localizator{
                     " - remove_lower: удаляет из коллекции все элементы, меньшие, чем заданный.\n" +
                     " - show: показывает элементы коллекции.\n" +
                     " - update: обновляет значение элемента коллекции, идентификатор которого равен заданному.");
+            put("DragonToString", "Идентификатор = {0}\n" +
+                    "Имя = {1}\n" +
+                    "Координаты = (x = {2}, y = {3})\n" +
+                    "Дата инициализации = {4}\n" +
+                    "Возраст = {5}\n" +
+                    "Цвет = {6}\n" +
+                    "Тип = {7}\n" +
+                    "Характер = {8}\n" +
+                    "Пещера = (Глубина = {9}, Количество сокровищ = {10}\n" +
+                    "Владелец = {11}\n" +
+                    "}");
             put("InfoCommand", "Информация о коллекции.\nТип: Dragon.\nДата инициализации: {0}.\nКоличество элементов: {1}.");
             put("CountByAgeCommand", "Количество элементов, значение поля age которых равно {0}: {1}.");
             put("UpdateSuccess", "Элемент успешно обновлен.");
@@ -100,6 +111,18 @@ public class InfoLocalizator extends Localizator{
                     " - remove_lower: fjarlægir alla þætti úr safni sem eru minni en tiltekin tala.\n" +
                     " - show: sýnir safngripi.\n" +
                     " - update: uppfærir gildi safnþáttar þar sem auðkenni er jafnt tilgreindu.");
+
+            put("DragonToString", "Auðkenni = {0}\n" +
+                    "Nafn = {1}\n" +
+                    "Hnit = (x = {2}, y = {3})\n" +
+                    "Frumsetningardagsetning = {4}\n" +
+                    "Aldur = {5}\n" +
+                    "Litur = {6}\n" +
+                    "Tegund = {7}\n" +
+                    "Karakter = {8}\n" +
+                    "Hellir = (Dýpt = {9}, Magn af fjársjóði = {10}\n" +
+                    "Eigandi = {11}\n" +
+                    "}");
             put("InfoCommand", "Söfnunarupplýsingar.\nTegund: Dragon.\nFrumstillingardagur: {0}.\nFjöldi þátta: {1}.");
             put("CountByAgeCommand", "Fjöldi þátta þar sem gildi aldurssviðs er jafnt og {0}: {1}.");
             put("UpdateSuccess", "Atriðið hefur verið uppfært með góðum árangri.");
@@ -151,6 +174,18 @@ public class InfoLocalizator extends Localizator{
                     " - remove_lower: αφαιρεί όλα τα στοιχεία από μια συλλογή που είναι μικρότερα από έναν δεδομένο αριθμό.\n" +
                     " - show: εμφανίζει είδη συλλογής.\n" +
                     " - update: ενημερώνει την τιμή ενός στοιχείου συλλογής του οποίου το αναγνωριστικό είναι ίσο με το καθορισμένο.");
+
+            put("DragonToString", "Αναγνωριστικό = {0}\n" +
+                    "Ονομα = {1}\n" +
+                    "Συντεταγμένες = (x = {2}, y = {3})\n" +
+                    "Ημερομηνία αρχικοποίησης = {4}\n" +
+                    "Ηλικία = {5}\n" +
+                    "Χρώμα = {6}\n" +
+                    "Τύπος = {7}\n" +
+                    "Χαρακτήρας = {8}\n" +
+                    "Σπήλαιο = (Bάθος = {9}, Αριθμός θησαυρών = {10}\n" +
+                    "Ιδιοκτήτης = {11}\n" +
+                    "}");
             put("InfoCommand", "Πληροφορίες συλλογής.\nτύπος: Dragon.\nΗμερομηνία αρχικοποίησης: {0}.\nΑριθμός στοιχείων: {1}.");
             put("CountByAgeCommand", "Ο αριθμός των στοιχείων των οποίων η τιμή πεδίου ηλικίας είναι ίση με {0}: {1}.");
             put("UpdateSuccess", "Το στοιχείο ενημερώθηκε με επιτυχία.");
@@ -200,6 +235,18 @@ public class InfoLocalizator extends Localizator{
                     " - remove_lower: elimina todos los elementos de una colección que sean menores a un número determinado.\n" +
                     " - show: muestra artículos de colección.\n" +
                     " - update: actualiza el valor de un elemento de colección cuyo ID es igual al especificado.");
+
+            put("DragonToString", "Identificador = {0}\n" +
+                    "Nombre = {1}\n" +
+                    "Coordenadas = (x = {2}, y = {3})\n" +
+                    "Fecha de inicialización = {4}\n" +
+                    "Edad = {5}\n" +
+                    "Color = {6}\n" +
+                    "Tipo = {7}\n" +
+                    "Personaje = {8}\n" +
+                    "Cueva = (Profundidad = {9}, Cantidad de tesoro = {10}\n" +
+                    "Dueño = {11}\n" +
+                    "}");
             put("InfoCommand", "Información de la colección.\nTipo: Dragon.\nFecha de inicialización: {0}.\nNúmero de elementos: {1}.");
             put("CountByAgeCommand", "El número de elementos cuyo valor del campo de edad es igual a {0}: {1}.");
             put("UpdateSuccess", "El artículo se ha actualizado correctamente..");

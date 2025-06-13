@@ -65,6 +65,7 @@ public abstract class CollectionManager {
                     .filter(condition)
                     .findAny()
                     .orElseThrow(() -> new WrongArgumentException(errorMessage));
+            System.out.println(dragon);
             dragons.remove(dragon);
             return;
         }

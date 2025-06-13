@@ -41,7 +41,7 @@ public class DbDao implements DAO{
     public long add_if_max(Dragon dragon, long lastId, String login)  {
         long id = writeInDb(dragon, login);
         if (id <= lastId){
-            remove("id = " + dragon.getId(), login);
+            remove("id = " + dragon.getId(), login, true);
             throw new DbErrorException("AddIfMaxNotFound");
         }
         return id;
@@ -55,14 +55,13 @@ public class DbDao implements DAO{
         clearDb(login);
     }
 
-    public long remove(String condition, String login){
+    public long remove(String condition, String login, boolean one){
         String[] condParts = condition.trim().split("\\s+");
-        System.out.println(login);
 
         if (condParts[0].equals("id") && condParts[1].matches("[<>]")){
-            removeFromDb("id = " + condParts[2], login);
+            removeFromDb("id = " + condParts[2], login, true);
         }
-        return removeFromDb(condition, login);
+        return removeFromDb(condition, login, one);
     }
 
     public void checkUser(String login, String password){
@@ -175,13 +174,15 @@ public class DbDao implements DAO{
         }
     }
 
-    private long removeFromDb(String condition, String login){
-        try( PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM dragon WHERE userLogin = ? AND " + condition)
+    private long removeFromDb(String condition, String login, boolean one){
+        try( PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM dragon WHERE id IN (SELECT id FROM dragon where userLogin = ? AND " + condition + (one ? " ORDER BY id LIMIT 1)" : ")"))
         ){
             preparedStatement.setString(1, login);
+            System.out.println(preparedStatement);
             return preparedStatement.executeUpdate();
         }
         catch (SQLException sqlException){
+            System.out.println(sqlException.getMessage());
             throw new DbErrorException("DbDataRemove");
         }
     }

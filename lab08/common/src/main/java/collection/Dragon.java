@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import static collection.checkers.CollectionChecker.ageChecker;
 import static collection.checkers.CollectionChecker.nameChecker;
@@ -293,4 +294,21 @@ public class Dragon implements Comparable<Dragon>, Serializable {
         dragon.setCreationDate(creationDate);
         return dragon;
     }
+
+    @Override
+    public boolean equals(Object o){
+        Dragon dragon = (Dragon) o;
+        return Objects.equals(this.id, dragon.getId())
+                && this.age == dragon.getAge()
+                && this.name.equals(dragon.name)
+                && Objects.equals(this.getDepthCave(), dragon.getDepthCave())
+                && this.getNumberOfTreasures() == dragon.getNumberOfTreasures()
+                && this.getCharacter() == dragon.character
+                && Objects.equals(this.getCoordinateX(), dragon.getCoordinateX())
+                && Objects.equals(this.getCoordinateY(), dragon.getCoordinateY())
+                && this.color == dragon.color
+                && this.type.equals(dragon.type);
+    }
+
+
 }

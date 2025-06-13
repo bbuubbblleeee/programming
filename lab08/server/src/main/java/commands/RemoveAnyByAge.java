@@ -2,6 +2,7 @@ package commands;
 
 import transfer.Request;
 import transfer.Response;
+import users.User;
 
 import static server.ServerMain.getCollectionManager;
 
@@ -23,7 +24,7 @@ public class RemoveAnyByAge extends Command {
         int age;
         try {
             age = Integer.parseInt(request.args()[0]);
-            getCollectionManager().remove(dragon -> dragon.getAge() == age, true, "AgeNotFound", "age = " + age);
+            getCollectionManager().remove(dragon -> dragon.getAge() == age && dragon.getOwner().equals(User.getLogin()), true, "AgeNotFound", "age = " + age);
             return new Response("RemoveSuccess");
         } catch (NumberFormatException numberFormatException) {
             return new Response("ArgumentType|int");
