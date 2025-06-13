@@ -259,13 +259,13 @@ public class EditController {
 
 
     public Dragon getDragon(){
-        String name = nameField.textProperty().get();
-        int age = Integer.parseInt(ageField.textProperty().get());
+        String name = nameField.textProperty().get().trim();
+        int age = Integer.parseInt(ageField.textProperty().get().trim());
         Color color = colorBox.getSelectionModel().getSelectedItem();
         DragonType type = typeBox.getSelectionModel().getSelectedItem();
         DragonCharacter character = characterBox.getSelectionModel().getSelectedItem();
-        Coordinates coordinates = new Coordinates(Long.parseLong(xField.getText()), Long.parseLong(yField.getText()));
-        DragonCave cave = new DragonCave(Float.parseFloat(depthField.getText()), Integer.parseInt(treasureField.getText()));
+        Coordinates coordinates = new Coordinates(Long.parseLong(xField.getText().trim()), Long.parseLong(yField.getText().trim()));
+        DragonCave cave = new DragonCave(Float.parseFloat(depthField.getText().trim()), Integer.parseInt(treasureField.getText().trim()));
         return new Dragon(name, coordinates, age, color, type, cave, character);
     }
 
