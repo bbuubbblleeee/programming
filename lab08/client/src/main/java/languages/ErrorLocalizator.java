@@ -50,7 +50,6 @@ public class ErrorLocalizator extends Localizator{
             put("NotEnoughRights","Недостаточно прав к файлу.");
             put("DbConnection","Не удалось подключиться к базе данных.");
             put("AuthNeeded","Выполнение команд недоступно без авторизации. Пожалуйста, авторизуйтесь или создайте новый аккаунт.");
-
             put("UnknownCommand", "Введена недоступная команда.");
             put("WrongNumberOfArguments", "Введено неверное количество аргументов.");
         }
@@ -90,7 +89,6 @@ public class ErrorLocalizator extends Localizator{
         put("NotEnoughRights", "Ófullnægjandi heimildir fyrir skrána.");
         put("DbConnection", "Tókst ekki að tengjast gagnagrunninum.");
         put("AuthNeeded", "Framkvæmd skipana er ekki í boði án leyfis. Vinsamlegast skráðu þig inn eða búðu til nýjan reikning.");
-
         put("UnknownCommand", "Ótiltæk skipun var slegin inn.");
         put("WrongNumberOfArguments", "Rangur fjöldi frumbreytna sleginn inn.");
 
@@ -130,7 +128,6 @@ public class ErrorLocalizator extends Localizator{
         put("NotEnoughRights","Ανεπαρκή δικαιώματα στο αρχείο.");
         put("DbConnection","Απέτυχε να συνδεθεί στη βάση δεδομένων.");
         put("AuthNeeded","Οι εντολές δεν είναι διαθέσιμες χωρίς εξουσιοδότηση. Παρακαλούμε συνδεθείτε ή δημιουργήστε έναν νέο λογαριασμό.");
-
         put("UnknownCommand", "Εισήχθη μια μη διαθέσιμη εντολή.");
         put("WrongNumberOfArguments", "Εισαγάγετε λανθασμένο αριθμό ορισμάτων.");
 
@@ -170,7 +167,6 @@ public class ErrorLocalizator extends Localizator{
         put("NotEnoughRights", "Permisos insuficientes para el archivo.");
         put("DbConnection", "No se ha podido conectar a la base de datos.");
         put("AuthNeeded", "Los comandos no están disponibles sin autorización. Inicia sesión o crea una cuenta nueva.");
-
         put("UnknownCommand", "Se introdujo un comando no disponible.");
         put("WrongNumberOfArguments", "Número incorrecto de argumentos ingresados.");
 

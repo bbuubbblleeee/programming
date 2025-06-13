@@ -134,6 +134,7 @@ public class MainController {
     private Map<String, javafx.scene.paint.Color> colorMap = new HashMap<>();
     private Pane pane = new Pane();
     private ArrayList<Dragon> visualisationDragons = new ArrayList<>();
+    private String currentOrder = new String();
 
 
     @FXML
@@ -447,11 +448,213 @@ public class MainController {
         }
     }
 
+    @FXML
+    private void filterByAge(){
+        try {
+            String age = DialogManager.createTextInputDialog(infoLocalizator.getString("TypeAge"), infoLocalizator.getString("Age"), new Formatters().getIntTextFormatter());
+            List<String> sorted = dragons.stream()
+                    .filter(dragonToCheck -> dragonToCheck.getAge() == Integer.parseInt(age))
+                    .map(this::getDragonFieldsFormatted).toList();
+            if (sorted.isEmpty()) {
+                DialogManager.createInfoAlert(infoLocalizator.getStringFormatted("AgeNotFound", new Object[]{age}));
+                return;
+            }
+            DialogManager.createInfoScrolledAlert(sorted.toString());
+        }
+        catch (CancelledAction ignored){}
+    }
+
+    @FXML
+    private void filterByName(){
+        try {
+            String name = DialogManager.createTextInputDialog(infoLocalizator.getString("TypeName"), infoLocalizator.getString("Name"), null);
+            List<String> sorted = dragons.stream()
+                    .filter(dragonToCheck -> dragonToCheck.getName().equals(name))
+                    .map(this::getDragonFieldsFormatted).toList();
+            if (sorted.isEmpty()) {
+                DialogManager.createInfoAlert(infoLocalizator.getString("NameNotFound"));
+                return;
+            }
+            DialogManager.createInfoScrolledAlert(sorted.toString());
+        }
+        catch (CancelledAction ignored){}
+    }
+
+    @FXML
+    private void filterById(){
+        try {
+            String id = DialogManager.createTextInputDialog(infoLocalizator.getString("TypeId"), infoLocalizator.getString("Id"), new Formatters().getIdTextFormatter());
+            List<String> sorted = dragons.stream()
+                    .filter(dragonToCheck -> dragonToCheck.getId() == Long.parseLong(id))
+                    .map(this::getDragonFieldsFormatted).toList();
+            if (sorted.isEmpty()) {
+                DialogManager.createInfoAlert(infoLocalizator.getString("IdNotFound"));
+                return;
+            }
+            DialogManager.createInfoScrolledAlert(sorted.toString());
+        }
+        catch (CancelledAction ignored){}
+
+    }
+
+    @FXML
+    private void filterByX(){
+        try {
+            String x = DialogManager.createTextInputDialog(infoLocalizator.getString("TypeX"), uiLocalizator.getString("XColumn"), new Formatters().getXTextFormatter());
+            if (x == null) {
+                return;
+            }
+            List<String> sorted = dragons.stream()
+                    .filter(dragonToCheck -> dragonToCheck.getCoordinateX() == Long.parseLong(x))
+                    .map(this::getDragonFieldsFormatted).toList();
+            if (sorted.isEmpty()) {
+                DialogManager.createInfoAlert(infoLocalizator.getString("XNotFound"));
+                return;
+            }
+            DialogManager.createInfoScrolledAlert(sorted.toString());
+        }
+        catch (CancelledAction ignored){}
+    }
+
+    @FXML
+    private void filterByY(){
+        try {
+            String y = DialogManager.createTextInputDialog(infoLocalizator.getString("TypeY"), uiLocalizator.getString("YColumn"), new Formatters().getYTextFormatter());
+            List<String> sorted = dragons.stream()
+                    .filter(dragonToCheck -> dragonToCheck.getCoordinateY() == Long.parseLong(y))
+                    .map(this::getDragonFieldsFormatted).toList();
+            if (sorted.isEmpty()) {
+                DialogManager.createInfoAlert(infoLocalizator.getString("YNotFound"));
+                return;
+            }
+            DialogManager.createInfoScrolledAlert(sorted.toString());
+        }
+        catch (CancelledAction ignored){}
+    }
+
+    @FXML
+    private void filterByDate(){
+        try {
+            String date = DialogManager.createTextInputDialog(infoLocalizator.getString("TypeDate"), infoLocalizator.getString("CreationDate"), null);
+            List<String> sorted = dragons.stream()
+                    .filter(dragonToCheck -> dragonToCheck.getCreationDate().equals(date))
+                    .map(this::getDragonFieldsFormatted).toList();
+            if (sorted.isEmpty()) {
+                DialogManager.createInfoAlert(infoLocalizator.getString("DateNotFound"));
+                return;
+            }
+            DialogManager.createInfoScrolledAlert(sorted.toString());
+        }
+        catch (CancelledAction ignored){}
+    }
+
+    @FXML
+    private void filterByColor(){
+        try {
+            String color = DialogManager.createTextInputDialog(infoLocalizator.getString("TypeColor"), infoLocalizator.getString("Color"), null);
+            if (color == null) {
+                return;
+            }
+            List<String> sorted = dragons.stream()
+                    .filter(dragonToCheck -> dragonToCheck.getColor() != null && dragonToCheck.getColor().toString().equals(color.toUpperCase()))
+                    .map(this::getDragonFieldsFormatted).toList();
+            if (sorted.isEmpty()) {
+                DialogManager.createInfoAlert(infoLocalizator.getString("ColorNotFound"));
+                return;
+            }
+            DialogManager.createInfoScrolledAlert(sorted.toString());
+        }
+        catch (CancelledAction ignored){}
+    }
+
+    @FXML
+    private void filterByType(){
+        try {
+            String type = DialogManager.createTextInputDialog(infoLocalizator.getString("TypeType"), infoLocalizator.getString("Type"), null);
+            List<String> sorted = dragons.stream()
+                    .filter(dragonToCheck -> dragonToCheck.getType().toString().equals(type.toUpperCase()))
+                    .map(this::getDragonFieldsFormatted).toList();
+            if (sorted.isEmpty()) {
+                DialogManager.createInfoAlert(infoLocalizator.getString("TypeNotFound"));
+                return;
+            }
+            DialogManager.createInfoScrolledAlert(sorted.toString());
+        }
+        catch (CancelledAction ignored){}
+    }
+
+    @FXML
+    private void filterByCharacter(){
+        try {
+            String character = DialogManager.createTextInputDialog(infoLocalizator.getString("TypeCharacter"), infoLocalizator.getString("Character"), null);
+            List<String> sorted = dragons.stream()
+                    .filter(dragonToCheck -> dragonToCheck.getCharacter() != null && dragonToCheck.getCharacter().toString().equals(character.toUpperCase()))
+                    .map(this::getDragonFieldsFormatted).toList();
+            if (sorted.isEmpty()) {
+                DialogManager.createInfoAlert(infoLocalizator.getString("CharacterNotFound"));
+                return;
+            }
+            DialogManager.createInfoScrolledAlert(sorted.toString());
+        }
+        catch (CancelledAction ignored){}
+    }
+
+    @FXML
+    private void filterByDepth(){
+        try {
+            String depth = DialogManager.createTextInputDialog(infoLocalizator.getString("TypeDepth"), infoLocalizator.getString("Depth"), new Formatters().getDepthTextFormatter());
+            List<String> sorted = dragons.stream()
+                    .filter(dragonToCheck -> dragonToCheck.getDepthCave() == Float.parseFloat(depth))
+                    .map(this::getDragonFieldsFormatted).toList();
+            if (sorted.isEmpty()) {
+                DialogManager.createInfoAlert(infoLocalizator.getString("DepthNotFound"));
+                return;
+            }
+            DialogManager.createInfoScrolledAlert(sorted.toString());
+        }
+        catch (CancelledAction ignored){}
+    }
+
+    @FXML
+    private void filterByTreasures(){
+        try {
+            String treasure = DialogManager.createTextInputDialog(infoLocalizator.getString("TypeTreasures"), infoLocalizator.getString("Treasure"), new Formatters().getIntTextFormatter());
+            List<String> sorted = dragons.stream()
+                    .filter(dragonToCheck -> dragonToCheck.getNumberOfTreasures() == Integer.parseInt(treasure))
+                    .map(this::getDragonFieldsFormatted).toList();
+            if (sorted.isEmpty()) {
+                DialogManager.createInfoAlert(infoLocalizator.getString("TreasuresNotFound"));
+                return;
+            }
+            DialogManager.createInfoScrolledAlert(sorted.toString());
+        }
+        catch (CancelledAction ignored){}
+    }
+
+    @FXML
+    private void filterByOwner(){
+        try {
+            String owner = DialogManager.createTextInputDialog(infoLocalizator.getString("TypeOwner"), infoLocalizator.getString("Owner"), null);
+            List<String> sorted = dragons.stream()
+                    .filter(dragonToCheck -> dragonToCheck.getOwner().equals(owner))
+                    .map(this::getDragonFieldsFormatted).toList();
+            if (sorted.isEmpty()) {
+                DialogManager.createInfoAlert(infoLocalizator.getString("OwnerNotFound"));
+                return;
+            }
+            DialogManager.createInfoScrolledAlert(sorted.toString());
+        }
+        catch (CancelledAction ignored){}
+    }
 
     public void refresh(){
         Thread thread = new Thread(() -> {
             while (true){
-                Platform.runLater(this::getDragons);
+                ObservableList<TableColumn<Dragon, ?>> sortOrder = FXCollections.observableArrayList(collectionTable.getSortOrder());
+                Platform.runLater(() -> {
+                    getDragons();
+                    collectionTable.getSortOrder().setAll(sortOrder);
+                });
                 try{
                     Thread.sleep(10000);
                 } catch (InterruptedException e) {
@@ -533,9 +736,7 @@ public class MainController {
 
             circle.setOnMouseClicked(event -> {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    DialogManager.createInfoAlert(infoLocalizator.getStringFormatted("DragonToString", new Object[]{dragon.getId(), dragon.getName(),
-                            dragon.getCoordinateX(), dragon.getCoordinateY(), dragon.getCreationDate(), dragon.getAge(), dragon.getColor(), dragon.getType(),
-                            dragon.getCharacter(), dragon.getDepthCave(), dragon.getNumberOfTreasures(), dragon.getOwner()}));
+                    DialogManager.createInfoAlert(getDragonFieldsFormatted(dragon));
                 }
                 else if (event.getButton() == MouseButton.SECONDARY){
                     contextMenu.show(circle, event.getScreenX(), event.getScreenY());
@@ -679,6 +880,12 @@ public class MainController {
         }
     }
 
+
+    private String getDragonFieldsFormatted(Dragon dragon){
+        return infoLocalizator.getStringFormatted("DragonToString", new Object[]{dragon.getId(), dragon.getName(),
+                dragon.getCoordinateX(), dragon.getCoordinateY(), dragon.getCreationDate(), dragon.getAge(), dragon.getColor(), dragon.getType(),
+                dragon.getCharacter(), dragon.getDepthCave(), dragon.getNumberOfTreasures(), dragon.getOwner()});
+    }
 
 }
 

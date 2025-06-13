@@ -46,8 +46,6 @@ public class UILocalizator extends Localizator{
         put("YColumn", "Координата Y");
         put("Owner", "Владелец");
         put("CommandsAvailable", "Доступные команды:");
-
-
         put("Edit", "Редактировать");
         put("Delete", "Удалить");
 
@@ -87,6 +85,8 @@ public class UILocalizator extends Localizator{
         put("YColumn", "Y hnit");
         put("Owner", "Eigandi");
         put("CommandsAvailable", "Tiltækar skipanir:");
+        put("Edit", "Breyta");
+        put("Delete", "Eyða");
 
 
 
@@ -124,6 +124,8 @@ public class UILocalizator extends Localizator{
         put("YColumn", "Y συντεταγμένη");
         put("Owner", "Ιδιοκτήτης");
         put("CommandsAvailable", "Διαθέσιμες εντολές:");
+        put("Edit", "Εκδίδω");
+        put("Delete", "Διαγράφω");
 
 
 
@@ -164,6 +166,8 @@ public class UILocalizator extends Localizator{
         put("YColumn", "Coordenada Y");
         put("Owner", "Dueño");
         put("CommandsAvailable", "Comandos disponibles:");
+        put("Edit", "Editar");
+        put("Delete", "Borrar");
 
 
 

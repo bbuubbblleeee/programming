@@ -25,6 +25,7 @@ public class InfoLocalizator extends Localizator{
             put("Id", "идентификатор");
             put("Depth", "глубина");
             put("Treasure", "количество сокровищ");
+            put("Owner", "владелец");
             put("TypeAge", "Введите возраст");
             put("TypeId", "Введите id");
             put("TypePath", "Введите путь к скрипту");
@@ -57,8 +58,7 @@ public class InfoLocalizator extends Localizator{
                     "Тип = {7}\n" +
                     "Характер = {8}\n" +
                     "Пещера = (Глубина = {9}, Количество сокровищ = {10}\n" +
-                    "Владелец = {11}\n" +
-                    "}");
+                    "Владелец = {11}\n");
             put("InfoCommand", "Информация о коллекции.\nТип: Dragon.\nДата инициализации: {0}.\nКоличество элементов: {1}.");
             put("CountByAgeCommand", "Количество элементов, значение поля age которых равно {0}: {1}.");
             put("UpdateSuccess", "Элемент успешно обновлен.");
@@ -71,6 +71,33 @@ public class InfoLocalizator extends Localizator{
             put("RemoveGreaterSuccess", "Все элементы, превышающие заданный, были удалены из коллекции.");
             put("RemoveLowerSuccess", "Все элементы, меньшие заданного, были удалены из коллекции.");
             put("AddIfMaxNotFound", "Дракон не был добавлен в коллекцию, так как его значение меньше значения наибольшего элемента коллекции.");
+            put("TypeName", "Введите имя");
+            put("TypeColor", "Введите цвет");
+            put("TypeType", "Введите тип");
+            put("TypeCharacter", "Введите характер");
+            put("TypeOwner", "Введите владельца");
+            put("TypeX", "Введите координату x");
+            put("TypeY", "Введите координату y");
+            put("TypeDate", "Введите дату");
+            put("TypeDepth", "Введите глубину");
+            put("TypeTreasures", "Введите количество сокровищ");
+            put("IdNotFound", "Объект с таким идентификатором не был найден.");
+            put("NameNotFound", "Объект с таким именем не был найден.");
+            put("ColorNotFound", "Объект с таким цветом не был найден.");
+            put("CharacterNotFound", "Объект с таким характером не был найден.");
+            put("TypeNotFound", "Объект с таким типом не был найден.");
+            put("OwnerNotFound", "Объект с таким владельцем не был найден.");
+            put("XNotFound", "Объект с такой координатой x не был найден.");
+            put("YNotFound", "Объект с такой координатой y не был найден.");
+            put("DateNotFound", "Объект с такой датой y не был найден.");
+            put("DepthNotFound", "Объект с такой глубиной не был найден.");
+            put("TreasuresNotFound", "Объект с таким количеством сокровищ не был найден.");
+
+
+
+
+
+
 
             //TODO добавить в другие языки
 
@@ -89,6 +116,7 @@ public class InfoLocalizator extends Localizator{
             put("Id", "auðkenni");
             put("Depth", "dýpt");
             put("Treasure", "magn af fjársjóði");
+            put("Owner", "Eigandi");
             put("TypeAge", "Sláðu inn aldur þinn");
             put("TypeId", "Sláðu inn auðkenni");
             put("TypePath", "Sláðu inn slóðina að handritinu");
@@ -121,8 +149,7 @@ public class InfoLocalizator extends Localizator{
                     "Tegund = {7}\n" +
                     "Karakter = {8}\n" +
                     "Hellir = (Dýpt = {9}, Magn af fjársjóði = {10}\n" +
-                    "Eigandi = {11}\n" +
-                    "}");
+                    "Eigandi = {11}\n");
             put("InfoCommand", "Söfnunarupplýsingar.\nTegund: Dragon.\nFrumstillingardagur: {0}.\nFjöldi þátta: {1}.");
             put("CountByAgeCommand", "Fjöldi þátta þar sem gildi aldurssviðs er jafnt og {0}: {1}.");
             put("UpdateSuccess", "Atriðið hefur verið uppfært með góðum árangri.");
@@ -136,6 +163,28 @@ public class InfoLocalizator extends Localizator{
             put("RemoveLowerSuccess", "Allir þættir sem voru minni en tilgreint gildi voru fjarlægðir úr safninu.");
             put("AddIfMaxNotFound", "Drekanum var ekki bætt við safnið vegna þess að verðmæti hans er minna en verðmæti stærsta þáttarins í safninu.");
 
+            put("TypeName", "Sláðu inn nafnið þitt");
+            put("TypeColor", "Sláðu inn lit");
+            put("TypeType", "Sláðu inn tegund");
+            put("TypeCharacter", "Sláðu inn staf");
+            put("TypeOwner", "Sláðu inn eiganda");
+            put("TypeX", "Sláðu inn x hnitið");
+            put("TypeY", "Sláðu inn y hnitið");
+            put("TypeDate", "Sláðu inn dagsetningu");
+            put("TypeDepth", "Sláðu inn dýpt");
+            put("TypeTreasures", "Sláðu inn magn fjársjóða");
+
+            put("IdNotFound", "Hlutur með þessu auðkenni fannst ekki.");
+            put("NameNotFound", "Hlutur með þessu nafni fannst ekki.");
+            put("ColorNotFound", "Enginn hlutur með þessum lit fannst.");
+            put("CharacterNotFound", "Hlutur af þessu tagi fannst ekki.");
+            put("TypeNotFound", "Enginn hlutur af þessari gerð fannst.");
+            put("OwnerNotFound", "Enginn hlutur með þessum eiganda fannst.");
+            put("XNotFound", "Enginn hlutur með þetta x-hnit fannst.");
+            put("YNotFound", "Enginn hlutur með þetta y-hnit fannst.");
+            put("DateNotFound", "Hlutur með slíkri dagsetningu y fannst ekki.");
+            put("DepthNotFound", "Hlutur með slíka dýpt hefur ekki fundist.");
+            put("TreasuresNotFound", "Hlutur með slíkt magn af fjársjóði hefur aldrei fundist.");
 
         }
     };
@@ -151,6 +200,7 @@ public class InfoLocalizator extends Localizator{
             put("Id", "αναγνωριστικό");
             put("Depth", "βάθος");
             put("Treasure", "ποσό του θησαυρού");
+            put("Owner", "Ιδιοκτήτης");
             put("TypeAge", "Εισάγετε την ηλικία");
             put("TypeId", "Εισάγετε id");
             put("TypePath", "Εισάγετε τη διαδρομή του σεναρίου");
@@ -184,8 +234,7 @@ public class InfoLocalizator extends Localizator{
                     "Τύπος = {7}\n" +
                     "Χαρακτήρας = {8}\n" +
                     "Σπήλαιο = (Bάθος = {9}, Αριθμός θησαυρών = {10}\n" +
-                    "Ιδιοκτήτης = {11}\n" +
-                    "}");
+                    "Ιδιοκτήτης = {11}\n");
             put("InfoCommand", "Πληροφορίες συλλογής.\nτύπος: Dragon.\nΗμερομηνία αρχικοποίησης: {0}.\nΑριθμός στοιχείων: {1}.");
             put("CountByAgeCommand", "Ο αριθμός των στοιχείων των οποίων η τιμή πεδίου ηλικίας είναι ίση με {0}: {1}.");
             put("UpdateSuccess", "Το στοιχείο ενημερώθηκε με επιτυχία.");
@@ -198,6 +247,28 @@ public class InfoLocalizator extends Localizator{
             put("RemoveGreaterSuccess", "Όλα τα στοιχεία που υπερβαίνουν την καθορισμένη τιμή αφαιρέθηκαν από τη συλλογή.");
             put("RemoveLowerSuccess", "Όλα τα στοιχεία μικρότερα από την καθορισμένη τιμή αφαιρέθηκαν από τη συλλογή.");
             put("AddIfMaxNotFound", "Ο δράκος δεν προστέθηκε στη συλλογή επειδή η αξία του είναι μικρότερη από την αξία του μεγαλύτερου στοιχείου της συλλογής.");
+
+            put("TypeName", "Εισαγάγετε το όνομά σας");
+            put("TypeColor", "Εισαγάγετε χρώμα");
+            put("TypeType", "Εισαγάγετε τύπο");
+            put("TypeCharacter", "Εισαγάγετε χαρακτήρα");
+            put("TypeOwner", "Εισαγάγετε τον ιδιοκτήτη");
+            put("TypeX", "Εισαγάγετε τη συντεταγμένη x");
+            put("TypeY", "Εισαγάγετε τη συντεταγμένη y");
+            put("TypeDate", "Εισαγάγετε ημερομηνία");
+            put("TypeDepth", "Εισαγάγετε βάθος");
+            put("TypeTreasures", "Εισαγάγετε την ποσότητα των θησαυρών");
+            put("IdNotFound", "Δεν βρέθηκε αντικείμενο με αυτό το αναγνωριστικό.");
+            put("NameNotFound", "Δεν βρέθηκε αντικείμενο με αυτό το όνομα.");
+            put("ColorNotFound", "Δεν βρέθηκε αντικείμενο με αυτό το χρώμα.");
+            put("CharacterNotFound", "Δεν βρέθηκε αντικείμενο αυτής της φύσης.");
+            put("TypeNotFound", "Δεν βρέθηκε αντικείμενο αυτού του τύπου.");
+            put("OwnerNotFound", "Δεν βρέθηκε αντικείμενο με αυτόν τον ιδιοκτήτη.");
+            put("XNotFound", "Δεν βρέθηκε αντικείμενο με αυτή τη συντεταγμένη x.");
+            put("YNotFound", "Δεν βρέθηκε αντικείμενο με αυτή τη συντεταγμένη y.");
+            put("DateNotFound", "Το αντικείμενο με τέτοια ημερομηνία y δεν βρέθηκε.");
+            put("DepthNotFound", "Δεν έχει βρεθεί αντικείμενο με τέτοιο βάθος.");
+            put("TreasuresNotFound", "Ένα αντικείμενο με τέτοια ποσότητα θησαυρού δεν έχει βρεθεί ποτέ.");
 
         }
     };
@@ -213,6 +284,7 @@ public class InfoLocalizator extends Localizator{
             put("Id", "identificador");
             put("Depth", "profundidad");
             put("Treasure", "cantidad de tesoro");
+            put("Owner", "Dueño");
             put("TypeAge", "Introduzca la edad");
             put("TypeId", "Introduzca un identificador");
             put("TypePath", "Introduzca la ruta del script");
@@ -245,8 +317,7 @@ public class InfoLocalizator extends Localizator{
                     "Tipo = {7}\n" +
                     "Personaje = {8}\n" +
                     "Cueva = (Profundidad = {9}, Cantidad de tesoro = {10}\n" +
-                    "Dueño = {11}\n" +
-                    "}");
+                    "Dueño = {11}\n");
             put("InfoCommand", "Información de la colección.\nTipo: Dragon.\nFecha de inicialización: {0}.\nNúmero de elementos: {1}.");
             put("CountByAgeCommand", "El número de elementos cuyo valor del campo de edad es igual a {0}: {1}.");
             put("UpdateSuccess", "El artículo se ha actualizado correctamente..");
@@ -259,6 +330,28 @@ public class InfoLocalizator extends Localizator{
             put("RemoveGreaterSuccess", "Todos los elementos que excedían el valor especificado fueron eliminados de la colección.");
             put("RemoveLowerSuccess", "Se eliminaron de la colección todos los elementos menores al valor especificado.");
             put("AddIfMaxNotFound", "El dragón no fue agregado a la colección porque su valor es menor que el valor del elemento más grande de la colección.");
+
+            put("TypeName", "Introduce tu nombre");
+            put("TypeColor", "Introducir color");
+            put("TypeType", "Introduzca el tipo");
+            put("TypeCharacter", "Introducir personaje");
+            put("TypeOwner", "Introduzca el propietario");
+            put("TypeX", "Introduzca la coordenada x");
+            put("TypeY", "Introduzca la coordenada y");
+            put("TypeDate", "Introducir fecha");
+            put("TypeDepth", "Introduzca profundidad");
+            put("TypeTreasures", "Ingrese la cantidad de tesoros");
+            put("IdNotFound", "No se encontró un objeto con este identificador.");
+            put("NameNotFound", "No se encontró un objeto con este nombre.");
+            put("ColorNotFound", "No se encontró ningún objeto con este color.");
+            put("CharacterNotFound", "No se encontró un objeto de esta naturaleza.");
+            put("TypeNotFound", "No se encontró ningún objeto de este tipo.");
+            put("OwnerNotFound", "No se encontró ningún objeto con este propietario.");
+            put("XNotFound", "No se encontró ningún objeto con esta coordenada x.");
+            put("YNotFound", "No se encontró ningún objeto con esta coordenada y.");
+            put("DateNotFound", "No se encontró ningún objeto con esta fecha.");
+            put("DepthNotFound", "No se ha encontrado un objeto con tanta profundidad.");
+            put("TreasuresNotFound", "Nunca se ha encontrado un objeto con tal cantidad de tesoro.");
 
 
         }

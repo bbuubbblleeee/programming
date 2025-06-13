@@ -84,13 +84,10 @@ public class Formatters {
         UnaryOperator<TextFormatter.Change> filter = change -> {
             String newDepth = change.getControlNewText().trim();
             try {
-                if (newDepth.isBlank() || newDepth.equals("-") || newDepth.matches("\\d+.\\d*")) {
+                if (newDepth.isBlank() || newDepth.equals("-") || newDepth.matches("\\d+\\.\\d*")) {
                     return change;
                 }
                 float depthFloat = Float.parseFloat(newDepth);
-                if (!Float.toString(depthFloat).replaceAll("\\.?0*$", "").equals(newDepth)) {
-                    throw new NumberFormatException(errorLocalizator.getStringFormatted("ArgumentType", new Object[]{" float."}));
-                }
                 return change;
             }
             catch (NumberFormatException numberFormatException) {
