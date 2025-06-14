@@ -91,18 +91,18 @@ public class EditController {
 
     @FXML
     void initialize(){
-         titleLabel.textProperty().setValue(uiLocalizator.getString("TitleLabel"));
-         nameLabel.textProperty().setValue(uiLocalizator.getString("NameLabel"));
-         ageLabel.textProperty().setValue(uiLocalizator.getString("AgeLabel"));
-         colorLabel.textProperty().setValue(uiLocalizator.getString("ColorLabel"));
-         typeLabel.textProperty().setValue(uiLocalizator.getString("TypeLabel"));
-         characterLabel.textProperty().setValue(uiLocalizator.getString("CharacterLabel"));
-         coordinatesLabel.textProperty().setValue(uiLocalizator.getString("CoordinatesLabel"));
-         caveLabel.textProperty().setValue(uiLocalizator.getString("CaveLabel"));
-         depthLabel.textProperty().setValue(uiLocalizator.getString("DepthLabel"));
-         treasureLabel.textProperty().setValue(uiLocalizator.getString("TreasureLabel"));
-         sendButton.textProperty().setValue(uiLocalizator.getString("SendButton"));
-         cancelButton.textProperty().setValue(uiLocalizator.getString("CancelButton"));
+        titleLabel.textProperty().setValue(uiLocalizator.getString("TitleLabel"));
+        nameLabel.textProperty().setValue(uiLocalizator.getString("NameLabel"));
+        ageLabel.textProperty().setValue(uiLocalizator.getString("AgeLabel"));
+        colorLabel.textProperty().setValue(uiLocalizator.getString("ColorLabel"));
+        typeLabel.textProperty().setValue(uiLocalizator.getString("TypeLabel"));
+        characterLabel.textProperty().setValue(uiLocalizator.getString("CharacterLabel"));
+        coordinatesLabel.textProperty().setValue(uiLocalizator.getString("CoordinatesLabel"));
+        caveLabel.textProperty().setValue(uiLocalizator.getString("CaveLabel"));
+        depthLabel.textProperty().setValue(uiLocalizator.getString("DepthLabel"));
+        treasureLabel.textProperty().setValue(uiLocalizator.getString("TreasureLabel"));
+        sendButton.textProperty().setValue(uiLocalizator.getString("SendButton"));
+        cancelButton.textProperty().setValue(uiLocalizator.getString("CancelButton"));
 
 
 

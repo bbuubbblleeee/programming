@@ -167,20 +167,20 @@ public class MainController {
         colorColumn.setCellValueFactory(new PropertyValueFactory<>("color"));
 
         List<Color> sortedColor = Arrays.stream(Color.values())
-                                    .sorted(Comparator.comparing(Enum::name))
-                                    .toList();
+                .sorted(Comparator.comparing(Enum::name))
+                .toList();
         colorColumn.setComparator(Comparator.comparing(sortedColor::indexOf));
 
         characterColumn.setCellValueFactory(new PropertyValueFactory<>("character"));
         List<DragonCharacter> sortedCharacter = Arrays.stream(DragonCharacter.values())
-                                                .sorted(Comparator.comparing(Enum::name))
-                                                .toList();
+                .sorted(Comparator.comparing(Enum::name))
+                .toList();
         characterColumn.setComparator(Comparator.comparing(sortedCharacter::indexOf));
 
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         List<DragonType> sortedType = Arrays.stream(DragonType.values())
-                                            .sorted(Comparator.comparing(Enum::name))
-                                            .toList();
+                .sorted(Comparator.comparing(Enum::name))
+                .toList();
         typeColumn.setComparator(Comparator.comparing(sortedType::indexOf));
 
         depthColumn.setCellValueFactory(new PropertyValueFactory<>("depthCave"));
@@ -321,7 +321,7 @@ public class MainController {
                 throw new CancelledAction(errorLocalizator.getString("CancelledAction"));
             }
             Dragon dragonToUpdate = dragons.stream().filter(dragon ->
-                    dragon.getId().toString().equals(id))
+                            dragon.getId().toString().equals(id))
                     .findFirst().orElseThrow(() -> new WrongArgumentException(errorLocalizator.getString("IdNotFound")));
             if (!dragonToUpdate.getOwner().equals(ClientMain.getLogin())){
                 throw new WrongArgumentException(errorLocalizator.getString("RejectModificate"));
@@ -875,4 +875,3 @@ public class MainController {
     }
 
 }
-

@@ -34,7 +34,7 @@ public class Client {
     }
 
     public void sendRequest(Request request) throws IOException {
-        ByteBuffer.allocate(8096);
+        ByteBuffer.allocate(65536);
         ByteBuffer byteBuffer;
         byteBuffer = ByteBuffer.wrap(serialize(request));
         try {
@@ -45,7 +45,7 @@ public class Client {
     }
 
     public Response recieveResponse() throws IOException, ClassNotFoundException {
-        ByteBuffer byteBuffer = ByteBuffer.allocate(8096);
+        ByteBuffer byteBuffer = ByteBuffer.allocate(65536);
         long startTime = System.currentTimeMillis();
 
         while (System.currentTimeMillis() - startTime < TIME_OUT) {

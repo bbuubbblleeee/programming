@@ -86,21 +86,12 @@
       <change beforePath="$PROJECT_DIR$/../lab06/server/src/main/java/serverCommands/Save.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab06/server/src/main/java/serverCommands/Save.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lab07/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lab07/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/alertManager/DialogManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/alertManager/DialogManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/ClientMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Execute_script.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Execute_script.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/clientMain/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/clientMain/Handler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/controllers/AuthController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/controllers/EditController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/controllers/EditController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/controllers/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/controllers/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/controllers/RegisterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/controllers/formatters/Formatters.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/controllers/formatters/Formatters.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/languages/Localizator.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/languages/Localizator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/collection/Dragon.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/collection/Dragon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/collectionManager/CollectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/collectionManager/CollectionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/collectionManager/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/collectionManager/DatabaseManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dao/DbDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dao/DbDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/ServerMain.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,34 +175,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.ClientMain.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.lab07:client [shadowJar].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.lab07:server [shadowJar].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.lab08:client [:client:clientMain.ClientMain.main()].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Liza/Desktop/ITMO/programming java/labs/lab08&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ClientMain.executor": "Run",
+    "Gradle.lab07:client [shadowJar].executor": "Run",
+    "Gradle.lab07:server [shadowJar].executor": "Run",
+    "Gradle.lab08:client [:client:clientMain.ClientMain.main()].executor": "Run",
+    "Gradle.lab08:server [:server:server.ServerMain.main()].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Liza/Desktop/ITMO/programming java/labs/lab08",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Liza\Desktop\ITMO\programming java\labs\lab08\client\src\main\resources\clientMain" />
@@ -323,6 +315,10 @@
       <workItem from="1749747530101" duration="29506000" />
       <workItem from="1749811277802" duration="20048000" />
       <workItem from="1749832710860" duration="5062000" />
+      <workItem from="1749838095433" duration="351000" />
+      <workItem from="1749850809314" duration="7019000" />
+      <workItem from="1749878847307" duration="10570000" />
+      <workItem from="1749896812969" duration="6973000" />
     </task>
     <task id="LOCAL-00001" summary="lab07 added.">
       <option name="closed" value="true" />
@@ -420,7 +416,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749835146556</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="lab08 added.">
+      <option name="closed" value="true" />
+      <created>1749838324029</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1749838324029</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -92,7 +92,7 @@ public class ServerMain {
 
 
     private static synchronized RequestTask recieveRequest(DatagramChannel datagramChannel) throws IOException, ClassNotFoundException {
-        ByteBuffer byteBuffer = ByteBuffer.allocate(8096);
+        ByteBuffer byteBuffer = ByteBuffer.allocate(65536);
         byteBuffer.clear();
         InetSocketAddress temp = (InetSocketAddress) datagramChannel.receive(byteBuffer);
         if (temp == null){
@@ -109,7 +109,7 @@ public class ServerMain {
 
     private static synchronized void sendResponse(Response response, DatagramChannel datagramChannel) throws IOException {
         if (response == null || inetSocketAddress == null) return;
-        ByteBuffer byteBuffer = ByteBuffer.allocate(8096);
+        ByteBuffer byteBuffer = ByteBuffer.allocate(65536);
         byteBuffer.clear();
         byteBuffer = ByteBuffer.wrap(serialize(response));
         datagramChannel.send(byteBuffer, inetSocketAddress);
